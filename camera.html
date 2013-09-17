@@ -59,6 +59,7 @@
 	</head>
 	<body>
 		<script src="lib/three.min.js"></script>
+		<script src="lib/OBJLoader.js"></script>
 		<script src="lib/PointerLockControls.js"></script>
 
 		<div id="blocker">
@@ -251,6 +252,59 @@
 					objects.push( mesh );
 
 				}
+
+				// obj stuff
+				var scale = 10;
+				var positions_x = [];
+				var positions_y = [];
+				var positions_z = [];
+                for ( var i = 0; i < 100; i++ ) {
+
+                		positions_x.push(Math.floor( Math.random() * 50 - 25 ) * 20);
+						positions_y.push(0);
+						positions_z.push(Math.floor( Math.random() * 50 - 25 ) * 20);
+
+                }
+
+				var loader = new THREE.OBJLoader( );
+				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
+                	
+                	for ( var i = 0; i < 100; i++ ) {
+                		var mesh = object.clone();
+
+                		mesh.scale.set(scale, scale, scale);
+                		mesh.position.x = positions_x[i];
+						mesh.position.y = positions_y[i];
+						mesh.position.z = positions_z[i];
+                    	scene.add( mesh );
+
+                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    	objects.push( mesh );
+                	}
+                } );
+
+			
+
+                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
+
+                	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+
+
+                	for ( var i = 0; i < 100; i++ ) {
+                		var mesh = object.clone();
+
+                		mesh.scale.set(scale, scale, scale);
+                		mesh.position.x = positions_x[i];
+						mesh.position.y = positions_y[i];
+						mesh.position.z = positions_z[i];
+                    	scene.add( mesh );
+
+                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    	objects.push( mesh );
+                	}
+
+                });
+
 
 				//
 
