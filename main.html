@@ -1,0 +1,88 @@
+<body></body>
+
+<script src="lib/three.min.js"></script>
+
+<script>
+
+    var camera, scene, renderer;
+    var geometry, material, mesh;
+
+    init();
+    animate();
+
+    function init() {
+
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+        camera.position.z = 1000;
+
+        scene = new THREE.Scene();
+
+        geometry = new THREE.CubeGeometry( 200, 200, 200 );
+        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+
+        mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+
+        renderer = new THREE.CanvasRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        document.body.appendChild( renderer.domElement );
+
+        // create the sphere's material
+        var sphereMaterial =
+            new THREE.MeshLambertMaterial(
+                {
+                    color: 0xCC0000
+                });
+
+        // set up the sphere vars
+        var radius = 50,
+            segments = 16,
+            rings = 16;
+
+        // create a new mesh with
+        // sphere geometry - we will cover
+        // the sphereMaterial next!
+        var sphere = new THREE.Mesh(
+
+          new THREE.SphereGeometry(
+            radius,
+            segments,
+            rings),
+
+          sphereMaterial);
+
+        // add the sphere to the scene
+        scene.add(sphere);
+
+        setup_lights();
+
+    }
+
+    function setup_lights() {
+        // create a point light
+        var pointLight =
+          new THREE.PointLight(0xFFFFFF);
+
+        // set its position
+        pointLight.position.x = 10;
+        pointLight.position.y = 50;
+        pointLight.position.z = 130;
+
+        // add to the scene
+        scene.add(pointLight);
+    }
+
+    function animate() {
+
+        // note: three.js includes requestAnimationFrame shim
+        requestAnimationFrame( animate );
+
+        mesh.rotation.x += 0.01;
+        mesh.rotation.y += 0.02;
+
+        renderer.render( scene, camera );
+
+    }
+
+</script>
