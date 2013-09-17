@@ -1,6 +1,7 @@
 <body></body>
 
 <script src="lib/three.min.js"></script>
+<script src="lib/OBJLoader.js"></script>
 
 <script>
 
@@ -82,8 +83,8 @@
 
                 // model
 
-                var objloader = new THREE.OBJLoader( manager );
-                loader.load( 'obj/male02/male02.obj', function ( object ) {
+                var loader = new THREE.OBJLoader( manager );
+                loader.load( 'res/windmill_base.obj', function ( object ) {
 
                     object.traverse( function ( child ) {
 
