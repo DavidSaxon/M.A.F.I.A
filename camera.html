@@ -219,10 +219,37 @@
 
 				}
 
-				material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
 
-				mesh = new THREE.Mesh( geometry, material );
-				scene.add( mesh );
+				//material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
+                var loader = new THREE.ImageLoader( );
+                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/random.png', function ( image ) {
+
+                	var texture = new THREE.Texture();
+                    texture.image = image;
+                    texture.needsUpdate = true;
+
+                   	geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
+					geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+
+					for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
+
+						var vertex = geometry.vertices[ i ];
+						vertex.x += 0; //Math.random() * 20 - 10;
+						vertex.y += Math.random() * 30;
+						vertex.z += 0; //Math.random() * 20 - 10;
+
+					}
+
+                    material  = new THREE.MeshLambertMaterial({
+  						map           : texture,
+ 						vertexColors  : THREE.VertexColors
+ 					} );
+
+ 					mesh = new THREE.Mesh( geometry, material );
+					scene.add( mesh );
+				});
+
+                
 
 				// objects
 
