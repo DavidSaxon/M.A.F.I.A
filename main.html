@@ -1,7 +1,26 @@
-<body></body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta charset="utf-8">
+<body>
+    <div id="fb-root"></div>
+    <div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
+</body>
+    <script type="text/javascript">
 
-<script src="lib/three.min.js"></script>
-<script src="lib/OBJLoader.js"></script>
+    // initialize Facebook
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=585106381554035";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    </script>
+
+<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
+<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/OBJLoader.js"></script>
 
 <script>
 
