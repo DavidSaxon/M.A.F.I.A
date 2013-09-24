@@ -61,6 +61,7 @@
 
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/OBJLoader.js"></script>
+		<script src="http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/js/OBJMTLLoader.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/PointerLockControls.js"></script>
 
 		<div id="blocker">
@@ -288,27 +289,69 @@
 				}
 
 				// obj stuff
-				var scale = 10;
+				var scale = 40;
+				var house_scale = 20;
 				var positions_x = [];
 				var positions_y = [];
 				var positions_z = [];
-                for ( var i = 0; i < 100; i++ ) {
+				var house_positions_x = [];
+				var house_positions_y = [];
+				var house_positions_z = [];
+
+
+                for ( var i = 0; i < 30; i++ ) {
 
                 		positions_x.push(Math.floor( Math.random() * 50 - 25 ) * 20);
 						positions_y.push(0);
 						positions_z.push(Math.floor( Math.random() * 50 - 25 ) * 20);
 
+						house_positions_x.push(Math.floor( Math.random() * 80 - 40 ) * 20);
+						house_positions_y.push(0);
+						house_positions_z.push(Math.floor( Math.random() * 80 - 40 ) * 20);
+
                 }
+
+
+
+    //             var loadermtl = new THREE.OBJMTLLoader();
+				// loadermtl.addEventListener( 'load', function ( event ) {
+				// 	var mesh = event.content;
+				// 	scene.add( mesh );
+				// 	objects.push( mesh );
+
+				// });
+				// loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/house/house_1_body.obj',
+				//  				'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/house/house_1_body.mtl' );
+
+
+				var loader = new THREE.OBJLoader( );
+				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/house/house_1_body.obj', function ( object ) {
+                	
+                	for ( var i = 0; i < house_positions_x.length; i++ ) {
+                		var mesh = object.clone();
+
+                		mesh.scale.set(house_scale, house_scale, house_scale);
+                		mesh.position.x = house_positions_x[i];
+						mesh.position.y = house_positions_y[i];
+						mesh.position.z = house_positions_z[i];
+                    	scene.add( mesh );
+
+                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    	objects.push( mesh );
+                	}
+                } );
+
+
 
 				var loader = new THREE.OBJLoader( );
 				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
                 	
-                	for ( var i = 0; i < 100; i++ ) {
+                	for ( var i = 0; i < positions_x.length; i++ ) {
                 		var mesh = object.clone();
 
                 		mesh.scale.set(scale, scale, scale);
                 		mesh.position.x = positions_x[i];
-						mesh.position.y = positions_y[i] + 6.13328;
+						mesh.position.y = positions_y[i] + 6.13328 * scale;
 						mesh.position.z = positions_z[i];
                     	scene.add( mesh );
                     	blades.push( mesh );
@@ -322,7 +365,7 @@
                 loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
 
-                	for ( var i = 0; i < 100; i++ ) {
+                	for ( var i = 0; i < positions_x.length; i++ ) {
                 		var mesh = object.clone();
 
                 		mesh.scale.set(scale, scale, scale);
@@ -387,7 +430,6 @@
 				// rotate all the blades
 				for (var i = 0; i < blades.length; i++) {
 					blades[i].rotation.z += blade_speed[i];
-					blades[i].position.y = 6.13328 * 10;
 				}
 
 				controls.update( Date.now() - time );
