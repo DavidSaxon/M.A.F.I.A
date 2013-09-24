@@ -84,6 +84,9 @@
 
 			var objects = [];
 
+			var blades = [];
+			var blade_speed = [];
+
 			var ray;
 
 			var blocker = document.getElementById( 'blocker' );
@@ -305,21 +308,19 @@
 
                 		mesh.scale.set(scale, scale, scale);
                 		mesh.position.x = positions_x[i];
-						mesh.position.y = positions_y[i];
+						mesh.position.y = positions_y[i] + 6.13328;
 						mesh.position.z = positions_z[i];
                     	scene.add( mesh );
+                    	blades.push( mesh );
+                    	blade_speed.push( Math.random() * 0.2 );
 
                     	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
                     	objects.push( mesh );
                 	}
                 } );
 
-			
-
                 loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
-
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-
 
                 	for ( var i = 0; i < 100; i++ ) {
                 		var mesh = object.clone();
@@ -351,7 +352,6 @@
 			}
 
 			function onWindowResize() {
-
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
@@ -382,6 +382,12 @@
 
 					}
 
+				}
+
+				// rotate all the blades
+				for (var i = 0; i < blades.length; i++) {
+					blades[i].rotation.z += blade_speed[i];
+					blades[i].position.y = 6.13328 * 10;
 				}
 
 				controls.update( Date.now() - time );
