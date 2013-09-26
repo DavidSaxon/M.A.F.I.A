@@ -55,31 +55,55 @@
 
 			}
 
+			#test {
+				position:absolute;
+				top:150px;
+				left:100px;
+				min-width:400px;
+				min-height:100px;
+			}
+			#slider{
+				width:400px;
+				height:50px;
+			}
+
+
 		</style>
 	</head>
 	<body>
 
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
-		
 		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/MTLLoader.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/OBJMTLLoader.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/OBJLoader.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/PointerLockControls.js"></script>
+		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/MyPointerLockControls.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 
 		<div id="blocker">
 
 			<div id="instructions">
 				<span style="font-size:40px">Click to play</span>
 				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact)
 			<div id="fb-root"></div>
 	    		<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
 			</div>
 
+		</div>
 
+					<!-- Leave this div, it is for showing toggle boxes work -Maddy -->
+		<div id="test">
+		<!--<span style="font-size:40px">Hi!</span>-->
+		<div id="slider"></div>
+		<div id="windmills">Windmills: 50</div>
 		</div>
 
 		<script>
+
+			var numWindmills = 50;			
+			var toggle;			
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -186,6 +210,20 @@
 			animate();
 
 			function init() {
+
+							/* Initialise the slider */
+				$(function() {
+				$( "#slider" ).slider({
+					change: function( event, ui ) {
+					numWindmills = $(".slider").slider("values");
+					$("#windmills").text("Windmills: " +numWindmills.toString());
+					alert("Changed windmills");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 150,
+					value: 50});
+				});
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
@@ -539,14 +577,41 @@
 				}
 
 				controls.update( Date.now() - time );
-
+				if(toggle){
+					$( "#test" ).toggle( "fold" );
+					toggle = false;
+				}
 				renderer.render( scene, camera );
+
 
 				time = Date.now();
 
 			}
 
+			//Toggle the div that will contain controls
+			function q(){
+				console.log("Q pressed!");
+				toggle = true;
+			}
+
+			//Change slider value
+			function sliderChange(dir){
+				if(dir == 1){ //up
+					console.log("Slider should move up");
+					numWindmills = numWindmills + 5;
+					$( ".slider" ).slider( "value", numWindmills );
+	
+				}
+				if(dir == 0){ //down
+					console.log("Slider should move down");
+					numWindmills = numWindmills - 5;
+					$( ".slider" ).slider( "value", numWindmills );
+				}
+			$("#windmills").text("Windmills: " +numWindmills.toString());
+			}
+
 		</script>
+
 	</body>
     <script type="text/javascript">
 
