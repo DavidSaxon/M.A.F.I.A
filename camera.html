@@ -55,6 +55,12 @@
 
 			}
 
+			#test {
+				position:absolute;
+				top:150px;
+				left:100px;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -62,22 +68,30 @@
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/OBJLoader.js"></script>
 		<script src="http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/js/OBJMTLLoader.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/PointerLockControls.js"></script>
+		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/MyPointerLockControls.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 
 		<div id="blocker">
 
 			<div id="instructions">
 				<span style="font-size:40px">Click to play</span>
 				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact)
 			<div id="fb-root"></div>
 	    		<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
 			</div>
 
+		</div>
 
+					<!-- Leave this div, it is for showing toggle boxes work -Maddy -->
+		<div id="test">
+		<span style="font-size:40px">Hi!</span>
 		</div>
 
 		<script>
+			
+			var toggle;			
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -433,14 +447,25 @@
 				}
 
 				controls.update( Date.now() - time );
-
+				if(toggle){
+					$( "#test" ).toggle( "fold" );
+					toggle = false;
+				}
 				renderer.render( scene, camera );
+
 
 				time = Date.now();
 
 			}
 
+			//Toggle the div that will contain controls
+			function q(){
+				console.log("Q pressed!");
+				toggle = true;
+			}
+
 		</script>
+
 	</body>
     <script type="text/javascript">
 
