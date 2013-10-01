@@ -106,6 +106,7 @@
 		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/MyPointerLockControls.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://homepages.ecs.vuw.ac.nz/~markovmadd/interactions.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 
 		<div id="blocker">
@@ -278,6 +279,8 @@
 			animate();
 
 			function init() {
+				initInteractions(); //Call to interactions.js library (located in js if you want to modify it, but hosted on my homepages
+							  //currently -Maddy
 
 				/* Initialise the slider */
 				$(function() {
@@ -425,27 +428,7 @@
 
 			}
 
-			//Toggle the div that will contain controls
-			function q(){
-				console.log("Q pressed!");
-				toggle = true;
-			}
 
-			//Change slider value
-			function sliderChange(dir){
-				if(dir == 1){ //up
-					console.log("Slider should move up");
-					numWindmills = numWindmills + 5;
-					$( ".slider" ).slider( "value", numWindmills );
-	
-				}
-				if(dir == 0){ //down
-					console.log("Slider should move down");
-					numWindmills = numWindmills - 5;
-					$( ".slider" ).slider( "value", numWindmills );
-				}
-			$("#windmills").text("Windmills: " +numWindmills.toString());
-			}
 
 			//creates the terrain
 			function createTerrain() {
@@ -833,54 +816,7 @@
 
 			}
 			
-			function interact(objectType){
-				toggle = true;
-				switch(objectType){
-					case "windmill":
-					break;
-					case "house":
-					break;
-					case "car":
-					break;
-					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-					break;
-				}
-			}
 
-			//Toggle the div that will contain controls
-			function q(){
-				console.log("Q pressed!");
-				toggle = true;
-			}
-
-			function changeDisplayedSlider(dir){
-			  sliderChange(dir, "windmills");
-			}
-
-			//Change slider value
-			function sliderChange(dir, slider){ //slider is a string
-				if(dir == 1){ //up
-					console.log("Slider should move up");
-					if((numWindmills + 5) <= 100){
-					numWindmills += 5;
-					}
-	
-				}
-				else if(dir == 0){ //down
-					console.log("Slider should move down");
-					if((numWindmills - 5) >= 0){
-					  numWindmills = numWindmills - 5;}
-
-				}
-    			console.log("Value of numWindmills:", numWindmills);
-			if(slider == "windmills"){
-			$( "#windmills-slider" ).slider( "value", numWindmills );
-
-			$("#windmills-slider").trigger("slide");
-			$("#windmills-slider").slider("refresh");
-			$("#windmills").text("Windmills: " +numWindmills);
-			      }
-			}
 
 		</script>
 
