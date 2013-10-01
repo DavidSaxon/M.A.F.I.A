@@ -71,6 +71,15 @@
 			var blocker = document.getElementById( 'blocker' );
 			var instructions = document.getElementById( 'instructions' );
 
+			//dude scales
+			var dude_scales = [];
+			//dude rotations
+			var dude_rotations = [];
+			//dude positions
+			var dude_positions_x = [];
+			var dude_positions_y = [];
+			var dude_positions_z = [];
+
 			//windmill scale
 			var windmill_scale = 40;
 			//windmill positions
@@ -182,6 +191,55 @@
 				initInteractions(); //Call to interactions.js library (located in js if you want to modify it, but hosted on my homepages
 							  //currently -Maddy
 
+				/* Initialise the slider */
+				$(function() {
+				$( "#windmills-slider" ).slider({
+					change: function( event, ui ) {
+					numWindmills = $("#windmills-slider").slider("value");
+					/*numWindmills = $("#slider").slider("values");*/
+					$("#windmills").text("Windmills: " +numWindmills);
+					console.log("Changed windmills");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 100,
+					value: 50});
+				});
+
+				$(function() {
+				$( "#insulation-slider" ).slider({
+					change: function( event, ui ) {
+					insulationAmt = $("#insulation-slider").slider("value");
+					$("#insulation").text("Insulation: " +insulationAmt);
+					console.log("Changed insulation");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 100,
+					value: 50});
+				});
+
+				$(function() {
+				$( "#cars-slider" ).slider({
+					change: function( event, ui ) {
+					carEfficiency = $("#cars-slider").slider("value");
+					/*numWindmills = $("#slider").slider("values");*/
+					$("#cars").text("cars: " +numWindmills);
+					console.log("Changed cars");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 100,
+					value: 50});
+				});
+
+				$( "#dialogue-box" ).dialog({ autoOpen: false,
+				    title: "Conversation"});
+				$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
+				$( "#windmills-stuff" ).toggle( "fold" );
+				$( "#insulation-stuff" ).toggle( "fold" );
+				$( "#cars-stuff" ).toggle( "fold" );
+				//$( "#dialogue-box").toggle("fold");
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
@@ -204,6 +262,10 @@
 
                 //TERRAIN
                 createTerrain();
+
+                //DUDE
+                initDudePositions();
+                createDude();
 
                 //WINDMILL
                 initWindmillPositions();
@@ -292,6 +354,111 @@
 				});
 			}
 
+			function initDudePositions() {
+
+				dude_scales.push(12);
+				dude_rotations.push(0);
+				dude_positions_x.push(0.0);
+				dude_positions_y.push(0.0);
+				dude_positions_z.push(-140.0);
+
+				dude_scales.push(7);
+				dude_rotations.push(0);
+				dude_positions_x.push(20.0);
+				dude_positions_y.push(5.0);
+				dude_positions_z.push(-160.0);
+				dude_scales.push(10);
+				dude_rotations.push(0);
+				dude_positions_x.push(30.0);
+				dude_positions_y.push(5.0);
+				dude_positions_z.push(-160.0);
+			}
+
+			function createDude() {
+
+            	var loadermtl = new THREE.OBJMTLLoader();
+	
+                //eyes
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//face
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//top
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//legs
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+			}
+
 			function initWindmillPositions() {
 
 				windmill_positions_x.push(400);
@@ -313,7 +480,7 @@
 
 			function createWindmills() {
 
-				var loader = new THREE.OBJLoader( );
+				var loader = new THREE.OBJLoader();
 
 				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
 
