@@ -66,7 +66,14 @@
 				width:400px;
 				height:50px;
 			}
-
+			#insulation-slider{
+				width:400px;
+				height:50px;
+			}
+			#cars-slider{
+				width:400px;
+				height:50px;
+			}
 
 		</style>
 	</head>
@@ -102,7 +109,9 @@
 
 		<script>
 
-			var numWindmills = 50;			
+			var numWindmills = 50;		
+			var insulationAmt = 50;	
+			var carEfficiency = 50;
 			var toggle;			
 
 			var camera, scene, renderer;
@@ -217,7 +226,7 @@
 					change: function( event, ui ) {
 					numWindmills = $(".slider").slider("values");
 					$("#windmills").text("Windmills: " +numWindmills.toString());
-					alert("Changed windmills");
+					console.log("Changed windmills");
 					},
 					orientation: "horizontal",
 					min: 0,
@@ -587,6 +596,17 @@
 				time = Date.now();
 
 			}
+			
+			function interact(objectType){
+				switch(objectType){
+					case "windmill":
+					break;
+					case "house":
+					break;
+					case "car":
+					break;
+				}
+			}
 
 			//Toggle the div that will contain controls
 			function q(){
@@ -599,13 +619,17 @@
 				if(dir == 1){ //up
 					console.log("Slider should move up");
 					numWindmills = numWindmills + 5;
-					$( ".slider" ).slider( "value", numWindmills );
+					$( "#slider" ).slider( "value", numWindmills );
+					$("#slider").trigger("slide");
+					$("#slider").slider("refresh");
 	
 				}
 				if(dir == 0){ //down
 					console.log("Slider should move down");
 					numWindmills = numWindmills - 5;
-					$( ".slider" ).slider( "value", numWindmills );
+					$( "#slider" ).slider( "value", numWindmills );
+					$("#slider").trigger("slide");
+					$("#slider").slider("refresh");
 				}
 			$("#windmills").text("Windmills: " +numWindmills.toString());
 			}
