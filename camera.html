@@ -119,6 +119,23 @@
 			var blocker = document.getElementById( 'blocker' );
 			var instructions = document.getElementById( 'instructions' );
 
+			//windmill scale
+			var windmill_scale = 40;
+			//windmill positions
+			var windmill_positions_x = [];
+			var windmill_positions_y = [];
+			var windmill_positions_z = [];
+
+			//house 1 scale
+			var house_1_scale = 20;
+			//house 1 rotations
+			var house_1_rotations = [];
+			//house 1 positions
+			var house_1_positions_x = [];
+			var house_1_positions_y = [];
+			var house_1_positions_z = [];
+
+
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -228,13 +245,13 @@
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+				scene.fog = new THREE.Fog( 0xffffff, 0, 1500 );
 
 				var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 				light.position.set( 1, 1, 1 );
 				scene.add( light );
 
-				var light = new THREE.DirectionalLight( 0xffffff, 0.75 );
+				var light = new THREE.DirectionalLight( 0x88aaaa, 0.75 );
 				light.position.set( -1, - 0.5, -1 );
 				scene.add( light );
 
@@ -244,295 +261,24 @@
 				ray = new THREE.Raycaster();
 				ray.ray.direction.set( 0, -1, 0 );
 
-				// floor
+                //TERRAIN
+                createTerrain();
 
-				geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
-				geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+                //WINDMILL
+                initWindmillPositions();
+                createWindmills();
 
-				for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
+            	//HOUSE
+            	initHouse1Positions();
+            	createHouse1();
 
-					var vertex = geometry.vertices[ i ];
-					vertex.x += Math.random() * 20 - 10;
-					vertex.y += Math.random() * 2;
-					vertex.z += Math.random() * 20 - 10;
-
-				}
-
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-				}
-
-
-				//material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
-                var loader = new THREE.ImageLoader( );
-
-
-    //             loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/random.png', function ( image ) {
-
-    //             	var texture = new THREE.Texture();
-    //                 texture.image = image;
-    //                 texture.needsUpdate = true;
-
-    //                	geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
-				// 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
-
-				// 	for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
-
-				// 		var vertex = geometry.vertices[ i ];
-				// 		vertex.x += 0; //Math.random() * 20 - 10;
-				// 		vertex.y += 0;// Math.random() * 30;
-				// 		vertex.z += 0; //Math.random() * 20 - 10;
-
-				// 	}
-
-    //                 material  = new THREE.MeshLambertMaterial({
-  		// 				map           : texture,
- 			// 			vertexColors  : THREE.VertexColors
- 			// 		} );
-
- 			// 		mesh = new THREE.Mesh( geometry, material );
-				// 	scene.add( mesh );
-				// });
-
-                
-
-				// // objects
-
-				// geometry = new THREE.CubeGeometry( 20, 20, 20 );
-
-				// for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-
-				// 	var face = geometry.faces[ i ];
-				// 	face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				// 	face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				// 	face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-				// }
-
-				// for ( var i = 0; i < 500; i ++ ) {
-
-				material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-
-				// 	var mesh = new THREE.Mesh( geometry, material );
-				// 	mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-				// 	mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-				// 	mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-				// 	scene.add( mesh );
-
-				// 	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-				// 	objects.push( mesh );
-
-				// }
-
-				// obj stuff
-				var scale = 40;
-				var house_scale = 20;
-				var positions_x = [];
-				var positions_y = [];
-				var positions_z = [];
-				var house_positions_x = [];
-				var house_positions_y = [];
-				var house_positions_z = [];
-
-
-                for ( var i = 0; i < 30; i++ ) {
-
-                		positions_x.push(Math.floor( Math.random() * 50 - 25 ) * 20);
-						positions_y.push(0);
-						positions_z.push(Math.floor( Math.random() * 50 - 25 ) * 20);
-
-						house_positions_x.push(Math.floor( Math.random() * 80 - 40 ) * 20);
-						house_positions_y.push(0);
-						house_positions_z.push(Math.floor( Math.random() * 80 - 40 ) * 20);
-
-                }
-
-
-                
-                var loadermtl = new THREE.OBJMTLLoader();
-
-                //terrain
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.obj',
-	 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.mtl', 
-	 				function ( object ) {
-
- 					scene.add( object );
-                	objects.push( object );
-				});
-
-                //HOUSE 1
-                //body
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-                //base
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-                //frames
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-                //pillars
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-                //roof
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-                //windows
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.mtl', 
-				 				function ( object ) {
-
-					for ( var i = 0; i < house_positions_x.length; i++ ) {
-
-						var mesh = object.clone();
-
-                		mesh.scale.set(house_scale, house_scale, house_scale);
-                		mesh.position.x = house_positions_x[i];
-						mesh.position.y = house_positions_y[i];
-						mesh.position.z = house_positions_z[i];
-
-                    	scene.add( mesh );
-                    	objects.push( mesh );
-                	}
-
-				});
-
-				var loader = new THREE.OBJLoader( );
-				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
-                	
-                	for ( var i = 0; i < positions_x.length; i++ ) {
-                		var mesh = object.clone();
-
-                		mesh.scale.set(scale, scale, scale);
-                		mesh.position.x = positions_x[i];
-						mesh.position.y = positions_y[i] + 6.13328 * scale;
-						mesh.position.z = positions_z[i];
-                    	scene.add( mesh );
-                    	blades.push( mesh );
-                    	blade_speed.push( Math.random() * 0.2 );
-
-                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-                    	objects.push( mesh );
-                	}
-                } );
-
-                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
-                	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-
-                	for ( var i = 0; i < positions_x.length; i++ ) {
-                		var mesh = object.clone();
-
-                		mesh.scale.set(scale, scale, scale);
-                		mesh.position.x = positions_x[i];
-						mesh.position.y = positions_y[i];
-						mesh.position.z = positions_z[i];
-                    	scene.add( mesh );
-
-                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-                    	objects.push( mesh );
-                	}
-
-                });
-
-
-				//
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setClearColorHex( 0xaaffff, 1 );
 
 				document.body.appendChild( renderer.domElement );
 
-				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -608,6 +354,238 @@
 					$( ".slider" ).slider( "value", numWindmills );
 				}
 			$("#windmills").text("Windmills: " +numWindmills.toString());
+			}
+
+			//creates the terrain
+			function createTerrain() {
+
+        	var loadermtl = new THREE.OBJMTLLoader();
+
+                //terrain
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.obj',
+	 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.mtl', 
+	 				function ( object ) {
+
+ 					scene.add( object );
+                	objects.push( object );
+				});
+			}
+
+			function initWindmillPositions() {
+
+				windmill_positions_x.push(400);
+				windmill_positions_y.push(0);
+				windmill_positions_z.push(450);
+
+				windmill_positions_x.push(400);
+				windmill_positions_y.push(0);
+				windmill_positions_z.push(300);
+
+				windmill_positions_x.push(400);
+				windmill_positions_y.push(0);
+				windmill_positions_z.push(150);
+
+				windmill_positions_x.push(400);
+				windmill_positions_y.push(0);
+				windmill_positions_z.push(0);
+			}
+
+			function createWindmills() {
+
+				var loader = new THREE.OBJLoader( );
+
+				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
+
+                	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
+                	for (var i = 0; i < windmill_positions_x.length; ++i) {
+
+                		var mesh = object.clone();
+
+                		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
+                		mesh.rotation.y = -1;
+                		mesh.position.x = windmill_positions_x[i];
+						mesh.position.y = windmill_positions_y[i] + 6.13328 * windmill_scale;
+						mesh.position.z = windmill_positions_z[i];
+                    	scene.add( mesh );
+                    	blades.push( mesh );
+                    	blade_speed.push( Math.random() * 0.2 );
+
+                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    	objects.push( mesh );
+                	}
+                } );
+
+                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
+
+                	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
+
+                	for (var i = 0; i < windmill_positions_x.length; ++i) {
+
+                		var mesh = object.clone();
+
+                		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
+                		mesh.rotation.y = -1;
+                		mesh.position.x = windmill_positions_x[i];
+						mesh.position.y = windmill_positions_y[i];
+						mesh.position.z = windmill_positions_z[i];
+                    	scene.add( mesh );
+
+                    	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    	objects.push( mesh );
+                	}
+
+                });
+			}
+
+			function initHouse1Positions() {
+
+				house_1_rotations.push(0.0);
+				house_1_positions_x.push(-1000);
+				house_1_positions_y.push(-40);
+				house_1_positions_z.push(400);
+
+				house_1_rotations.push(-0.75);
+				house_1_positions_x.push(-400);
+				house_1_positions_y.push(-35);
+				house_1_positions_z.push(400);
+
+				house_1_rotations.push(-0.25);
+				house_1_positions_x.push(-700);
+				house_1_positions_y.push(-45);
+				house_1_positions_z.push(400);
+
+				house_1_rotations.push(0.0);
+				house_1_positions_x.push(0);
+				house_1_positions_y.push(0.0);
+				house_1_positions_z.push(-200);
+			}
+
+			//creates a house 1
+			function createHouse1() {
+
+            	var loadermtl = new THREE.OBJMTLLoader();
+	
+                //body
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.mtl', 
+				 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+	            		mesh.rotation.y = house_1_rotations[i];
+	            		mesh.position.x = house_1_positions_x[i];;
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+                //base
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.obj',
+			 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.mtl', 
+			 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+		                //base
+						var mesh = object.clone();
+
+		        		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+		        		mesh.rotation.y = house_1_rotations[i];
+		        		mesh.position.x = house_1_positions_x[i];
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+		            	scene.add( mesh );
+		            	objects.push( mesh );
+	            	}
+            	});
+
+                //frames
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.mtl', 
+				 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+	            		mesh.rotation.y = house_1_rotations[i];
+	            		mesh.position.x = house_1_positions_x[i];
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+	                	scene.add( mesh );
+	                	objects.push( mesh );
+                	}
+				});
+
+                //pillars
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.mtl', 
+				 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+	            		mesh.rotation.y = house_1_rotations[i];
+	            		mesh.position.x = house_1_positions_x[i];
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+	                	scene.add( mesh );
+	                	objects.push( mesh );
+                	}
+				});
+
+                //roof
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.mtl', 
+				 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+	            		mesh.rotation.y = house_1_rotations[i];
+	            		mesh.position.x = house_1_positions_x[i];
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+	                	scene.add( mesh );
+	                	objects.push( mesh );
+                	}
+				});
+
+                //windows
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.mtl', 
+				 				function ( object ) {
+
+ 					for (var i = 0; i < house_1_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
+	            		mesh.rotation.y = house_1_rotations[i];
+	            		mesh.position.x = house_1_positions_x[i];
+						mesh.position.y = house_1_positions_y[i];
+						mesh.position.z = house_1_positions_z[i];
+
+	                	scene.add( mesh );
+	                	objects.push( mesh );
+                	}
+				});
+
 			}
 
 		</script>
