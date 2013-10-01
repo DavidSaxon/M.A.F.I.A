@@ -161,6 +161,15 @@
 			var blocker = document.getElementById( 'blocker' );
 			var instructions = document.getElementById( 'instructions' );
 
+			//dude scales
+			var dude_scales = [];
+			//dude rotations
+			var dude_rotations = [];
+			//dude positions
+			var dude_positions_x = [];
+			var dude_positions_y = [];
+			var dude_positions_z = [];
+
 			//windmill scale
 			var windmill_scale = 40;
 			//windmill positions
@@ -270,7 +279,7 @@
 
 			function init() {
 
-							/* Initialise the slider */
+				/* Initialise the slider */
 				$(function() {
 				$( "#windmills-slider" ).slider({
 					change: function( event, ui ) {
@@ -341,6 +350,10 @@
 
                 //TERRAIN
                 createTerrain();
+
+                //DUDE
+                initDudePositions();
+                createDude();
 
                 //WINDMILL
                 initWindmillPositions();
@@ -449,6 +462,111 @@
 				});
 			}
 
+			function initDudePositions() {
+
+				dude_scales.push(12);
+				dude_rotations.push(0);
+				dude_positions_x.push(0.0);
+				dude_positions_y.push(0.0);
+				dude_positions_z.push(-140.0);
+
+				dude_scales.push(7);
+				dude_rotations.push(0);
+				dude_positions_x.push(20.0);
+				dude_positions_y.push(5.0);
+				dude_positions_z.push(-160.0);
+				dude_scales.push(10);
+				dude_rotations.push(0);
+				dude_positions_x.push(30.0);
+				dude_positions_y.push(5.0);
+				dude_positions_z.push(-160.0);
+			}
+
+			function createDude() {
+
+            	var loadermtl = new THREE.OBJMTLLoader();
+	
+                //eyes
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//face
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//top
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+
+            	//legs
+				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.obj',
+				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.mtl',
+				 				function ( object ) {
+
+ 					for (var i = 0; i < dude_positions_x.length; ++i) {
+
+						var mesh = object.clone();
+
+	            		mesh.scale.set(dude_scales[i], dude_scales[i], dude_scales[i]);
+	            		mesh.rotation.y = dude_rotations[i];
+	            		mesh.position.x = dude_positions_x[i];;
+						mesh.position.y = dude_positions_y[i];
+						mesh.position.z = dude_positions_z[i];
+
+	                	scene.add(mesh);
+	                	objects.push(mesh);
+                	}
+				});
+			}
+
 			function initWindmillPositions() {
 
 				windmill_positions_x.push(400);
@@ -470,7 +588,7 @@
 
 			function createWindmills() {
 
-				var loader = new THREE.OBJLoader( );
+				var loader = new THREE.OBJLoader();
 
 				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
 
