@@ -63,10 +63,26 @@
 				min-height:100px;
 			}
 			#slider{
+				position:absolute;
+				top:150px;
+				left:100px;
 				width:400px;
 				height:50px;
 			}
-
+			#insulation-slider{
+				position:absolute;
+				top:150px;
+				left:100px;
+				width:400px;
+				height:50px;
+			}
+			#cars-slider{
+				position:absolute;
+				top:150px;
+				left:100px;
+				width:400px;
+				height:50px;
+			}
 
 		</style>
 	</head>
@@ -102,7 +118,9 @@
 
 		<script>
 
-			var numWindmills = 50;			
+			var numWindmills = 50;		
+			var insulationAmt = 50;	
+			var carEfficiency = 50;
 			var toggle;			
 
 			var camera, scene, renderer;
@@ -232,13 +250,14 @@
 				$(function() {
 				$( "#slider" ).slider({
 					change: function( event, ui ) {
-					numWindmills = $(".slider").slider("values");
-					$("#windmills").text("Windmills: " +numWindmills.toString());
-					alert("Changed windmills");
+					numWindmills = $("#slider").slider("value");
+					/*numWindmills = $("#slider").slider("values");*/
+					$("#windmills").text("Windmills: " +numWindmills);
+					console.log("Changed windmills");
 					},
 					orientation: "horizontal",
 					min: 0,
-					max: 150,
+					max: 100,
 					value: 50});
 				});
 
@@ -585,7 +604,98 @@
 	                	objects.push( mesh );
                 	}
 				});
+			}
 
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				//
+
+				controls.isOnObject( false );
+
+				ray.ray.origin.copy( controls.getObject().position );
+				ray.ray.origin.y -= 10;
+
+				var intersections = ray.intersectObjects( objects );
+
+				if ( intersections.length > 0 ) {
+
+					var distance = intersections[ 0 ].distance;
+
+					if ( distance > 0 && distance < 10 ) {
+
+						controls.isOnObject( true );
+
+					}
+
+				}
+
+				// rotate all the blades
+				for (var i = 0; i < blades.length; i++) {
+					blades[i].rotation.z += blade_speed[i];
+				}
+
+				controls.update( Date.now() - time );
+				if(toggle){
+					$( "#test" ).toggle( "fold" );
+					toggle = false;
+				}
+				renderer.render( scene, camera );
+
+
+				time = Date.now();
+
+			}
+			
+			function interact(objectType){
+				switch(objectType){
+					case "windmill":
+					break;
+					case "house":
+					break;
+					case "car":
+					break;
+				}
+			}
+
+			//Toggle the div that will contain controls
+			function q(){
+				console.log("Q pressed!");
+				toggle = true;
+			}
+
+			//Change slider value
+			function sliderChange(dir){
+				if(dir == 1){ //up
+					console.log("Slider should move up");
+					if((numWindmills + 5) <= 100){
+					numWindmills += 5;
+					}
+					console.log("Value of numWindmills:", numWindmills);
+					$( "#slider" ).slider( "value", numWindmills );
+					$("#slider").trigger("slide");
+					$("#slider").slider("refresh");
+	
+				}
+				else if(dir == 0){ //down
+					console.log("Slider should move down");
+					if((numWindmills - 5) >= 0){
+					  numWindmills = numWindmills - 5;}
+    					console.log("Value of numWindmills:", numWindmills);
+					$( "#slider" ).slider( "value", numWindmills );
+					$("#slider").trigger("slide");
+					$("#slider").slider("refresh");
+				}
+			$("#windmills").text("Windmills: " +numWindmills);
 			}
 
 		</script>
