@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>three.js - pointerlock controls</title>
 
+		</style>
 	</head>
 	<body>
 
@@ -191,54 +192,6 @@
 				initInteractions(); //Call to interactions.js library (located in js if you want to modify it, but hosted on my homepages
 							  //currently -Maddy
 
-				/* Initialise the slider */
-				$(function() {
-				$( "#windmills-slider" ).slider({
-					change: function( event, ui ) {
-					numWindmills = $("#windmills-slider").slider("value");
-					/*numWindmills = $("#slider").slider("values");*/
-					$("#windmills").text("Windmills: " +numWindmills);
-					console.log("Changed windmills");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
-
-				$(function() {
-				$( "#insulation-slider" ).slider({
-					change: function( event, ui ) {
-					insulationAmt = $("#insulation-slider").slider("value");
-					$("#insulation").text("Insulation: " +insulationAmt);
-					console.log("Changed insulation");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
-
-				$(function() {
-				$( "#cars-slider" ).slider({
-					change: function( event, ui ) {
-					carEfficiency = $("#cars-slider").slider("value");
-					/*numWindmills = $("#slider").slider("values");*/
-					$("#cars").text("cars: " +numWindmills);
-					console.log("Changed cars");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
-
-				$( "#dialogue-box" ).dialog({ autoOpen: false,
-				    title: "Conversation"});
-				$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
-				$( "#windmills-stuff" ).toggle( "fold" );
-				$( "#insulation-stuff" ).toggle( "fold" );
-				$( "#cars-stuff" ).toggle( "fold" );
 				//$( "#dialogue-box").toggle("fold");
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
