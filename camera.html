@@ -63,14 +63,23 @@
 				min-height:100px;
 			}
 			#slider{
+				position:absolute;
+				top:150px;
+				left:100px;
 				width:400px;
 				height:50px;
 			}
 			#insulation-slider{
+				position:absolute;
+				top:150px;
+				left:100px;
 				width:400px;
 				height:50px;
 			}
 			#cars-slider{
+				position:absolute;
+				top:150px;
+				left:100px;
 				width:400px;
 				height:50px;
 			}
@@ -224,13 +233,14 @@
 				$(function() {
 				$( "#slider" ).slider({
 					change: function( event, ui ) {
-					numWindmills = $(".slider").slider("values");
-					$("#windmills").text("Windmills: " +numWindmills.toString());
+					numWindmills = $("#slider").slider("value");
+					/*numWindmills = $("#slider").slider("values");*/
+					$("#windmills").text("Windmills: " +numWindmills);
 					console.log("Changed windmills");
 					},
 					orientation: "horizontal",
 					min: 0,
-					max: 150,
+					max: 100,
 					value: 50});
 				});
 
@@ -618,20 +628,25 @@
 			function sliderChange(dir){
 				if(dir == 1){ //up
 					console.log("Slider should move up");
-					numWindmills = numWindmills + 5;
+					if((numWindmills + 5) <= 100){
+					numWindmills += 5;
+					}
+					console.log("Value of numWindmills:", numWindmills);
 					$( "#slider" ).slider( "value", numWindmills );
 					$("#slider").trigger("slide");
 					$("#slider").slider("refresh");
 	
 				}
-				if(dir == 0){ //down
+				else if(dir == 0){ //down
 					console.log("Slider should move down");
-					numWindmills = numWindmills - 5;
+					if((numWindmills - 5) >= 0){
+					  numWindmills = numWindmills - 5;}
+    					console.log("Value of numWindmills:", numWindmills);
 					$( "#slider" ).slider( "value", numWindmills );
 					$("#slider").trigger("slide");
 					$("#slider").slider("refresh");
 				}
-			$("#windmills").text("Windmills: " +numWindmills.toString());
+			$("#windmills").text("Windmills: " +numWindmills);
 			}
 
 		</script>
