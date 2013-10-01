@@ -55,14 +55,14 @@
 
 			}
 
-			#test {
+			#windmills-stuff {
 				position:absolute;
 				top:150px;
 				left:100px;
 				min-width:400px;
 				min-height:100px;
 			}
-			#slider{
+			#windmills-slider{
 				position:absolute;
 				top:150px;
 				left:100px;
@@ -71,18 +71,29 @@
 			}
 			#insulation-slider{
 				position:absolute;
-				top:150px;
+				top:180px;
 				left:100px;
 				width:400px;
 				height:50px;
+			/*	visibility:hidden; */
 			}
 			#cars-slider{
 				position:absolute;
-				top:150px;
+				top:100px;
 				left:100px;
 				width:400px;
 				height:50px;
+				/*visibility:hidden; */
 			}
+
+			#dialogue-box{
+				position:absolute;
+				top:110px;
+				left:400px;
+				height:100px;
+				width:100px;
+			 }
+				
 
 		</style>
 	</head>
@@ -110,14 +121,27 @@
 		</div>
 
 					<!-- Leave this div, it is for showing toggle boxes work -Maddy -->
-		<div id="test">
+		<div id="windmills-stuff">
 		<!--<span style="font-size:40px">Hi!</span>-->
-		<div id="slider"></div>
+		<div id="windmills-slider"></div>
 		<div id="windmills">Windmills: 50</div>
 		</div>
+		<div id="insulation-stuff">
+		<div id="insulation-slider"></div>
+		<div id="insulation">Insulation: 50</div>
+		</div>
+		<div id="cars-stuff">
+		<div id="cars-slider"></div>
+		<div id="cars">Cars: 50</div>
+		</div>
+		<div id="dialogue-box">
+		    <div id="dialogue-text"></div>
+		</div>
+
 
 		<script>
-
+		/*	document.getElementById("insulation").style.visibility = "hidden";
+			document.getElementById("cars").style.visibility = "hidden";*/
 			var numWindmills = 50;		
 			var insulationAmt = 50;	
 			var carEfficiency = 50;
@@ -231,9 +255,9 @@
 
 							/* Initialise the slider */
 				$(function() {
-				$( "#slider" ).slider({
+				$( "#windmills-slider" ).slider({
 					change: function( event, ui ) {
-					numWindmills = $("#slider").slider("value");
+					numWindmills = $("#windmills-slider").slider("value");
 					/*numWindmills = $("#slider").slider("values");*/
 					$("#windmills").text("Windmills: " +numWindmills);
 					console.log("Changed windmills");
@@ -243,6 +267,41 @@
 					max: 100,
 					value: 50});
 				});
+
+				$(function() {
+				$( "#insulation-slider" ).slider({
+					change: function( event, ui ) {
+					insulationAmt = $("#insulation-slider").slider("value");
+					$("#insulation").text("Insulation: " +insulationAmt);
+					console.log("Changed insulation");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 100,
+					value: 50});
+				});
+
+				$(function() {
+				$( "#cars-slider" ).slider({
+					change: function( event, ui ) {
+					carEfficiency = $("#cars-slider").slider("value");
+					/*numWindmills = $("#slider").slider("values");*/
+					$("#cars").text("cars: " +numWindmills);
+					console.log("Changed cars");
+					},
+					orientation: "horizontal",
+					min: 0,
+					max: 100,
+					value: 50});
+				});
+
+				$( "#dialogue-box" ).dialog({ autoOpen: false,
+				    title: "Conversation"});
+				$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
+				$( "#windmills-stuff" ).toggle( "fold" );
+				$( "#insulation-stuff" ).toggle( "fold" );
+				$( "#cars-stuff" ).toggle( "fold" );
+				//$( "#dialogue-box").toggle("fold");
 
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 
@@ -597,7 +656,7 @@
 
 				controls.update( Date.now() - time );
 				if(toggle){
-					$( "#test" ).toggle( "fold" );
+					$( "#windmills-stuff" ).toggle( "fold" );
 					toggle = false;
 				}
 				renderer.render( scene, camera );
@@ -608,12 +667,15 @@
 			}
 			
 			function interact(objectType){
+				toggle = true;
 				switch(objectType){
 					case "windmill":
 					break;
 					case "house":
 					break;
 					case "car":
+					break;
+					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 					break;
 				}
 			}
@@ -624,29 +686,33 @@
 				toggle = true;
 			}
 
+			function changeDisplayedSlider(dir){
+			  sliderChange(dir, "windmills");
+			}
+
 			//Change slider value
-			function sliderChange(dir){
+			function sliderChange(dir, slider){ //slider is a string
 				if(dir == 1){ //up
 					console.log("Slider should move up");
 					if((numWindmills + 5) <= 100){
 					numWindmills += 5;
 					}
-					console.log("Value of numWindmills:", numWindmills);
-					$( "#slider" ).slider( "value", numWindmills );
-					$("#slider").trigger("slide");
-					$("#slider").slider("refresh");
 	
 				}
 				else if(dir == 0){ //down
 					console.log("Slider should move down");
 					if((numWindmills - 5) >= 0){
 					  numWindmills = numWindmills - 5;}
-    					console.log("Value of numWindmills:", numWindmills);
-					$( "#slider" ).slider( "value", numWindmills );
-					$("#slider").trigger("slide");
-					$("#slider").slider("refresh");
+
 				}
+    			console.log("Value of numWindmills:", numWindmills);
+			if(slider == "windmills"){
+			$( "#windmills-slider" ).slider( "value", numWindmills );
+
+			$("#windmills-slider").trigger("slide");
+			$("#windmills-slider").slider("refresh");
 			$("#windmills").text("Windmills: " +numWindmills);
+			      }
 			}
 
 		</script>
