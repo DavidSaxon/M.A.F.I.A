@@ -77,6 +77,10 @@
 			function q(){
 				console.log("Q pressed!");
 				toggle = true;
+					if(toggle){
+					$( "#windmills-stuff" ).toggle( "fold" );
+					toggle = false;
+				}
 			}
 
 			function changeDisplayedSlider(dir){
