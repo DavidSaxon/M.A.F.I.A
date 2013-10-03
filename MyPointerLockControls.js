@@ -1,5 +1,6 @@
 /**
 * @author mrdoob / http://mrdoob.com/
+* Adapted by Maddy for our control set!
 */
 
 THREE.PointerLockControls = function ( camera ) {
@@ -35,7 +36,7 @@ var PI_2 = Math.PI / 2;
 
 var onMouseMove = function ( event ) {
 
-if ( scope.enabled === false ) return;
+if ( scope.enabled === false ){ return;}
 
 var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
@@ -78,7 +79,7 @@ moveRight = true;
 break;
 
 case 32: // space
-if ( canJump === true ) velocity.y += 10;
+if ( canJump === true ){ velocity.y += 10;}
 canJump = false;
 break;
 
@@ -94,38 +95,40 @@ var onKeyUp = function ( event ) {
 
 switch( event.keyCode ) {
 
-case 81: //q (interact)
-console.log("Q up");
-interact = true;
-break;
-//Show/hide bubbles
+  case 81: //q (interact with objects)
+    console.log("Q up");
+    interact = true;
+    break;
 
-case 84: //t (talk)
-console.log("T pressed");
-talk = true;
-break;
+  case 84: //t (talk)
+    console.log("T pressed");
+    talk = true;
+    break;
 
-case 38: // up
-case 87: // w
-moveForward = false;
-break;
-
-
-case 65: // a
-moveLeft = false;
-break;
-
-case 40: // down
-case 83: // a
-moveBackward = false;
-break;
+  case 38: // up
+  case 87: // w
+    moveForward = false;
+    break;
 
 
-case 68: // d
-moveRight = false;
-break;
+  case 65: // a
+    moveLeft = false;
+    break;
 
-}
+  case 40: // down
+  case 83: // a
+    moveBackward = false;
+    break;
+
+
+  case 68: // d
+    moveRight = false;
+    break;
+  
+  default:
+    break;
+
+  }
 
 };
 
@@ -137,7 +140,7 @@ this.enabled = false;
 
 this.getObject = function () {
 
-return yawObject;
+  return yawObject;
 
 };
 
@@ -173,27 +176,23 @@ if ( scope.enabled === false ) return;
 
 //My code
 if (interact){
-q();
-interact = false;
+  q();
+  interact = false;
 }
 
 if (talk){
-  interactWith("person");
+  interactWith("person"); //interactWith is a function defined in interactions.js
   talk = false;
 }
 
 if(sliderUp){
-//console.log("Slider up");
-/*sliderChange(1, event); */
-changeDisplayedSlider(1);
-sliderUp = false;
+  changeDisplayedSlider(1); //Defined in interactions.js
+  sliderUp = false;
 }
 
 if(sliderDown){
-//console.log("Slider down");
-changeDisplayedSlider(0);
-/*sliderChange(0, event);*/
-sliderDown = false;
+  changeDisplayedSlider(0);
+  sliderDown = false;
 }
 
 delta *= 0.1;
@@ -203,16 +202,14 @@ velocity.z += ( - velocity.z ) * 0.08 * delta;
 
 velocity.y -= 0.25 * delta;
 
-if ( moveForward ) velocity.z -= 0.12 * delta;
-if ( moveBackward ) velocity.z += 0.12 * delta;
+if ( moveForward ) {velocity.z -= 0.12 * delta;}
+if ( moveBackward ) {velocity.z += 0.12 * delta;}
 
-if ( moveLeft ) velocity.x -= 0.12 * delta;
-if ( moveRight ) velocity.x += 0.12 * delta;
+if ( moveLeft ) {velocity.x -= 0.12 * delta;}
+if ( moveRight ){ velocity.x += 0.12 * delta;}
 
 if ( isOnObject === true ) {
-
-velocity.y = Math.max( 0, velocity.y );
-
+  velocity.y = Math.max( 0, velocity.y );
 }
 
 yawObject.translateX( velocity.x );
@@ -220,12 +217,11 @@ yawObject.translateY( velocity.y );
 yawObject.translateZ( velocity.z );
 
 if ( yawObject.position.y < 10 ) {
+  
+  velocity.y = 0;
+  yawObject.position.y = 10;
 
-velocity.y = 0;
-yawObject.position.y = 10;
-
-canJump = true;
-
+  canJump = true;
 }
 
 };
