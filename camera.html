@@ -97,6 +97,9 @@
 			var house_1_positions_y = [];
 			var house_1_positions_z = [];
 
+			var water; // THREE.geometry object
+			var seaLevel = -50;
+
 
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
@@ -213,6 +216,37 @@
 				ray = new THREE.Raycaster();
 				ray.ray.direction.set( 0, -1, 0 );
 
+				// sea
+				 var loader = new THREE.ImageLoader( );
+                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/water.jpg', function ( image ) {
+
+                	var texture = new THREE.Texture();
+                    texture.image = image;
+                    texture.needsUpdate = true;
+
+                   	geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
+					geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+
+					for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
+
+						var vertex = geometry.vertices[ i ];
+						vertex.x += Math.random() * 20 - 10;
+						vertex.y += Math.random() * 5;
+						vertex.z += Math.random() * 20 - 10;
+
+					}
+
+                    material  = new THREE.MeshLambertMaterial({
+  						map           : texture,
+ 						vertexColors  : THREE.VertexColors,
+ 						transparent: true, 
+ 						opacity: 0.9
+ 					} );
+
+ 					water = new THREE.Mesh( geometry, material );
+					scene.add( water );
+				});
+
                 //TERRAIN
                 createTerrain();
 
@@ -277,6 +311,10 @@
 				for (var i = 0; i < blades.length; i++) {
 					blades[i].rotation.z += blade_speed[i];
 				}
+
+				// update sea level
+				water.position.y = seaLevel;
+				seaLevel += 0.01;
 
 				controls.update( Date.now() - time );
 				if(toggle){
@@ -627,59 +665,7 @@
                 	}
 				});
 			}
-
-			function onWindowResize() {
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
-
-			function animate() {
-
-				requestAnimationFrame( animate );
-
-				//
-
-				controls.isOnObject( false );
-
-				ray.ray.origin.copy( controls.getObject().position );
-				ray.ray.origin.y -= 10;
-
-				var intersections = ray.intersectObjects( objects );
-
-				if ( intersections.length > 0 ) {
-
-					var distance = intersections[ 0 ].distance;
-
-					if ( distance > 0 && distance < 10 ) {
-
-						controls.isOnObject( true );
-
-					}
-
-				}
-
-				// rotate all the blades
-				for (var i = 0; i < blades.length; i++) {
-					blades[i].rotation.z += blade_speed[i];
-				}
-
-				controls.update( Date.now() - time );
-				if(toggle){
-					$( "#windmills-stuff" ).toggle( "fold" );
-					toggle = false;
-				}
-				renderer.render( scene, camera );
-
-
-				time = Date.now();
-
-			}
 			
-
-
 		</script>
 
 	</body>
