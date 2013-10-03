@@ -24,7 +24,7 @@
 			<div id="instructions">
 				<span style="font-size:40px">Click to play</span>
 				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact)
+				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact, T = Talk)
 			<div id="fb-root"></div>
 	    		<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
 			</div>
@@ -45,9 +45,10 @@
 		<div id="cars-slider"></div>
 		<div id="cars">Cars: 50</div>
 		</div>
-		<div id="dialogue-box">
-		    <div id="dialogue-text"></div>
-		</div>
+
+		<!--<div id="dialogue-box"> -->
+		    <div id="dialogue-text">Welcome to our town.</div>
+		<!--</div>-->
 
 
 		<script>
@@ -56,7 +57,8 @@
 			var numWindmills = 50;		
 			var insulationAmt = 50;	
 			var carEfficiency = 50;
-			var toggle;			
+			var toggle = false;	
+			var dialogue = false;
 
 			var camera, scene, renderer;
 			var geometry, material, mesh;
@@ -282,6 +284,11 @@
 				if(toggle){
 					$( "#test" ).toggle( "fold" );
 					toggle = false;
+				}
+				if(dialogue){
+					console.log("Should display dialogue box");
+					$( "#dialogue-box" ).toggle( "fold" );
+					dialogue = false;
 				}
 				renderer.render( scene, camera );
 
