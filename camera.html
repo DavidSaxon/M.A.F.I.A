@@ -190,8 +190,9 @@
 
 			}
 
+			// NOTE: animate() was moved to be inside the init() function to fix the error that
+			// where water isn't loaded in animate yet
 			init();
-			animate();
 
 			function init() {
 				initInteractions(); //Call to interactions.js library (located in js if you want to modify it, but hosted on my homepages
@@ -247,6 +248,9 @@
 
  					water = new THREE.Mesh( geometry, material );
 					scene.add( water );
+
+					animate();
+			
 				});
 
                 //TERRAIN
