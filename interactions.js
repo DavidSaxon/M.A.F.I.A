@@ -1,6 +1,6 @@
 
 				var talkTimes = 0;
-				var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Two decades ago clean-air laws made us shut down our coal power plant.  There has been no replacement.  We have frequent blackouts and the factory has had to shut down."];
+				var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 				function initInteractions(){
 
 							/* Initialise the slider */
