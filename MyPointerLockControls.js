@@ -5,6 +5,8 @@
 
 THREE.PointerLockControls = function ( camera ) {
 
+var numberDown = false;
+
 var scope = this;
 
 camera.rotation.set( 0, 0, 0 );
@@ -51,41 +53,53 @@ pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.
 var onKeyDown = function ( event ) {
 
 switch ( event.keyCode ) {
-case 81: //q (interact)
-break;
-//Show/hide bubbles
 
-case 38: // up
-case 87: // w
-moveForward = true;
-break;
+  case 48: //0
+  case 49: //1
+  case 50: //2
+  case 51: //3
+  case 52: //4
+  case 53: //5
+  case 54: //6
+  case 55: //7
+  case 56: //8
+  case 57: //9
+    if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
+  break;
 
-case 37: // left
-sliderDown = true;
-break;
-case 65: // a
-moveLeft = true; break;
+  case 81: //q (interact)
+  break;
+  //Show/hide bubbles
 
-case 40: // down
-case 83: // s
-moveBackward = true;
-break;
+  case 38: // up
+  case 87: // w
+    moveForward = true;
+  break;
 
-case 39: // right
-sliderUp = true;
-break;
-case 68: // d
-moveRight = true;
-break;
+  case 37: // left
+    sliderDown = true;
+  break;
 
-/*case 32: // space
-if ( canJump === true ){ velocity.y += 10;}
-canJump = false;
-break;*/
+  case 65: // a
+    moveLeft = true; 
+  break;
 
-default:
-console.log(event.keyCode);
-break;
+  case 40: // down
+  case 83: // s
+    moveBackward = true;
+  break;
+
+  case 39: // right
+    sliderUp = true;
+  break;
+
+  case 68: // d
+    moveRight = true;
+  break;
+
+  default:
+    console.log(event.keyCode);
+  break;
 
 }
 
@@ -94,6 +108,19 @@ break;
 var onKeyUp = function ( event ) {
 
 switch( event.keyCode ) {
+
+  case 48: //0
+  case 49: //1
+  case 50: //2
+  case 51: //3
+  case 52: //4
+  case 53: //5
+  case 54: //6
+  case 55: //7
+  case 56: //8
+  case 57: //9
+    numberDown = false;
+  break;
 
   case 81: //q (interact with objects)
     console.log("Q up");

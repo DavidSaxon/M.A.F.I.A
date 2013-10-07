@@ -121,3 +121,13 @@
 			  dialogue = true;
 			  $( "#dialogue-text" ).toggle( "fold" );
 			}
+
+
+			/*
+				This method is fired when the user presses a number from 0 to 9. It passes that
+				number as the paramater. It is only be fired once per key press (if the number
+				is held down this will fired once only).
+			*/
+			function press(number){
+				console.log(number);
+			}
