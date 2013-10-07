@@ -78,10 +78,10 @@ case 68: // d
 moveRight = true;
 break;
 
-case 32: // space
+/*case 32: // space
 if ( canJump === true ){ velocity.y += 10;}
 canJump = false;
-break;
+break;*/
 
 default:
 console.log(event.keyCode);
