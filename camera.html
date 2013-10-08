@@ -9,17 +9,19 @@
 	<body>
 
 		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/MTLLoader.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/OBJMTLLoader.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~saxondavi/js/OBJLoader.js"></script>
-		<script src="http://homepages.ecs.vuw.ac.nz/~markovmadd/MyPointerLockControls.js"></script>
+		<script src="js/MTLLoader.js"></script>
+		<script src="js/OBJMTLLoader.js"></script>
+		<script src="js/OBJLoader.js"></script>
+		<script src="MyPointerLockControls.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="http://homepages.ecs.vuw.ac.nz/~markovmadd/interactions.js"></script>
+		<script type="text/javascript" src="interactions.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 		<!--Not sure if we need both these stylesheets or if they will conflict -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
-		<link href='http://homepages.ecs.vuw.ac.nz/~markovmadd/stylesheet.css' rel='stylesheet' type='text/css'>
+	
+		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
+
 
 		<div id="blocker">
 
@@ -66,6 +68,7 @@
 
 
 		<script>
+
 		    //Just for the buttonset thing
 			  $(function() {
 			      $( "#radio" ).buttonset();
@@ -73,6 +76,9 @@
 			  $( "#radio0" ).click(function() {
 			  alert( "Handler for .click() called." );
 			  });
+		console.log("working");
+
+
 		/*	document.getElementById("insulation").style.visibility = "hidden";
 			document.getElementById("cars").style.visibility = "hidden";*/
 			var numWindmills = 50;		
@@ -211,8 +217,9 @@
 
 			}
 
+			// NOTE: animate() was moved to be inside the init() function to fix the error that
+			// where water isn't loaded in animate yet
 			init();
-			animate();
 
 			function init() {
 				initInteractions(); //Call to interactions.js library (located in js if you want to modify it, but hosted on my homepages
@@ -241,7 +248,7 @@
 
 				// sea
 				 var loader = new THREE.ImageLoader( );
-                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/water.jpg', function ( image ) {
+                loader.load( 'res/water.jpg', function ( image ) {
 
                 	var texture = new THREE.Texture();
                     texture.image = image;
@@ -268,6 +275,9 @@
 
  					water = new THREE.Mesh( geometry, material );
 					scene.add( water );
+
+					animate();
+			
 				});
 
                 //TERRAIN
@@ -364,8 +374,8 @@
         	var loadermtl = new THREE.OBJMTLLoader();
 
                 //terrain
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.obj',
-	 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/terrain/terrain.mtl', 
+				loadermtl.load( 'res/terrain/terrain.obj',
+	 				'res/terrain/terrain.mtl', 
 	 				function ( object ) {
 
  					scene.add( object );
@@ -398,8 +408,8 @@
             	var loadermtl = new THREE.OBJMTLLoader();
 	
                 //eyes
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_eyes.mtl',
+				loadermtl.load( 'res/dude/dude_eyes.obj',
+				 				'res/dude/dude_eyes.mtl',
 				 				function ( object ) {
 
  					for (var i = 0; i < dude_positions_x.length; ++i) {
@@ -418,8 +428,8 @@
 				});
 
             	//face
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_face.mtl',
+				loadermtl.load( 'res/dude/dude_face.obj',
+				 				'res/dude/dude_face.mtl',
 				 				function ( object ) {
 
  					for (var i = 0; i < dude_positions_x.length; ++i) {
@@ -438,8 +448,8 @@
 				});
 
             	//top
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_top.mtl',
+				loadermtl.load( 'res/dude/dude_top.obj',
+				 				'res/dude/dude_top.mtl',
 				 				function ( object ) {
 
  					for (var i = 0; i < dude_positions_x.length; ++i) {
@@ -458,8 +468,8 @@
 				});
 
             	//legs
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/dude/dude_legs.mtl',
+				loadermtl.load( 'res/dude/dude_legs.obj',
+				 				'res/dude/dude_legs.mtl',
 				 				function ( object ) {
 
  					for (var i = 0; i < dude_positions_x.length; ++i) {
@@ -501,7 +511,7 @@
 
 				var loader = new THREE.OBJLoader();
 
-				loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_blades.obj', function ( object ) {
+				loader.load( 'res/windmill_blades.obj', function ( object ) {
 
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
                 	for (var i = 0; i < windmill_positions_x.length; ++i) {
@@ -522,7 +532,7 @@
                 	}
                 } );
 
-                loader.load( 'http://homepages.ecs.vuw.ac.nz/~remnanjona/M.A.F.I.A/res/windmill_base.obj', function ( object ) {
+                loader.load( 'res/windmill_base.obj', function ( object ) {
 
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
 
@@ -573,8 +583,8 @@
             	var loadermtl = new THREE.OBJMTLLoader();
 	
                 //body
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_body.mtl', 
+				loadermtl.load( 'res/house/house_1_body.obj',
+				 				'res/house/house_1_body.mtl', 
 				 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {
@@ -593,8 +603,8 @@
 				});
 
                 //base
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.obj',
-			 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_base.mtl', 
+				loadermtl.load( 'res/house/house_1_base.obj',
+			 				'res/house/house_1_base.mtl', 
 			 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {
@@ -614,8 +624,8 @@
             	});
 
                 //frames
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_frames.mtl', 
+				loadermtl.load( 'res/house/house_1_frames.obj',
+				 				'res/house/house_1_frames.mtl', 
 				 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {
@@ -634,8 +644,8 @@
 				});
 
                 //pillars
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_pillars.mtl', 
+				loadermtl.load( 'res/house/house_1_pillars.obj',
+				 				'res/house/house_1_pillars.mtl', 
 				 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {
@@ -654,8 +664,8 @@
 				});
 
                 //roof
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_roof.mtl', 
+				loadermtl.load( 'res/house/house_1_roof.obj',
+				 				'res/house/house_1_roof.mtl', 
 				 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {
@@ -674,8 +684,8 @@
 				});
 
                 //windows
-				loadermtl.load( 'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.obj',
-				 				'http://homepages.ecs.vuw.ac.nz/~saxondavi/res/house/house_1_windows.mtl', 
+				loadermtl.load( 'res/house/house_1_windows.obj',
+				 				'res/house/house_1_windows.mtl', 
 				 				function ( object ) {
 
  					for (var i = 0; i < house_1_positions_x.length; ++i) {

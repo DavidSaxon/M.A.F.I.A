@@ -5,6 +5,10 @@
 
 THREE.PointerLockControls = function ( camera ) {
 
+var shiftMagnitude = 10; // this is how many times faster you go when holding shift
+var numberDown = false;
+var shiftMultiplier = 1;
+
 var scope = this;
 
 camera.rotation.set( 0, 0, 0 );
@@ -51,41 +55,58 @@ pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.
 var onKeyDown = function ( event ) {
 
 switch ( event.keyCode ) {
-case 81: //q (interact)
-break;
-//Show/hide bubbles
 
-case 38: // up
-case 87: // w
-moveForward = true;
-break;
+  case 16: //shift
+    shiftMultiplier = shiftMagnitude;
+  break;
 
-case 37: // left
-sliderDown = true;
-break;
-case 65: // a
-moveLeft = true; break;
 
-case 40: // down
-case 83: // s
-moveBackward = true;
-break;
+  case 48: //0
+  case 49: //1
+  case 50: //2
+  case 51: //3
+  case 52: //4
+  case 53: //5
+  case 54: //6
+  case 55: //7
+  case 56: //8
+  case 57: //9
+    if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
+  break;
 
-case 39: // right
-sliderUp = true;
-break;
-case 68: // d
-moveRight = true;
-break;
+  case 81: //q (interact)
+  break;
+  //Show/hide bubbles
 
-case 32: // space
-if ( canJump === true ){ velocity.y += 10;}
-canJump = false;
-break;
+  case 38: // up
+  case 87: // w
+    moveForward = true;
+  break;
 
-default:
-console.log(event.keyCode);
-break;
+  case 37: // left
+    sliderDown = true;
+  break;
+
+  case 65: // a
+    moveLeft = true; 
+  break;
+
+  case 40: // down
+  case 83: // s
+    moveBackward = true;
+  break;
+
+  case 39: // right
+    sliderUp = true;
+  break;
+
+  case 68: // d
+    moveRight = true;
+  break;
+
+  default:
+    console.log(event.keyCode);
+  break;
 
 }
 
@@ -94,6 +115,23 @@ break;
 var onKeyUp = function ( event ) {
 
 switch( event.keyCode ) {
+
+  case 16: //shift
+    shiftMultiplier = 1;
+  break;
+
+  case 48: //0
+  case 49: //1
+  case 50: //2
+  case 51: //3
+  case 52: //4
+  case 53: //5
+  case 54: //6
+  case 55: //7
+  case 56: //8
+  case 57: //9
+    numberDown = false;
+  break;
 
   case 81: //q (interact with objects)
     console.log("Q up");
@@ -125,6 +163,8 @@ switch( event.keyCode ) {
     moveRight = false;
     break;
   
+
+
   default:
     break;
 
@@ -202,11 +242,11 @@ velocity.z += ( - velocity.z ) * 0.08 * delta;
 
 velocity.y -= 0.25 * delta;
 
-if ( moveForward ) {velocity.z -= 0.12 * delta;}
-if ( moveBackward ) {velocity.z += 0.12 * delta;}
+if ( moveForward ) {velocity.z -= shiftMultiplier * 0.12 * delta;}
+if ( moveBackward ) {velocity.z += shiftMultiplier * 0.12 * delta;}
 
-if ( moveLeft ) {velocity.x -= 0.12 * delta;}
-if ( moveRight ){ velocity.x += 0.12 * delta;}
+if ( moveLeft ) {velocity.x -= shiftMultiplier * 0.12 * delta;}
+if ( moveRight ){ velocity.x += shiftMultiplier * 0.12 * delta;}
 
 if ( isOnObject === true ) {
   velocity.y = Math.max( 0, velocity.y );
