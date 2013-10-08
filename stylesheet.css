@@ -20,6 +20,11 @@
 				background-color: rgba(0,0,0,0.5);
 
 			}
+			#share{
+			  min-width:20px;
+			  min-height:10px;
+			}
+			  
 
 			#instructions {
 

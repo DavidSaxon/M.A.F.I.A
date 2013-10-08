@@ -71,7 +71,7 @@ switch ( event.keyCode ) {
   case 55: //7
   case 56: //8
   case 57: //9
-    if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
+   if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
   break;
 
   case 81: //q (interact)

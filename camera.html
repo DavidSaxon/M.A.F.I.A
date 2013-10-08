@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="interactions.js"></script>
+		<script type="text/javascript" src="constants.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 		<!--Not sure if we need both these stylesheets or if they will conflict -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
@@ -30,8 +31,21 @@
 				<br />
 				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact, T = Talk)
 			<div id="fb-root"></div>
-	    		<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
+	    		<!--<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>-->
+			  <div id="share">  
+			  <a href="#" 
+			      onclick="
+				window.open(
+				  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+				  'facebook-share-dialog', 
+				  'width=626,height=436'); 
+				return false;">
+			      Share on Facebook
+			    </a>
 			</div>
+			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+			</div>
+
 
 		</div>
 
@@ -73,10 +87,9 @@
 			  $(function() {
 			      $( "#radio" ).buttonset();
 			      });
-			  $( "#radio0" ).click(function() {
-			  alert( "Handler for .click() called." );
+			  $( "#radio0" ).change(function() {
+			  console.log( "Handler for .click() called." );
 			  });
-		console.log("working");
 
 
 		/*	document.getElementById("insulation").style.visibility = "hidden";
@@ -718,4 +731,5 @@
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
+
 </html>
