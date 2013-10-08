@@ -1,7 +1,6 @@
 // Requires three.js
 
-function item(typeName, position) {
-	this.typeName = typeName;
+function item(position) {
 	this.position = position;
 }
 

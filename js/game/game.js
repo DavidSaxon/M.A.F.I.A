@@ -1,17 +1,27 @@
 function game() {
-	this.player = new player();
-	this.items = new Array();
+	this.items = new Object();
+	this.items["windmill"] = new Array();
 }
 
 game.prototype.add = function(addedItem) {
-	this.items.push(addedItem);
+	console.log ( "adding " + addedItem.typeName );
+	this.items[ addedItem.typeName ].push(addedItem);
 }
 
-game.prototype.checkCollision = function() {
-	for (var i = 0; i < this.items.length; ++i) {
-		var distance = this.player.position.distanceTo(this.items.position);
-		if (distance < 5.0) {
-			alert("item nearby");
+game.prototype.getAll = function(typename) {
+	return this.items[typename];
+}
+
+game.prototype.checkCollision = function(position) {
+	var list = this.getAll("windmill");
+	for (var i = 0; i < list.length; ++i) {
+		var distance = position.distanceTo(list[i].position);
+		//console.log("d = " +distance);
+		if (distance < 50.0) {
+			return "windmill";
+			//alert("windmill nearby");
 		}
 	}
+
+	return "nothing";
 }

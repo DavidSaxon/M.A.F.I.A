@@ -12,6 +12,8 @@
 		<script src="js/MTLLoader.js"></script>
 		<script src="js/OBJMTLLoader.js"></script>
 		<script src="js/OBJLoader.js"></script>
+		<script src="js/game/game.js"></script>
+		<script src="js/game/windmill.js"></script>
 		<script src="MyPointerLockControls.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
@@ -103,6 +105,8 @@
 
 			var water; // THREE.geometry object
 			var seaLevel = -50;
+
+			var game = new game();
 
 
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
@@ -316,13 +320,19 @@
 				}
 
 				// rotate all the blades
-				for (var i = 0; i < blades.length; i++) {
-					blades[i].rotation.z += blade_speed[i];
+				var list = game.getAll("windmill");
+				for (var i = 0; i < list.length; i++) {
+					blades[i].rotation.z += list[i].bladeSpeed;
 				}
 
 				// update sea level
 				water.position.y = seaLevel;
 				seaLevel += 0.01;
+
+				// check collisions
+				var ps = controls.getObject().position;
+				var nearthing = game.checkCollision(ps);
+				interactWith(nearthing);
 
 				controls.update( Date.now() - time );
 				if(toggle){
@@ -465,39 +475,32 @@
 
 			function initWindmillPositions() {
 
-				windmill_positions_x.push(400);
-				windmill_positions_y.push(0);
-				windmill_positions_z.push(450);
+				game.add( new windmill(400, 0, 450) );
+				game.add( new windmill(400, 0, 300) );
+				game.add( new windmill(400, 0, 150) );
+				game.add( new windmill(400, 0, 0) );
 
-				windmill_positions_x.push(400);
-				windmill_positions_y.push(0);
-				windmill_positions_z.push(300);
-
-				windmill_positions_x.push(400);
-				windmill_positions_y.push(0);
-				windmill_positions_z.push(150);
-
-				windmill_positions_x.push(400);
-				windmill_positions_y.push(0);
-				windmill_positions_z.push(0);
 			}
 
+			/* load windmills into positions specified by game logic */
 			function createWindmills() {
 
 				var loader = new THREE.OBJLoader();
 
 				loader.load( 'res/windmill_blades.obj', function ( object ) {
-
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
-                	for (var i = 0; i < windmill_positions_x.length; ++i) {
+
+                	/* use games list of windmills */
+                	var list = game.getAll("windmill");
+                	for (var i = 0; i < list.length; ++i) {
 
                 		var mesh = object.clone();
 
                 		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
                 		mesh.rotation.y = -1;
-                		mesh.position.x = windmill_positions_x[i];
-						mesh.position.y = windmill_positions_y[i] + 6.13328 * windmill_scale;
-						mesh.position.z = windmill_positions_z[i];
+                		mesh.position = list[i].position.clone();
+                		mesh.position.y += 6.13328 * windmill_scale;
+
                     	scene.add( mesh );
                     	blades.push( mesh );
                     	blade_speed.push( Math.random() * 0.2 );
@@ -508,20 +511,19 @@
                 } );
 
                 loader.load( 'res/windmill_base.obj', function ( object ) {
-
                 	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.SmoothShading, vertexColors: THREE.VertexColors } );
 
-                	for (var i = 0; i < windmill_positions_x.length; ++i) {
+                	/* use games list of windmills */
+                	var list = game.getAll("windmill");
+                	for (var i = 0; i < list.length; ++i) {
 
                 		var mesh = object.clone();
 
                 		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
                 		mesh.rotation.y = -1;
-                		mesh.position.x = windmill_positions_x[i];
-						mesh.position.y = windmill_positions_y[i];
-						mesh.position.z = windmill_positions_z[i];
-                    	scene.add( mesh );
+                		mesh.position = list[i].position.clone();
 
+                    	scene.add( mesh );
                     	material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
                     	objects.push( mesh );
                 	}
