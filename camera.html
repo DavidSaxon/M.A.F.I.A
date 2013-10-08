@@ -18,8 +18,13 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="interactions.js"></script>
+		<script type="text/javascript" src="constants.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+		<!--Not sure if we need both these stylesheets or if they will conflict -->
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
+	
 		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
+
 
 		<div id="blocker">
 
@@ -28,14 +33,27 @@
 				<br />
 				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact, T = Talk)
 			<div id="fb-root"></div>
-	    		<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>
+	    		<!--<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>-->
+			  <div id="share">  
+			  <a href="#" 
+			      onclick="
+				window.open(
+				  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+				  'facebook-share-dialog', 
+				  'width=626,height=436'); 
+				return false;">
+			      Share on Facebook
+			    </a>
 			</div>
+			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+			</div>
+
 
 		</div>
 
 					<!-- Leave this div, it is for showing toggle boxes work -Maddy -->
 		<div id="windmills-stuff">
-		<!--<span style="font-size:40px">Hi!</span>-->
+
 		<div id="windmills-slider"></div>
 		<div id="windmills">Windmills: 50</div>
 		</div>
@@ -47,14 +65,34 @@
 		<div id="cars-slider"></div>
 		<div id="cars">Cars: 50</div>
 		</div>
+  <!--Test.  Copied from JQuery UI examples -->
+		<div id="radio-container">
+		<form>
+		<div id="radio">
+		<input type="radio" id="radio0" name="radio" /><label for="radio0">0</label>
+		<input type="radio" id="radio1" name="radio" /><label for="radio1">1</label>
+		<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">2</label>
+		<input type="radio" id="radio3" name="radio" /><label for="radio3">3</label>
+		<input type="radio" id="radio4" name="radio" /><label for="radio4">4</label>
+		</div>
+		</form>
+		</div>
 
 		<!--<div id="dialogue-box"> -->
-		    <div id="dialogue-text">Welcome to our town.</div>
+		    <div id="dialogue-text">Help us!</div>
 		<!--</div>-->
 
 
 		<script>
-		console.log("working");
+
+		    //Just for the buttonset thing
+			  $(function() {
+			      $( "#radio" ).buttonset();
+			      });
+			  $( "#radio0" ).change(function() {
+			  console.log( "Handler for .click() called." );
+			  });
+
 
 		/*	document.getElementById("insulation").style.visibility = "hidden";
 			document.getElementById("cars").style.visibility = "hidden";*/
@@ -695,4 +733,5 @@
     fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
+
 </html>

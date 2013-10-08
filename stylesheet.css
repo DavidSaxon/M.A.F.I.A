@@ -20,6 +20,11 @@
 				background-color: rgba(0,0,0,0.5);
 
 			}
+			#share{
+			  min-width:20px;
+			  min-height:10px;
+			}
+			  
 
 			#instructions {
 
@@ -47,19 +52,31 @@
 
 				cursor: pointer;
 
+
 			}
+			
+			#radio-container{
+			  	position:absolute;
+				top:15px;
+				left:10px;
+				background-image: url("./speech_bubble.png");
+				background-repeat:no-repeat;
+				min-width:400px;
+				min-height:100px;
+			}
+			
 
 			#windmills-stuff {
 				position:absolute;
-				top:150px;
-				left:100px;
+				top:15px;
+				left:10px;
 				min-width:400px;
 				min-height:100px;
 			}
 			#windmills-slider{
 				position:absolute;
-				top:150px;
-				left:100px;
+				top:15px;
+				left:10px;
 				width:400px;
 				height:50px;
 			}

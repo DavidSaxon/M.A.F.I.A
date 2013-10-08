@@ -1,5 +1,6 @@
 
-
+				var talkTimes = 0;
+				var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Two decades ago clean-air laws made us shut down our coal power plant.  There has been no replacement.  We have frequent blackouts and the factory has had to shut down."];
 				function initInteractions(){
 
 							/* Initialise the slider */
@@ -44,17 +45,20 @@
 					value: 50});
 				});
 
-				$( "#dialogue-box" ).dialog({ autoOpen: false,
-				    title: "Conversation"});
-				$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
+				$(function(){
+				//$( "#dialogue-box" ).dialog({ autoOpen: false,
+				  //  title: "Conversation"});
+				//$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
+				  $("#dialogue-text").toggle("fold");
+				});
 				$( "#windmills-stuff" ).toggle( "fold" );
 				$( "#insulation-stuff" ).toggle( "fold" );
 				$( "#cars-stuff" ).toggle( "fold" );
 
   }
   
-			function interact(objectType){
-				toggle = true;
+			function interactWith(objectType){
+				//toggle = true;
 				switch(objectType){
 					case "windmill":
 					break;
@@ -63,7 +67,9 @@
 					case "car":
 					break;
 					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-					break;
+					  console.log("Processing interaction for person");
+					  talk();
+					  break;
 				}
 			}
 
@@ -71,6 +77,10 @@
 			function q(){
 				console.log("Q pressed!");
 				toggle = true;
+					if(toggle){
+					$( "#windmills-stuff" ).toggle( "fold" );
+					toggle = false;
+				}
 			}
 
 			function changeDisplayedSlider(dir){
@@ -100,4 +110,14 @@
 			$("#windmills-slider").slider("refresh");
 			$("#windmills").text("Windmills: " +numWindmills);
 			      }
+			}
+			
+			function talk(){
+			  console.log("Got to talk function");
+			 // $( "#dialogue-box" ).dialog({ autoOpen: true,
+			//	    title: "Conversation"});
+			  $("#dialogue-text").text(conversationTexts[talkTimes]);
+			  talkTimes++;
+			  dialogue = true;
+			  $( "#dialogue-text" ).toggle( "fold" );
 			}
