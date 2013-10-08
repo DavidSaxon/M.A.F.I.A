@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="interactions.js"></script>
 		<script type="text/javascript" src="constants.js"></script>
+		<script src="js/Detector.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
 		<!--Not sure if we need both these stylesheets or if they will conflict -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
@@ -66,7 +67,7 @@
 		<div id="cars">Cars: 50</div>
 		</div>
   <!--Test.  Copied from JQuery UI examples -->
-		<div id="radio-container">
+		<!--<div id="radio-container">
 		<form>
 		<div id="radio">
 		<input type="radio" id="radio0" name="radio" /><label for="radio0">0</label>
@@ -76,7 +77,7 @@
 		<input type="radio" id="radio4" name="radio" /><label for="radio4">4</label>
 		</div>
 		</form>
-		</div>
+		</div>-->
 
 		<!--<div id="dialogue-box"> -->
 		    <div id="dialogue-text">Help us!</div>
@@ -84,14 +85,14 @@
 
 
 		<script>
-
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    //Just for the buttonset thing
-			  $(function() {
+			/*  $(function() {
 			      $( "#radio" ).buttonset();
 			      });
 			  $( "#radio0" ).change(function() {
 			  console.log( "Handler for .click() called." );
-			  });
+			  });*/
 
 
 		/*	document.getElementById("insulation").style.visibility = "hidden";

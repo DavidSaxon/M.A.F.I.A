@@ -1,5 +1,6 @@
 
 				var talkTimes = 0;
+				var toggleIsOn = false;
 				var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 				function initInteractions(){
 
@@ -61,12 +62,15 @@
 				//toggle = true;
 				switch(objectType){
 					case "windmill":
-					  q();
+					  toggleOnOrOff(true);
 					break;
 					case "house":
 					break;
 					case "car":
 					break;
+					case "nothing":
+					  toggleOnOrOff(false);
+					  break;
 					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 					  console.log("Processing interaction for person");
 					  talk();
@@ -75,12 +79,13 @@
 			}
 
 			//Toggle the div that will contain controls
-			function q(){
-				console.log("Q pressed!");
-				toggle = true;
-					if(toggle){
+			function toggleOnOrOff(on){
+				if((!toggleIsOn && on)|| (toggleIsOn && !on)){
+				 console.log("State change");
+					if(!toggleIsOn){
+					  toggleIsOn = true;}
+					else{toggleIsOn = false;}
 					$( "#windmills-stuff" ).toggle( "fold" );
-					toggle = false;
 				}
 			}
 

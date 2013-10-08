@@ -215,10 +215,10 @@ this.update = function ( delta ) {
 if ( scope.enabled === false ) return;
 
 //My code
-if (interact){
+/*if (interact){
   q();
   interact = false;
-}
+}*/
 
 if (talk){
   interactWith("person"); //interactWith is a function defined in interactions.js
