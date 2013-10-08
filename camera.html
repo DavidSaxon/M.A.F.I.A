@@ -17,6 +17,8 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="http://homepages.ecs.vuw.ac.nz/~markovmadd/interactions.js"></script>
 		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+		<!--Not sure if we need both these stylesheets or if they will conflict -->
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
 		<link href='http://homepages.ecs.vuw.ac.nz/~markovmadd/stylesheet.css' rel='stylesheet' type='text/css'>
 
 		<div id="blocker">
@@ -33,7 +35,7 @@
 
 					<!-- Leave this div, it is for showing toggle boxes work -Maddy -->
 		<div id="windmills-stuff">
-		<!--<span style="font-size:40px">Hi!</span>-->
+
 		<div id="windmills-slider"></div>
 		<div id="windmills">Windmills: 50</div>
 		</div>
@@ -45,13 +47,32 @@
 		<div id="cars-slider"></div>
 		<div id="cars">Cars: 50</div>
 		</div>
+  <!--Test.  Copied from JQuery UI examples -->
+		<div id="radio-container">
+		<form>
+		<div id="radio">
+		<input type="radio" id="radio0" name="radio" /><label for="radio0">0</label>
+		<input type="radio" id="radio1" name="radio" /><label for="radio1">1</label>
+		<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">2</label>
+		<input type="radio" id="radio3" name="radio" /><label for="radio3">3</label>
+		<input type="radio" id="radio4" name="radio" /><label for="radio4">4</label>
+		</div>
+		</form>
+		</div>
 
 		<!--<div id="dialogue-box"> -->
-		    <div id="dialogue-text">Welcome to our town.</div>
+		    <div id="dialogue-text">Help us!</div>
 		<!--</div>-->
 
 
 		<script>
+		    //Just for the buttonset thing
+			  $(function() {
+			      $( "#radio" ).buttonset();
+			      });
+			  $( "#radio0" ).click(function() {
+			  alert( "Handler for .click() called." );
+			  });
 		/*	document.getElementById("insulation").style.visibility = "hidden";
 			document.getElementById("cars").style.visibility = "hidden";*/
 			var numWindmills = 50;		
