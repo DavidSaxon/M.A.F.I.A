@@ -1,6 +1,14 @@
 function game() {
 	this.items = new Object();
-	this.items["windmill"] = new Array();
+
+	/**
+	* Update this when adding new types
+	*/
+	this.gameTypes = ["windmill", "house", "dude"];
+
+	for (var i = 0; i < this.gameTypes.length; ++i) {
+		this.items[ this.gameTypes[i] ] = new Array();
+	}
 }
 
 game.prototype.add = function(addedItem) {
@@ -13,14 +21,18 @@ game.prototype.getAll = function(typename) {
 }
 
 game.prototype.checkCollision = function(position) {
-	var list = this.getAll("windmill");
-	for (var i = 0; i < list.length; ++i) {
-		var distance = position.distanceTo(list[i].position);
-		//console.log("d = " +distance);
-		if (distance < 50.0) {
-			return "windmill";
-			//alert("windmill nearby");
+	for (var t = 0; t < this.gameTypes.length; ++t) {
+
+		/* lookup by type */
+		var list = this.getAll(this.gameTypes[t]);
+
+		for (var i = 0; i < list.length; ++i) {
+			var distance = position.distanceTo(list[i].position);
+			if (distance < 50.0) {
+				return this.gameTypes[t];	// item is found, return type name
+			}
 		}
+
 	}
 
 	return "nothing";
