@@ -1,6 +1,5 @@
-function windmill(x, y, z) {
+function house(x, y, z, rot) {
 	this.typeName = "windmill";
 	this.position = new THREE.Vector3(x, y, z);
-	this.bladeSpeed = Math.random() * 0.2;
+	this.yRot = rot;
 }
-
