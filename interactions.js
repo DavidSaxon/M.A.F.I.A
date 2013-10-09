@@ -55,6 +55,16 @@
 				$( "#windmills-stuff" ).toggle( "fold" );
 				$( "#insulation-stuff" ).toggle( "fold" );
 				$( "#cars-stuff" ).toggle( "fold" );
+				$("#radio-container").toggle("fold");
+				
+						    //Just for the buttonset thing
+			$(function() {
+			      $( "#radio" ).buttonset();
+			      });
+			$( "#radio0" ).change(function() {
+			  console.log( "Handler for .click() called." );
+			  });
+
 
   }
   
@@ -85,7 +95,7 @@
 					if(!toggleIsOn){
 					  toggleIsOn = true;}
 					else{toggleIsOn = false;}
-					$( "#windmills-stuff" ).toggle( "fold" );
+					$( "#radio-container" ).toggle( "fold" );
 				}
 			}
 
