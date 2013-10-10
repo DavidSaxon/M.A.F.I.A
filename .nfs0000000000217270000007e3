@@ -279,17 +279,27 @@
 
 
 
-            	for (var i = 0; i < 100) {
-            		//var t = ;
-            		//t.variation = Math.random() * 4;
-            		game.add( new tree( Math.random() * 20 - 10, 0, Math.random() * 20 - 10 ) );
+            	for (var i = 0; i < 20; i++) {
+            		var t = new tree( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000 );
+            		t.variation = Math.floor(Math.random() * 4);
+            		game.add( t );
             	}
             	
-            	var treeParts = ['res/dude/dude_eyes',
-                			'res/dude/dude_face',
-                			'res/dude/dude_top',
-                			'res/dude/dude_legs'];
+            	var treeParts = ['res/tree_1/tree_1_top',
+                			'res/tree_1/tree_1_trunk'];
                 loadObjMtlList("tree", 0, treeParts);
+
+                var treeParts = ['res/tree_2/tree_2_top',
+                			'res/tree_2/tree_2_trunk'];
+                loadObjMtlList("tree", 1, treeParts);
+
+                var treeParts = ['res/tree_3/tree_3_top',
+                			'res/tree_3/tree_3_trunk'];
+                loadObjMtlList("tree", 2, treeParts);
+
+                var treeParts = ['res/tree_4/tree_4_top',
+                			'res/tree_4/tree_4_trunk'];
+                loadObjMtlList("tree", 3, treeParts);
             	
 
 

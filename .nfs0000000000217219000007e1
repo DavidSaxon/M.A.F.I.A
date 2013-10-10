@@ -280,15 +280,13 @@
 
 
             	for (var i = 0; i < 100; i++) {
-            		var t = new tree( Math.random() * 20 - 10, 0, Math.random() * 20 - 10 );
-            		t.variation = Math.random() * 4;
+            		var t = new tree( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000 );
+            		t.variation = Math.floor(Math.random() * 4);
             		game.add( t );
             	}
             	
-            	var treeParts = ['res/dude/dude_eyes',
-                			'res/dude/dude_face',
-                			'res/dude/dude_top',
-                			'res/dude/dude_legs'];
+            	var treeParts = ['res/tree_1/tree_1_top',
+                			'res/tree_1/tree_1_trunk'];
                 loadObjMtlList("tree", 0, treeParts);
             	
 
