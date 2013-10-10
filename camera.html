@@ -259,6 +259,10 @@
                 createTerrain();
 
                 //DUDE
+                for (var i = 0; i < 1; i++) {
+            		var d = new dude( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000, Math.random() * 2000);
+            		game.add( d );
+            	}
                 initDudePositions();
                 var dudeParts = ['res/dude/dude_eyes',
                 			'res/dude/dude_face',
@@ -283,9 +287,11 @@
 
 
 
-            	for (var i = 0; i < 20; i++) {
+            	for (var i = 0; i < 100; i++) {
             		var t = new tree( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000 );
             		t.variation = Math.floor(Math.random() * 4);
+            		var x = Math.random();
+            		t.scalesize = 10 + x * x * 30;
             		game.add( t );
             	}
             	
