@@ -123,12 +123,6 @@
 			var blocker = document.getElementById( 'blocker' );
 			var instructions = document.getElementById( 'instructions' );
 
-			//windmill scale
-			var windmill_scale = 40;
-
-			//house 1 scale
-			var house_1_scale = 20;
-
 			var game = new game();
 
 			//Keep the blocker div from disappearing when the user clicks the Facebook share link
@@ -289,7 +283,12 @@
 
                 //DUDE
                 initDudePositions();
-                createDude();
+                var dudeParts = ['res/dude/dude_eyes',
+                			'res/dude/dude_face',
+                			'res/dude/dude_top',
+                			'res/dude/dude_legs'];
+                loadObjMtlList("dude", dudeParts);
+
 
                 //WINDMILL
                 initWindmillPositions();
@@ -297,7 +296,14 @@
 
             	//HOUSE
             	initHouse1Positions();
-            	createHouse1();
+            	var houseParts = ['res/house/house_1_body',
+            				'res/house/house_1_base',
+            				'res/house/house_1_frames',
+            				'res/house/house_1_pillars',
+            				'res/house/house_1_roof',
+            				'res/house/house_1_windows'];
+            	loadObjMtlList("house", houseParts);	
+            	
 
 
 				renderer = new THREE.WebGLRenderer();
@@ -400,85 +406,31 @@
 
 			}
 
-			function createDude() {
+			function loadObjMtlList(gameObjString, fileList) {
+				var loadermtl = new THREE.OBJMTLLoader();
 
-            	var loadermtl = new THREE.OBJMTLLoader();
-	
-                //eyes
-				loadermtl.load( 'res/dude/dude_eyes.obj',
-				 				'res/dude/dude_eyes.mtl',
-				 				function ( object ) {
+				for (var i = 0; i < fileList.length; ++i) {
+					var objName = fileList[i]+'.obj';
+					var mtlName = fileList[i]+'.mtl';
 
-				 	/* use games list of dudes */
-                	var list = game.getAll("dude");
- 					for (var i = 0; i < list.length; ++i) {
+					loadermtl.load( objName, mtlName, function ( object ) {
 
-						var mesh = object.clone();
+				 		/* use games list of all the things */
+                		var list = game.getAll(gameObjString);
 
-	            		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-	            		mesh.position= list[i].position;
+ 						for (var i = 0; i < list.length; ++i) {
 
-	                	scene.add(mesh);
-	                	objects.push(mesh);
-                	}
-				});
+							var mesh = object.clone();
 
-            	//face
-				loadermtl.load( 'res/dude/dude_face.obj',
-				 				'res/dude/dude_face.mtl',
-				 				function ( object ) {
+	            			mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
+	            			mesh.rotation.y = list[i].yRot;
+	            			mesh.position= list[i].position;
 
-				 	/* use games list of dudes */
-                	var list = game.getAll("dude");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-	            		mesh.position= list[i].position;
-
-	                	scene.add(mesh);
-	                	objects.push(mesh);
-                	}
-				});
-
-            	//top
-				loadermtl.load( 'res/dude/dude_top.obj',
-				 				'res/dude/dude_top.mtl',
-				 				function ( object ) {
-
-				 	/* use games list of dudes */
-                	var list = game.getAll("dude");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-	            		mesh.position= list[i].position;
-
-	                	scene.add(mesh);
-	                	objects.push(mesh);
-                	}
-				});
-
-            	//legs
-				loadermtl.load( 'res/dude/dude_legs.obj',
-				 				'res/dude/dude_legs.mtl',
-				 				function ( object ) {
-
-				 	/* use games list of dudes */
-                	var list = game.getAll("dude");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-	            		mesh.position= list[i].position;
-
-	                	scene.add(mesh);
-	                	objects.push(mesh);
-                	}
-				});
+	                		scene.add(mesh);
+	                		objects.push(mesh);
+                		}
+					});
+				}
 			}
 
 			function initWindmillPositions() {
@@ -503,10 +455,10 @@
 
                 		var mesh = object.clone();
 
-                		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
+                		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
                 		mesh.rotation.y = -1;
                 		mesh.position = list[i].position.clone();
-                		mesh.position.y += 6.13328 * windmill_scale;
+                		mesh.position.y += 6.13328 * list[i].scalesize;
 
                     	scene.add( mesh );
                     	blades.push( mesh );
@@ -525,7 +477,7 @@
 
                 		var mesh = object.clone();
 
-                		mesh.scale.set(windmill_scale, windmill_scale, windmill_scale);
+                		mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
                 		mesh.rotation.y = -1;
                 		mesh.position = list[i].position.clone();
 
@@ -542,132 +494,6 @@
 				game.add( new house(-400, -35, 400, -0.75) );
 				game.add( new house(-700, -45, 400, -0.25) );
 				game.add( new house(0, 0, -200, 0.0) );
-			}
-
-			//creates a house 1
-			function createHouse1() {
-            	var loadermtl = new THREE.OBJMTLLoader();
-	
-                //body
-				loadermtl.load( 'res/house/house_1_body.obj',
-				 				'res/house/house_1_body.mtl', 
-				 				function ( object ) {
-
-				 	/* use games list of houses */
-                	var list = game.getAll("house");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-	            		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-	                	scene.add(mesh);
-	                	objects.push(mesh);
-                	}
-				});
-
-                //base
-				loadermtl.load( 'res/house/house_1_base.obj',
-			 				'res/house/house_1_base.mtl', 
-			 				function ( object ) {
-
-			 		/* use games list of houses */
-                	var list = game.getAll("house");			
- 					for (var i = 0; i < list.length; ++i) {
-
-		                //base
-						var mesh = object.clone();
-
-		        		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-		        		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-		            	scene.add( mesh );
-		            	objects.push( mesh );
-	            	}
-            	});
-
-                //frames
-				loadermtl.load( 'res/house/house_1_frames.obj',
-				 				'res/house/house_1_frames.mtl', 
-				 				function ( object ) {
-
-				 	/* use games list of houses */
-                	var list = game.getAll("house");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-	            		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-	                	scene.add( mesh );
-	                	objects.push( mesh );
-                	}
-				});
-
-                //pillars
-				loadermtl.load( 'res/house/house_1_pillars.obj',
-				 				'res/house/house_1_pillars.mtl', 
-				 				function ( object ) {
-
-				 	/* use games list of houses */
-                	var list = game.getAll("house");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-	            		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-	                	scene.add( mesh );
-	                	objects.push( mesh );
-                	}
-				});
-
-                //roof
-				loadermtl.load( 'res/house/house_1_roof.obj',
-				 				'res/house/house_1_roof.mtl', 
-				 				function ( object ) {
-
-				 	/* use games list of houses */
-                	var list = game.getAll("house");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-	            		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-	                	scene.add( mesh );
-	                	objects.push( mesh );
-                	}
-				});
-
-                //windows
-				loadermtl.load( 'res/house/house_1_windows.obj',
-				 				'res/house/house_1_windows.mtl', 
-				 				function ( object ) {
-
-				 	/* use games list of houses */
-                	var list = game.getAll("house");
- 					for (var i = 0; i < list.length; ++i) {
-
-						var mesh = object.clone();
-
-	            		mesh.scale.set(house_1_scale, house_1_scale, house_1_scale);
-	            		mesh.rotation.y = list[i].yRot;
-	            		mesh.position = list[i].position;
-
-	                	scene.add( mesh );
-	                	objects.push( mesh );
-                	}
-				});
 			}
 			
 		</script>
