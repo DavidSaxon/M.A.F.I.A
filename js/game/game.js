@@ -28,7 +28,14 @@ game.prototype.checkCollision = function(position) {
 
 		for (var i = 0; i < list.length; ++i) {
 			var distance = position.distanceTo(list[i].position);
-			if (distance < 50.0) {
+			if (distance < list[i].basesize + 10.0) {
+				if (distance < list[i].basesize) {
+					var v = position;
+					v.sub( list[i].position );
+					v.setLength(list[i].basesize);
+					v.add( list[i].position );
+				}
+
 				return this.gameTypes[t];	// item is found, return type name
 			}
 		}
