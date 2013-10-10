@@ -21,6 +21,7 @@ function game() {
 		this.desc = "more windmills";
 		this.apply = function() {
 			// do something
+			console.log("First thing in effects triggered.");
 		}
 	} );
 	this.effects.push( new function() {

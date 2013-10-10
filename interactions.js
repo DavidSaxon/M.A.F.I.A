@@ -170,18 +170,23 @@
 				  case 0:
 				      console.log("Zero");
 				      $("#radio").buttonset().children("#radio0").click();
+				      game.effects[0].apply();
 				      break;
 				  case 1:
 				      $("#radio").buttonset().children("#radio1").click();
+				       game.effects[1].apply();
 				      break;
 				  case 2:
 				     $("#radio").buttonset().find("#radio2").click();
+				      game.effects[2].apply();
 				      break;
 				  case 3:
 				      $("#radio").buttonset().find("#radio3").click();
+				      game.effects[3].apply();
 				      break;
 				  case 4:
 				      $("#radio").buttonset().find("#radio4").click();
+				      game.effects[4].apply();
 				      break;
 				  default:
 				      console.log("No action defined for that key");
