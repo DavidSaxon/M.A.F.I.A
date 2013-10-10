@@ -9,6 +9,26 @@ function game() {
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
 	}
+
+	this.waterRise = 0.1;
+	this.seaLevel = -50;
+
+	/*
+	 * effects 
+	 */
+	this.effects = new Array();
+	this.effects.push( new function() {
+		this.desc = "more windmills";
+		this.apply = function() {
+			// do something
+		}
+	} );
+	this.effects.push( new function() {
+		this.desc = "do nothing";
+		this.apply = function() {
+			// ...
+		}
+	} );
 }
 
 game.prototype.add = function(addedItem) {
@@ -28,7 +48,14 @@ game.prototype.checkCollision = function(position) {
 
 		for (var i = 0; i < list.length; ++i) {
 			var distance = position.distanceTo(list[i].position);
-			if (distance < 50.0) {
+			if (distance < list[i].basesize + 10.0) {
+				if (distance < list[i].basesize) {
+					var v = position;
+					v.sub( list[i].position );
+					v.setLength(list[i].basesize);
+					v.add( list[i].position );
+				}
+
 				return this.gameTypes[t];	// item is found, return type name
 			}
 		}
@@ -36,4 +63,12 @@ game.prototype.checkCollision = function(position) {
 	}
 
 	return "nothing";
+}
+
+game.prototype.update = function() {
+	this.seaLevel += 0.01;
+}
+
+game.prototype.setWind = function(level) {
+	
 }

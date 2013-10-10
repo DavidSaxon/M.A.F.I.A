@@ -26,6 +26,10 @@
 	
 		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
 
+		<div id='hint' style="display:none">
+			Walk up to people to talk to them. <br /> [enter]
+		</div>
+
 
 		<div id="blocker">
 
@@ -124,9 +128,6 @@
 
 			//house 1 scale
 			var house_1_scale = 20;
-
-			var water; // THREE.geometry object
-			var seaLevel = -50;
 
 			var game = new game();
 
@@ -343,6 +344,9 @@
 
 				}
 
+				// update game state
+				game.update();
+
 				// rotate all the blades
 				var list = game.getAll("windmill");
 				for (var i = 0; i < list.length; i++) {
@@ -350,8 +354,7 @@
 				}
 
 				// update sea level
-				water.position.y = seaLevel;
-				seaLevel += 0.01;
+				water.position.y = game.seaLevel;
 
 				// check collisions
 				var ps = controls.getObject().position;

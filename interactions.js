@@ -187,3 +187,18 @@
 				      console.log("No action defined for that key");
 				}
 			}
+
+                        /* Shows a popup hint which is dismissable with the hide hint function
+                           (currently triggered by [enter] 
+                          */
+                        function showHint(x, y, text){
+                                $("#hint").offset({ top: x, left: y});
+                                $("#hint").text(text);
+                                $("#hint").show();
+                                console.log(text);
+                        }
+                        
+                        /* Dismisses the hint popup */
+                        function hideHint(){
+                                $("#hint").hide();
+                        }

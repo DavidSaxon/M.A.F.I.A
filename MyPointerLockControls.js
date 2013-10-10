@@ -57,6 +57,10 @@ var onKeyDown = function ( event ) {
 
 switch ( event.keyCode ) {
 
+  case 13: //enter
+    hideHint();
+  break;
+  
   case 16: //shift
     shiftMultiplier = shiftMagnitude;
   break;
