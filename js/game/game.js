@@ -9,6 +9,9 @@ function game() {
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
 	}
+
+	this.waterRise = 0.1;
+	this.seaLevel = -50;
 }
 
 game.prototype.add = function(addedItem) {
@@ -43,4 +46,8 @@ game.prototype.checkCollision = function(position) {
 	}
 
 	return "nothing";
+}
+
+game.prototype.update = function() {
+	this.seaLevel += 0.01;
 }
