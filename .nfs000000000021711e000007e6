@@ -285,21 +285,21 @@
             		game.add( t );
             	}
             	
-            	var treeParts1 = ['res/tree_1/tree_1_top',
+            	var treeParts = ['res/tree_1/tree_1_top',
                 			'res/tree_1/tree_1_trunk'];
-                loadObjMtlList("tree", 0, treeParts1);
+                loadObjMtlList("tree", 0, treeParts);
 
-                var treeParts2 = ['res/tree_2/tree_2_top',
+                var treeParts = ['res/tree_2/tree_2_top',
                 			'res/tree_2/tree_2_trunk'];
-                loadObjMtlList("tree", 1, treeParts2);
+                loadObjMtlList("tree", 1, treeParts);
 
-                var treeParts3 = ['res/tree_3/tree_3_top',
+                var treeParts = ['res/tree_3/tree_3_top',
                 			'res/tree_3/tree_3_trunk'];
-                loadObjMtlList("tree", 2, treeParts3);
+                loadObjMtlList("tree", 2, treeParts);
 
-                var treeParts4 = ['res/tree_4/tree_4_top',
+                var treeParts = ['res/tree_4/tree_4_top',
                 			'res/tree_4/tree_4_trunk'];
-                loadObjMtlList("tree", 3, treeParts4);
+                loadObjMtlList("tree", 3, treeParts);
             	
 
 

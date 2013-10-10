@@ -52,7 +52,7 @@ function tree(x, y, z) {
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = 0.0;
-	this.scalesize = 80;
+	this.scalesize = 30;
 }
 
 
