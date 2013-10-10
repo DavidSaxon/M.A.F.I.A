@@ -4,7 +4,7 @@ function game() {
 	/**
 	* Update this when adding new types
 	*/
-	this.gameTypes = ["windmill", "house", "dude"];
+	this.gameTypes = ["windmill", "house", "dude", "coal", "gas", "tree"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
@@ -36,7 +36,6 @@ function game() {
 }
 
 game.prototype.add = function(addedItem) {
-	console.log ( "adding " + addedItem.typeName );
 	this.items[ addedItem.typeName ].push(addedItem);
 }
 

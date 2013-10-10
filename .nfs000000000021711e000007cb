@@ -279,10 +279,10 @@
 
 
 
-            	for (var i = 0; i < 100; i++) {
-            		var t = new tree( Math.random() * 20 - 10, 0, Math.random() * 20 - 10 );
-            		t.variation = Math.floor(Math.random() * 4);
-            		game.add( t );
+            	for (var i = 0; i < 100) {
+            		//var t = ;
+            		//t.variation = Math.random() * 4;
+            		game.add( new tree( Math.random() * 20 - 10, 0, Math.random() * 20 - 10 ) );
             	}
             	
             	var treeParts = ['res/dude/dude_eyes',
