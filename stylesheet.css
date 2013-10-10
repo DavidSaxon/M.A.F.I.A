@@ -1,4 +1,4 @@
-			html, body {
+       			html, body {
 				width: 100%;
 				height: 100%;
 			}
@@ -113,3 +113,13 @@
 				width:400px;
 			 }
 				
+                        #hint{
+                                position: absolute;
+                                top: 200px;
+                                left: 200px;
+                                background-color: rgba(0,0,0,0.5);
+                                width: 300px;
+                                padding: 10px;
+                                color: rgba(255, 255, 255, 1);
+                                font-weight: bold;
+                        }
