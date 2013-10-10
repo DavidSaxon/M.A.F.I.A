@@ -74,9 +74,11 @@
   }
   
 			function interactWith(objectType){
+				objType = objectType;
 				//toggle = true;
 				switch(objectType){
 					case "windmill":
+
 					  toggleOnOrOff(true);
 					break;
 					case "house":
@@ -95,21 +97,27 @@
 			//Toggle the div that will contain controls
 			function toggleOnOrOff(on){
 				if((!toggleIsOn && on)|| (toggleIsOn && !on)){
+				 $("#buttons-instructions").text(instrMap[objType]);
 				 console.log("State change");
 					if(!toggleIsOn){
 					  toggleIsOn = true;}
-					else{toggleIsOn = false;}
+					else{toggleIsOn = false;
+					  objType = null;
+					}
 					$( "#radio-container" ).toggle( "fold" );
 				}
 			}
 			
-			function showMoreInfo(){
+			function showMoreInfo(type){
 			  if(toggleIsOn){
 			    console.log("Show more info");
+			    if(objType != null){
+			      console.log(infoMap[objType]);
 			    window.open(
-				  './info.html', 
+				  infoMap[objType], 
 				  'Information', 
 				  'width=626,height=436');
+			    }
 			  }
 			}
 
@@ -161,18 +169,13 @@
 				switch(number){
 				  case 0:
 				      console.log("Zero");
-				      var z = document.getElementById("radio0");
-				      if(z == null)
-					console.log("Can't get button");
-				     // $("#radio").buttonset().children("#radio0").click();
+				      $("#radio").buttonset().children("#radio0").click();
 				      break;
 				  case 1:
-				      //$("#radio").buttonset().children("#radio1").click();
-				      document.getElementById("radio1").checked=true;
+				      $("#radio").buttonset().children("#radio1").click();
 				      break;
 				  case 2:
-				     // $("#radio").buttonset().find("#radio2").click();
-				      document.getElementById("radio2").checked=true;
+				     $("#radio").buttonset().find("#radio2").click();
 				      break;
 				  case 3:
 				      $("#radio").buttonset().find("#radio3").click();
