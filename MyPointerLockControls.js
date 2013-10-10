@@ -230,7 +230,7 @@ delta *= 0.1;
 velocity.x += ( - velocity.x ) * 0.08 * delta;
 velocity.z += ( - velocity.z ) * 0.08 * delta;
 
-velocity.y -= 0.25 * delta;
+//velocity.y -= 0.25 * delta;
 
 if ( moveForward ) {velocity.z -= shiftMultiplier * 0.12 * delta;}
 if ( moveBackward ) {velocity.z += shiftMultiplier * 0.12 * delta;}

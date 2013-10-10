@@ -10,7 +10,7 @@ function game() {
 		this.items[ this.gameTypes[i] ] = new Array();
 	}
 
-	this.waterRise = 0.1;
+	this.waterRise = 0.01;
 	this.seaLevel = -50;
 
 	/*
@@ -22,12 +22,15 @@ function game() {
 		this.apply = function() {
 			// do something
 			console.log("First thing in effects triggered.");
+			game.waterRise = -0.01;
+
 		}
 	} );
 	this.effects.push( new function() {
 		this.desc = "do nothing";
 		this.apply = function() {
 			// ...
+			game.waterRise = 0.1;
 		}
 	} );
 }
@@ -42,6 +45,8 @@ game.prototype.getAll = function(typename) {
 }
 
 game.prototype.checkCollision = function(position) {
+	if (position.y < this.seaLevel+10.0) position.y = this.seaLevel+10.0;
+
 	for (var t = 0; t < this.gameTypes.length; ++t) {
 
 		/* lookup by type */
@@ -67,7 +72,7 @@ game.prototype.checkCollision = function(position) {
 }
 
 game.prototype.update = function() {
-	this.seaLevel += 0.01;
+	this.seaLevel += this.waterRise;
 }
 
 game.prototype.setWind = function(level) {

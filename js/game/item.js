@@ -4,7 +4,7 @@ function windmill(x, y, z) {
 	this.typeName = "windmill";
 	this.basesize = 30.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.bladeSpeed = Math.random() * 1.5;
+	this.bladeSpeed = Math.random() * 0.5;
 }
 
 function house(x, y, z, yrot) {
