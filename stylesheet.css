@@ -21,6 +21,7 @@
 
 			}
 			#share{
+			  background-color: #ffffff;
 			  min-width:20px;
 			  min-height:10px;
 			}
@@ -59,8 +60,6 @@
 			  	position:absolute;
 				top:15px;
 				left:10px;
-				background-image: url("./speech_bubble.png");
-				background-repeat:no-repeat;
 				min-width:400px;
 				min-height:100px;
 			}
@@ -101,16 +100,25 @@
 				position:absolute;
 				top:110px;
 				left:400px;
-				height:100px;
-				width:100px;
+				height:500px;
+				width:600px;
+				background-image: url("./speech_bubble.png");
+				background-repeat:no-repeat;
 			 }
 			 
 			 #dialogue-text{
 				position:absolute;
-				top:200px;
-				left:600px;
+				top:30%;
+				left:50%;
+				right:50%;
+				bottom:50%;
+				margin-left:-100px;
+				margin-right:auto;
 				height:100px;
 				width:400px;
+				z-index:4;
+				/*background-image: url("./speech_bubble.png");
+				background-repeat:no-repeat;*/
 			 }
 				
                         #hint{

@@ -7,8 +7,8 @@
 		</style>
 	</head>
 	<body>
-
-		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
+	  	<script src="lib/three.min.js"></script>
+		<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
 		<script src="js/MTLLoader.js"></script>
 		<script src="js/OBJMTLLoader.js"></script>
 		<script src="js/OBJLoader.js"></script>
@@ -48,7 +48,7 @@
 				  'width=626,height=436'); 
 				return false;">
 			      Share on Facebook
-			    </a>
+			    </a>	
 			</div>
 			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 			</div>
@@ -83,25 +83,15 @@
 		</form>
 		</div>
 
-		<!--<div id="dialogue-box"> -->
+		<div id="dialogue-box">
 		    <div id="dialogue-text">Help us!</div>
-		<!--</div>-->
+		</div>
 
 
 		<script>
 
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-		    //Just for the buttonset thing
-			/*  $(function() {
-			      $( "#radio" ).buttonset();
-			      });
-			  $( "#radio0" ).change(function() {
-			  console.log( "Handler for .click() called." );
-			  });*/
 
-
-		/*	document.getElementById("insulation").style.visibility = "hidden";
-			document.getElementById("cars").style.visibility = "hidden";*/
 			var numWindmills = 50;		
 			var insulationAmt = 50;	
 			var carEfficiency = 50;
@@ -131,7 +121,10 @@
 
 			var game = new game();
 
-
+			//Keep the blocker div from disappearing when the user clicks the Facebook share link
+			share.addEventListener( 'click', function ( event ) {
+			  event.stopPropagation();
+			});
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -362,11 +355,7 @@
 					$( "#test" ).toggle( "fold" );
 					toggle = false;
 				}
-				if(dialogue){
-					console.log("Should display dialogue box");
-					$( "#dialogue-box" ).toggle( "fold" );
-					dialogue = false;
-				}
+
 				renderer.render( scene, camera );
 
 
