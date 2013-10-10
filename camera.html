@@ -2,30 +2,28 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>three.js - pointerlock controls</title>
-
-		</style>
+		<title>MAFIA</title>
 	</head>
 	<body>
 	  	<script src="lib/three.min.js"></script>
 		<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
-		<script src="js/MTLLoader.js"></script>
-		<script src="js/OBJMTLLoader.js"></script>
-		<script src="js/OBJLoader.js"></script>
-		<script src="js/game/game.js"></script>
-		<script src="js/height_mapping/HeightMap.js"></script>
-		<script src="js/game/item.js"></script>
-		<script src="MyPointerLockControls.js"></script>
+		<script type="text/javascript" src="js/MTLLoader.js"></script>
+		<script type="text/javascript" src="js/OBJMTLLoader.js"></script>
+		<script type="text/javascript" src="js/OBJLoader.js"></script>
+		<script type="text/javascript" src="js/game/game.js"></script>
+		<script type="text/javascript" src="js/height_mapping/HeightMap.js"></script>
+		<script type="text/javascript" src="js/game/item.js"></script>
+		<script type="text/javascript" src="js/PointerLockControls.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="interactions.js"></script>
-		<script type="text/javascript" src="constants.js"></script>
+		<script type="text/javascript" src="js/interactions.js"></script>
+		<script type="text/javascript" src="js/constants.js"></script>
 		<script src="js/Detector.js"></script>
-		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
-		<!--Not sure if we need both these stylesheets or if they will conflict -->
+		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
 	
 		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
+
 
 		<div id='hint' style="display:none">
 			Walk up to people to talk to them. <br /> [enter]
@@ -33,7 +31,6 @@
 
 
 		<div id="blocker">
-
 			<div id="instructions">
 				<span style="font-size:40px">Click to play</span>
 				<br />
@@ -53,27 +50,27 @@
 			</div>
 			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 			</div>
-
-
 		</div>
 
 
-  <!--This is being used.  Copied from JQuery UI examples -->
+  		<!--This is being used.  Copied from JQuery UI examples -->
 		<div id="radio-container">
-		  <div id="buttons-instructions">
-		   <p> Press the number keys to control the amount of thing.  0 is none; 4 is all.</p>
-		   <p> Effects are extrapolated for what would happen if the whole of NZ had this. </p>
-		   </div>
-			     <p style="color:blue">Press M to get more information.</p>
-		<form>
-		<div id="radio">
-		<input type="radio" id="radio0" name="radio" /><label for="radio0">None</label>
-		<input type="radio" id="radio1" name="radio" /><label for="radio1">A little</label>
-		<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Some</label>
-		<input type="radio" id="radio3" name="radio" /><label for="radio3">Most</label>
-		<input type="radio" id="radio4" name="radio" /><label for="radio4">All</label>
-		</div>
-		</form>
+			<div id="buttons-instructions">
+		  		<p> Press the number keys to control the amount of thing.  0 is none; 4 is all.</p>
+		   		<p> Effects are extrapolated for what would happen if the whole of NZ had this. </p>
+		   	</div>
+		
+			<p style="color:blue">Press M to get more information.</p>
+		
+			<form>
+				<div id="radio">
+					<input type="radio" id="radio0" name="radio" /><label for="radio0">None</label>
+					<input type="radio" id="radio1" name="radio" /><label for="radio1">A little</label>
+					<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Some</label>
+					<input type="radio" id="radio3" name="radio" /><label for="radio3">Most</label>
+					<input type="radio" id="radio4" name="radio" /><label for="radio4">All</label>
+				</div>
+			</form>
 		</div>
 
 		<div id="dialogue-box">
@@ -88,7 +85,7 @@
 			var camera, scene, renderer;
 			var geometry, material, mesh;
 			var controls,time = Date.now();
-// 
+ 
 			var objects = [];
 			var blades = [];	// just to rotate on update
 
