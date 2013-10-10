@@ -27,6 +27,7 @@ var moveRight = false;
 
 var interact = false; //mine
 var talk = false;
+var moreInfo = false;
 
 var sliderUp = false;
 var sliderDown = false;
@@ -166,6 +167,9 @@ switch( event.keyCode ) {
   case 68: // d
     moveRight = false;
     break;
+    
+  case 77: //M (Show more info)
+    moreInfo = true;
   
 
 
@@ -227,6 +231,11 @@ if ( scope.enabled === false ) return;
 if (talk){
   interactWith("person"); //interactWith is a function defined in interactions.js
   talk = false;
+}
+
+if(moreInfo){
+  showMoreInfo(); //in interactions.js
+  moreInfo = false;
 }
 
 if(sliderUp){

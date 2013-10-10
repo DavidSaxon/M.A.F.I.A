@@ -102,6 +102,16 @@
 					$( "#radio-container" ).toggle( "fold" );
 				}
 			}
+			
+			function showMoreInfo(){
+			  if(toggleIsOn){
+			    console.log("Show more info");
+			    window.open(
+				  './info.html', 
+				  'Information', 
+				  'width=626,height=436');
+			  }
+			}
 
 			function changeDisplayedSlider(dir){
 			  sliderChange(dir, "windmills");
