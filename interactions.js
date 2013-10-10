@@ -1,125 +1,79 @@
 
-				var talkTimes = 0;
-				var toggleIsOn = false;
-				var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
-				function initInteractions(){
+var talkTimes = 0;
+var toggleIsOn = false;
+var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
-							/* Initialise the slider */
-				$(function() {
-				$( "#windmills-slider" ).slider({
-					change: function( event, ui ) {
-					numWindmills = $("#windmills-slider").slider("value");
-					/*numWindmills = $("#slider").slider("values");*/
-					$("#windmills").text("Windmills: " +numWindmills);
-					console.log("Changed windmills");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
-
-				$(function() {
-				$( "#insulation-slider" ).slider({
-					change: function( event, ui ) {
-					insulationAmt = $("#insulation-slider").slider("value");
-					$("#insulation").text("Insulation: " +insulationAmt);
-					console.log("Changed insulation");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
-
-				$(function() {
-				$( "#cars-slider" ).slider({
-					change: function( event, ui ) {
-					carEfficiency = $("#cars-slider").slider("value");
-					/*numWindmills = $("#slider").slider("values");*/
-					$("#cars").text("cars: " +numWindmills);
-					console.log("Changed cars");
-					},
-					orientation: "horizontal",
-					min: 0,
-					max: 100,
-					value: 50});
-				});
+function initInteractions(){
+	
+//Just for the buttonset thing
 				
-				//Just for the buttonset thing
-				
-			      $(function() {
-				$( "#radio" ).buttonset();
-			      });
-			      $( "#radio0" ).change(function() {
-				console.log( "Handler for .click() called." );
-			      });
-
+	$(function() {
+		$( "#radio" ).buttonset();
+	});
+	
+	$( "#radio0" ).change(function() {
+		console.log( "Handler for .click() called." );
+	});
 			//Hide all the pop-up dialogs, for now:
-				$(function(){
-				 $("#dialogue-text").text(conversationTexts[talkTimes]);
-				//$( "#dialogue-box" ).dialog({ autoOpen: false,
-				  //  title: "Conversation"});
-				//$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
-				  $("#dialogue-box").toggle("fold");
-				});
-				$( "#windmills-stuff" ).toggle( "fold" );
-				$( "#insulation-stuff" ).toggle( "fold" );
-				$( "#cars-stuff" ).toggle( "fold" );
-				$("#radio-container").toggle("fold");
-				
+	$(function(){
+		 $("#dialogue-text").text(conversationTexts[talkTimes]);
+		 $("#dialogue-box").toggle("fold");
+	});
 
-
+	$("#radio-container").toggle("fold");
 
   }
   
-			function interactWith(objectType){
-				objType = objectType;
+function interactWith(objectType){
+	objType = objectType;
 				//toggle = true;
-				switch(objectType){
-					case "windmill":
+	switch(objectType){
+		case "windmill":
 
-					  toggleOnOrOff(true);
-					break;
-					case "house":
-					break;
-					case "car":
-					break;
-					case "nothing":
-					  toggleOnOrOff(false);
-					  break;
-					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-					  talk();
-					  break;
-				}
-			}
+			toggleOnOrOff(true);
+			break;
+		case "house":
+			break;
+		case "car":
+			break;
+		case "nothing":
+			toggleOnOrOff(false);
+			break;
+		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+			talk();
+			break;
+		default:
+			break;
+	}
+}
 
-			//Toggle the div that will contain controls
-			function toggleOnOrOff(on){
-				if((!toggleIsOn && on)|| (toggleIsOn && !on)){
-				 $("#buttons-instructions").text(instrMap[objType]);
-				 console.log("State change");
-					if(!toggleIsOn){
-					  toggleIsOn = true;}
-					else{toggleIsOn = false;
-					  objType = null;
-					}
-					$( "#radio-container" ).toggle( "fold" );
-				}
-			}
+//Toggle the div that contains controls
+function toggleOnOrOff(on){
+	if((!toggleIsOn && on)|| (toggleIsOn && !on)){
+		$("#buttons-instructions").text(instrMap[objType]);
+		console.log("State change");
+		if(!toggleIsOn){
+			toggleIsOn = true;}
+		else{
+			toggleIsOn = false;
+			objType = null;
+		}
+		$( "#radio-container" ).toggle( "fold" );
+	}
+}
 			
-			function showMoreInfo(type){
-			  if(toggleIsOn){
-			    console.log("Show more info");
-			    if(objType != null){
-			      console.log(infoMap[objType]);
-			    window.open(
+function showMoreInfo(type){
+	if(toggleIsOn){
+		console.log("Show more info");
+		if(objType != null){
+			 console.log(infoMap[objType]);
+			 window.open(
 				  infoMap[objType], 
 				  'Information', 
 				  'width=626,height=436');
-			    }
-			  }
-			}
+		}
+	}
+}
 
 			function changeDisplayedSlider(dir){
 			  sliderChange(dir, "windmills");
@@ -150,13 +104,13 @@
 			      }
 			}
 			
-			function talk(){
-			  console.log("Got to talk function");
-			  $("#dialogue-text").text(conversationTexts[talkTimes]);
-			  talkTimes++;
-			  dialogue = true;
-			  $( "#dialogue-box" ).toggle( "fold" );
-			}
+function talk(){
+	console.log("Got to talk function");
+	$("#dialogue-text").text(conversationTexts[talkTimes]);
+	talkTimes++;
+	dialogue = true;
+	$( "#dialogue-box" ).toggle( "fold" );
+}
 
 
 			/*
@@ -164,46 +118,42 @@
 				number as the paramater. It is only be fired once per key press (if the number
 				is held down this will fired once only).
 			*/
-			function press(number){
-				console.log(number);
-				switch(number){
-				  case 0:
-				      console.log("Zero");
-				      $("#radio").buttonset().children("#radio0").click();
-				      game.effects[0].apply();
-				      break;
-				  case 1:
-				      $("#radio").buttonset().children("#radio1").click();
-				       game.effects[1].apply();
-				      break;
-				  case 2:
-				     $("#radio").buttonset().find("#radio2").click();
-				      game.effects[2].apply();
-				      break;
-				  case 3:
-				      $("#radio").buttonset().find("#radio3").click();
-				      game.effects[3].apply();
-				      break;
-				  case 4:
-				      $("#radio").buttonset().find("#radio4").click();
-				      game.effects[4].apply();
-				      break;
-				  default:
-				      console.log("No action defined for that key");
-				}
-			}
+function press(number){
+	console.log(number);
+	switch(number){
+		case 0:
+			console.log("Zero");
+			$("#radio").buttonset().children("#radio0").click();
+			break;
+		case 1:
+			$("#radio").buttonset().children("#radio1").click();
+			break;
+		case 2:
+			$("#radio").buttonset().find("#radio2").click();
+			break;
+		case 3:
+			$("#radio").buttonset().find("#radio3").click();
+			break;
+		case 4:
+			$("#radio").buttonset().find("#radio4").click();
+			break;
+		default:
+			console.log("No action defined for that key");
+	}
+	game.effects[number].apply();
+}
 
                         /* Shows a popup hint which is dismissable with the hide hint function
                            (currently triggered by [enter] 
                           */
-                        function showHint(x, y, text){
-                                $("#hint").offset({ top: x, left: y});
-                                $("#hint").text(text);
-                                $("#hint").show();
-                                console.log(text);
-                        }
+function showHint(x, y, text){
+              $("#hint").offset({ top: x, left: y});
+              $("#hint").text(text);
+              $("#hint").show();
+              console.log(text);
+}
                         
-                        /* Dismisses the hint popup */
-                        function hideHint(){
-                                $("#hint").hide();
-                        }
+  /* Dismisses the hint popup */
+function hideHint(){
+             $("#hint").hide();
+}

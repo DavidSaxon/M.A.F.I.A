@@ -1,9 +1,16 @@
 /* This file is for global variables. */
 
 
+var numWindmills = 50;		
+var insulationAmt = 50;	
+var carEfficiency = 50;
+var toggle = false;	
+var dialogue = false;
+
+
 /* A map of custom instruction text for different interactable objects.  If you add a new object, add a mapping. */
 var instrMap = new Object();
-instrMap["windmill"] = "Press the number keys to control the number of windmills.  0 is none of NZ electricity provided by windmills; 4 is all.";
+instrMap["windmill"] = "Press the number keys to control the amount of New Zealand's electricity provided by windmills.";
 
 
 
