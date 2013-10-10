@@ -44,7 +44,7 @@
 				  'width=626,height=436'); 
 				return false;">
 			      Share on Facebook
-			    </a>
+			    </a>	
 			</div>
 			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
 			</div>
@@ -117,7 +117,10 @@
 
 			var game = new game();
 
-
+			//Keep the blocker div from disappearing when the user clicks the Facebook share link
+			share.addEventListener( 'click', function ( event ) {
+			  event.stopPropagation();
+			});
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
