@@ -75,34 +75,7 @@ function showMoreInfo(type){
 	}
 }
 
-			function changeDisplayedSlider(dir){
-			  sliderChange(dir, "windmills");
-			}
 
-			//Change slider value
-			function sliderChange(dir, slider){ //slider is a string
-				if(dir == 1){ //up
-					console.log("Slider should move up");
-					if((numWindmills + 5) <= 100){
-					numWindmills += 5;
-					}
-	
-				}
-				else if(dir == 0){ //down
-					console.log("Slider should move down");
-					if((numWindmills - 5) >= 0){
-					  numWindmills = numWindmills - 5;}
-
-				}
-    			console.log("Value of numWindmills:", numWindmills);
-			if(slider == "windmills"){
-			$( "#windmills-slider" ).slider( "value", numWindmills );
-
-			$("#windmills-slider").trigger("slide");
-			$("#windmills-slider").slider("refresh");
-			$("#windmills").text("Windmills: " +numWindmills);
-			      }
-			}
 			
 function talk(){
 	console.log("Got to talk function");
@@ -139,6 +112,7 @@ function press(number){
 			break;
 		default:
 			console.log("No action defined for that key");
+			break;
 	}
 	game.effects[number].apply();
 }
