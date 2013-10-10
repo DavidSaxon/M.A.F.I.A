@@ -12,6 +12,23 @@ function game() {
 
 	this.waterRise = 0.1;
 	this.seaLevel = -50;
+
+	/*
+	 * effects 
+	 */
+	this.effects = new Array();
+	this.effects.push( new function() {
+		this.desc = "more windmills";
+		this.apply = function() {
+			// do something
+		}
+	} );
+	this.effects.push( new function() {
+		this.desc = "do nothing";
+		this.apply = function() {
+			// ...
+		}
+	} );
 }
 
 game.prototype.add = function(addedItem) {
@@ -50,4 +67,8 @@ game.prototype.checkCollision = function(position) {
 
 game.prototype.update = function() {
 	this.seaLevel += 0.01;
+}
+
+game.prototype.setWind = function(level) {
+	
 }
