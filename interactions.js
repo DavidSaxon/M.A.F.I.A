@@ -45,25 +45,30 @@
 					max: 100,
 					value: 50});
 				});
+				
+				//Just for the buttonset thing
+				
+			      $(function() {
+				$( "#radio" ).buttonset();
+			      });
+			      $( "#radio0" ).change(function() {
+				console.log( "Handler for .click() called." );
+			      });
 
+			//Hide all the pop-up dialogs, for now:
 				$(function(){
+				 $("#dialogue-text").text(conversationTexts[talkTimes]);
 				//$( "#dialogue-box" ).dialog({ autoOpen: false,
 				  //  title: "Conversation"});
 				//$("#dialogue-text").text("Forty years of coal power has left the air polluted.");
-				  $("#dialogue-text").toggle("fold");
+				  $("#dialogue-box").toggle("fold");
 				});
 				$( "#windmills-stuff" ).toggle( "fold" );
 				$( "#insulation-stuff" ).toggle( "fold" );
 				$( "#cars-stuff" ).toggle( "fold" );
 				$("#radio-container").toggle("fold");
 				
-						    //Just for the buttonset thing
-			$(function() {
-			      $( "#radio" ).buttonset();
-			      });
-			$( "#radio0" ).change(function() {
-			  console.log( "Handler for .click() called." );
-			  });
+
 
 
   }
@@ -82,7 +87,6 @@
 					  toggleOnOrOff(false);
 					  break;
 					case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-					  console.log("Processing interaction for person");
 					  talk();
 					  break;
 				}
@@ -130,12 +134,10 @@
 			
 			function talk(){
 			  console.log("Got to talk function");
-			 // $( "#dialogue-box" ).dialog({ autoOpen: true,
-			//	    title: "Conversation"});
 			  $("#dialogue-text").text(conversationTexts[talkTimes]);
 			  talkTimes++;
 			  dialogue = true;
-			  $( "#dialogue-text" ).toggle( "fold" );
+			  $( "#dialogue-box" ).toggle( "fold" );
 			}
 
 
@@ -149,13 +151,18 @@
 				switch(number){
 				  case 0:
 				      console.log("Zero");
-				      $("#radio").buttonset().children("#radio0").click();
+				      var z = document.getElementById("radio0");
+				      if(z == null)
+					console.log("Can't get button");
+				     // $("#radio").buttonset().children("#radio0").click();
 				      break;
 				  case 1:
-				      $("#radio").buttonset().children("#radio1").click();
+				      //$("#radio").buttonset().children("#radio1").click();
+				      document.getElementById("radio1").checked=true;
 				      break;
 				  case 2:
-				      $("#radio").buttonset().find("#radio2").click();
+				     // $("#radio").buttonset().find("#radio2").click();
+				      document.getElementById("radio2").checked=true;
 				      break;
 				  case 3:
 				      $("#radio").buttonset().find("#radio3").click();

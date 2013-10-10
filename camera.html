@@ -7,8 +7,8 @@
 		</style>
 	</head>
 	<body>
-
-		<script src="https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>
+	  	<script src="lib/three.min.js"></script>
+		<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
 		<script src="js/MTLLoader.js"></script>
 		<script src="js/OBJMTLLoader.js"></script>
 		<script src="js/OBJLoader.js"></script>
@@ -79,25 +79,15 @@
 		</form>
 		</div>
 
-		<!--<div id="dialogue-box"> -->
+		<div id="dialogue-box">
 		    <div id="dialogue-text">Help us!</div>
-		<!--</div>-->
+		</div>
 
 
 		<script>
 
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-		    //Just for the buttonset thing
-			/*  $(function() {
-			      $( "#radio" ).buttonset();
-			      });
-			  $( "#radio0" ).change(function() {
-			  console.log( "Handler for .click() called." );
-			  });*/
 
-
-		/*	document.getElementById("insulation").style.visibility = "hidden";
-			document.getElementById("cars").style.visibility = "hidden";*/
 			var numWindmills = 50;		
 			var insulationAmt = 50;	
 			var carEfficiency = 50;
@@ -358,11 +348,7 @@
 					$( "#test" ).toggle( "fold" );
 					toggle = false;
 				}
-				if(dialogue){
-					console.log("Should display dialogue box");
-					$( "#dialogue-box" ).toggle( "fold" );
-					dialogue = false;
-				}
+
 				renderer.render( scene, camera );
 
 
