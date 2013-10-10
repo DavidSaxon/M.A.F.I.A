@@ -3,10 +3,6 @@
 * Adapted by Maddy for our control set!
 */
 
-var terrainGeometry = null;
-var yPos = 0;
-
-
 THREE.PointerLockControls = function ( camera ) {
 
 var shiftMagnitude = 10; // this is how many times faster you go when holding shift
@@ -22,8 +18,6 @@ pitchObject.add( camera );
 
 var yawObject = new THREE.Object3D();
 yawObject.position.y = 10;
-yawObject.position.x = 20;
-yawObject.position.z = 20;
 yawObject.add( pitchObject );
 
 var moveForward = false;
@@ -33,9 +27,7 @@ var moveRight = false;
 
 var interact = false; //mine
 var talk = false;
-
-var sliderUp = false;
-var sliderDown = false;
+var moreInfo = false;
 
 var isOnObject = false;
 var canJump = false;
@@ -62,6 +54,10 @@ var onKeyDown = function ( event ) {
 
 switch ( event.keyCode ) {
 
+  case 13: //enter
+    hideHint();
+  break;
+  
   case 16: //shift
     shiftMultiplier = shiftMagnitude;
   break;
@@ -77,7 +73,7 @@ switch ( event.keyCode ) {
   case 55: //7
   case 56: //8
   case 57: //9
-    if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
+   if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
   break;
 
   case 81: //q (interact)
@@ -89,9 +85,6 @@ switch ( event.keyCode ) {
     moveForward = true;
   break;
 
-  case 37: // left
-    sliderDown = true;
-  break;
 
   case 65: // a
     moveLeft = true; 
@@ -102,9 +95,6 @@ switch ( event.keyCode ) {
     moveBackward = true;
   break;
 
-  case 39: // right
-    sliderUp = true;
-  break;
 
   case 68: // d
     moveRight = true;
@@ -168,6 +158,9 @@ switch( event.keyCode ) {
   case 68: // d
     moveRight = false;
     break;
+    
+  case 77: //M (Show more info)
+    moreInfo = true;
   
 
 
@@ -220,33 +213,24 @@ this.update = function ( delta ) {
 
 if ( scope.enabled === false ) return;
 
-//My code
-if (interact){
-  q();
-  interact = false;
-}
 
 if (talk){
   interactWith("person"); //interactWith is a function defined in interactions.js
   talk = false;
 }
 
-if(sliderUp){
-  changeDisplayedSlider(1); //Defined in interactions.js
-  sliderUp = false;
+if(moreInfo){
+  showMoreInfo(); //in interactions.js
+  moreInfo = false;
 }
 
-if(sliderDown){
-  changeDisplayedSlider(0);
-  sliderDown = false;
-}
 
 delta *= 0.1;
 
 velocity.x += ( - velocity.x ) * 0.08 * delta;
 velocity.z += ( - velocity.z ) * 0.08 * delta;
 
-velocity.y -= 0.25 * delta;
+//velocity.y -= 0.25 * delta;
 
 if ( moveForward ) {velocity.z -= shiftMultiplier * 0.12 * delta;}
 if ( moveBackward ) {velocity.z += shiftMultiplier * 0.12 * delta;}
@@ -259,28 +243,9 @@ if ( isOnObject === true ) {
 }
 
 yawObject.translateX( velocity.x );
-//yawObject.translateY( velocity.y );
 yawObject.translateZ( velocity.z );
 
-//yawObject.position.y = getHeightMapY(yawObject.position) + 15;
-
-//set the y position based on the terrain geometry
-// if (terrainGeometry != null) {
-
-//   yawObject.position.y = terrainGeometry.vertices[0].y;
-// }
-// else {
-
-//   yawObject.position.y = 200;
-// }
-
-// if ( yawObject.position.y < 10 ) {
-  
-//   velocity.y = 0;
-//   yawObject.position.y = 10;
-
-//   canJump = true;
-// }
+yawObject.position.y = Math.max(getHeightMapY(yawObject.position) + 10, game.seaLevel + 10);
 
 };
 
