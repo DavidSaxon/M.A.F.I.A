@@ -63,41 +63,8 @@
 				min-width:400px;
 				min-height:100px;
 			}
-			
-			#buttons-instructions{
-			}
-			
 
-			#windmills-stuff {
-				position:absolute;
-				top:15px;
-				left:10px;
-				min-width:400px;
-				min-height:100px;
-			}
-			#windmills-slider{
-				position:absolute;
-				top:15px;
-				left:10px;
-				width:400px;
-				height:50px;
-			}
-			#insulation-slider{
-				position:absolute;
-				top:180px;
-				left:100px;
-				width:400px;
-				height:50px;
-			/*	visibility:hidden; */
-			}
-			#cars-slider{
-				position:absolute;
-				top:100px;
-				left:100px;
-				width:400px;
-				height:50px;
-				/*visibility:hidden; */
-			}
+			
 
 			#dialogue-box{
 				position:absolute;

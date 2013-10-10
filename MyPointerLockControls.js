@@ -29,9 +29,6 @@ var interact = false; //mine
 var talk = false;
 var moreInfo = false;
 
-var sliderUp = false;
-var sliderDown = false;
-
 var isOnObject = false;
 var canJump = false;
 
@@ -88,9 +85,6 @@ switch ( event.keyCode ) {
     moveForward = true;
   break;
 
-  case 37: // left
-    sliderDown = true;
-  break;
 
   case 65: // a
     moveLeft = true; 
@@ -101,9 +95,6 @@ switch ( event.keyCode ) {
     moveBackward = true;
   break;
 
-  case 39: // right
-    sliderUp = true;
-  break;
 
   case 68: // d
     moveRight = true;
@@ -222,11 +213,6 @@ this.update = function ( delta ) {
 
 if ( scope.enabled === false ) return;
 
-//My code
-/*if (interact){
-  q();
-  interact = false;
-}*/
 
 if (talk){
   interactWith("person"); //interactWith is a function defined in interactions.js
@@ -238,15 +224,6 @@ if(moreInfo){
   moreInfo = false;
 }
 
-if(sliderUp){
-  changeDisplayedSlider(1); //Defined in interactions.js
-  sliderUp = false;
-}
-
-if(sliderDown){
-  changeDisplayedSlider(0);
-  sliderDown = false;
-}
 
 delta *= 0.1;
 
