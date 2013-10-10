@@ -199,10 +199,10 @@
 							  //currently -Maddy
 
 				//$( "#dialogue-box").toggle("fold");
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 6000 );
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.Fog( 0xffffff, 0, 1500 );
+				scene.fog = new THREE.Fog( 0xffffff, 0, 6000 );
 
 				var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 				light.position.set( 1, 1, 1 );
@@ -281,6 +281,23 @@
             				'res/house/house_1_windows'];
             	loadObjMtlList("house", 0, houseParts);	
 
+				game.add(new coal(200, 0, -200));
+            	var coalParts = [
+            		'res/coal/coal_body',
+            		'res/coal/coal_roof',
+            		'res/coal/coal_door',
+            		'res/coal/coal_windows',
+            		'res/coal/coal_stacks'];
+            	loadObjMtlList("coal", 0, coalParts);
+
+				game.add(new gas(-300, 0, 200));
+            	var gasParts = [
+            		'res/gas/gas_body',
+            		'res/gas/gas_roof',
+            		'res/gas/gas_door',
+            		'res/gas/gas_pipes',
+            		'res/gas/gas_stacks'];
+            	loadObjMtlList("gas", 0, gasParts);
 
 
             	for (var i = 0; i < 20; i++) {
@@ -394,6 +411,15 @@
  					scene.add( object );
                 	objects.push( object );
 				});
+
+                //skybox
+				loadermtl.load( 'res/terrain/skybox.obj',
+	 				'res/terrain/skybox.mtl', 
+	 				function ( object ) {
+
+ 					scene.add( object );
+                	objects.push( object );
+				});
 			}
 
 			function initDudePositions() {
@@ -494,7 +520,7 @@
 				game.add( new house(-700, 0, 400, -0.25) );
 				game.add( new house(0, 0, -200, 0.0) );
 			}
-			
+
 		</script>
 
 	</body>

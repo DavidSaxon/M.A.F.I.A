@@ -36,6 +36,10 @@ var velocity = new THREE.Vector3();
 
 var PI_2 = Math.PI / 2;
 
+//bobbing motion
+var bobUp = true;
+var bob = 0.0;
+
 var onMouseMove = function ( event ) {
 
 if ( scope.enabled === false ){ return;}
@@ -245,7 +249,43 @@ if ( isOnObject === true ) {
 yawObject.translateX( velocity.x );
 yawObject.translateZ( velocity.z );
 
-yawObject.position.y = Math.max(getHeightMapY(yawObject.position) + 10, game.seaLevel + 10);
+var bobInc = Math.abs((velocity.x + velocity.z) * 0.1);
+
+//make the camera bob
+if (bobUp) {
+
+  bob += bobInc;
+
+  if (bob >= 1.0) {
+
+    bobUp = false;
+  }
+}
+else {
+
+  bob -= bobInc;
+
+  if (bob <= 0.001) {
+
+    bobUp = true;
+  }
+}
+
+if (bobInc <= 0.1) {
+
+  bob -= 0.08;
+}
+
+if (bob < 0.0) {
+
+  bob = 0.0;
+}
+
+var yPos = Math.max(getHeightMapY(yawObject.position) + 10, game.seaLevel + 7);
+
+yPos += Math.sin(bob);
+
+yawObject.position.y = yPos;
 
 };
 
