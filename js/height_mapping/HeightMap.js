@@ -77,7 +77,7 @@ function heightMapLoad(file) {
 
 function getHeightMapY(position) {
 
-	console.log("get y");
+	//console.log("get y");
 
 	//make the position as a 2d vector
 	var pos = new THREE.Vector2(position.x, position.z);
