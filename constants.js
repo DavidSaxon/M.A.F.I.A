@@ -11,6 +11,7 @@ var dialogue = false;
 /* A map of custom instruction text for different interactable objects.  If you add a new object, add a mapping. */
 var instrMap = new Object();
 instrMap["windmill"] = "Press the number keys to control the amount of New Zealand's electricity provided by windmills.";
+instrMap["house"] = "Press the number keys to control how much insulation New Zealand's houses have.";
 
 
 
@@ -22,6 +23,7 @@ var objType = null;
 var infoMap = new Object();
 infoMap["windmill"] = "./info-windmill.html"; //Naming convention - you get the idea.
 infoMap["forest"] = "./info-forest.html";
+infoMap["house"] = "./info-house.html";
 
 
 

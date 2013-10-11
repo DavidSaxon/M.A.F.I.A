@@ -33,6 +33,7 @@ function interactWith(objectType){
 			toggleOnOrOff(true);
 			break;
 		case "house":
+			toggleOnOrOff(true);
 			break;
 		case "car":
 			break;
@@ -75,14 +76,24 @@ function showMoreInfo(type){
 	}
 }
 
-
+/* Pressing T the first time should bring up the dialog with the first item in it.  Pressing T subsequently should make the dialog disappear and reappear with
+ * the next text, until you reach the end of the array, after which it should disappear and not reappear. */
 			
 function talk(){
-	console.log("Got to talk function");
-	$("#dialogue-text").text(conversationTexts[talkTimes]);
-	talkTimes++;
-	dialogue = true;
+
+	if(dialogue){
+
+	  $("#dialogue-text").text(conversationTexts[talkTimes]);
+	  talkTimes++;
+	  $( "#dialogue-box" ).toggle( "fold" );
+	  if(talkTimes == conversationTexts.length - 1){
+	  dialogue = false; }
+	}
+	else{
 	$( "#dialogue-box" ).toggle( "fold" );
+
+	dialogue = true;
+	}
 }
 
 
