@@ -1,96 +1,94 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>MAFIA</title>
-	</head>
-	<body>
-	  	<script src="lib/three.min.js"></script>
-		<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
-		<script type="text/javascript" src="js/MTLLoader.js"></script>
-		<script type="text/javascript" src="js/OBJMTLLoader.js"></script>
-		<script type="text/javascript" src="js/OBJLoader.js"></script>
-		<script type="text/javascript" src="js/game/game.js"></script>
-		<script type="text/javascript" src="js/height_mapping/HeightMap.js"></script>
-		<script type="text/javascript" src="js/game/item.js"></script>
-		<script type="text/javascript" src="js/PointerLockControls.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="js/interactions.js"></script>
-		<script type="text/javascript" src="js/constants.js"></script>
-		<script src="js/Detector.js"></script>
-		<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css' />
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
+<head>
+	<meta charset="utf-8">
+	<title>MAFIA</title>
+</head>
+<body>
+	<script src="lib/three.min.js"></script>
+	<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
+	<script type="text/javascript" src="js/MTLLoader.js"></script>
+	<script type="text/javascript" src="js/OBJMTLLoader.js"></script>
+	<script type="text/javascript" src="js/OBJLoader.js"></script>
+	<script type="text/javascript" src="js/game/game.js"></script>
+	<script type="text/javascript" src="js/height_mapping/HeightMap.js"></script>
+	<script type="text/javascript" src="js/game/item.js"></script>
+	<script type="text/javascript" src="js/PointerLockControls.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/interactions.js"></script>
+	<script type="text/javascript" src="js/constants.js"></script>
+	<script src="js/Detector.js"></script>
+	<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />			
 	
-		<link href='stylesheet.css' rel='stylesheet' type='text/css'>
+	<link href='stylesheet.css' rel='stylesheet' type='text/css'>
 
 
-		<div id='hint' style="display:none">
-			Walk up to people to talk to them. <br /> [enter]
-		</div>
+	<div id='hint' style="display:none">
+		Walk up to people to talk to them. <br /> [enter]
+	</div>
 
 
-		<div id="blocker">
-			<div id="instructions">
-				<span style="font-size:40px">Click to play</span>
-				<br />
-				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact, T = Talk)
+	<div id="blocker">
+		<div id="instructions">
+			<span style="font-size:40px">Click to play</span>
+			<br />
+			(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around, Q = Interact, T = Talk)
 			<div id="fb-root"></div>
-	    		<!--<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>-->
-			  <div id="share">  
-			  <a href="#" 
-			      onclick="
+			<!--<div class="fb-login-button" autologoutlink="true" scope="publish_stream" data-show-faces="false" data-width="200" data-max-rows="1"></div>-->
+			<div id="share">  
+				<a href="#" 
+				onclick="
 				window.open(
-				  'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
-				  'facebook-share-dialog', 
-				  'width=626,height=436'); 
+				'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 
+				'facebook-share-dialog', 
+				'width=626,height=436'); 
 				return false;">
-			      Share on Facebook
-			    </a>	
-			</div>
-			<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
-			</div>
+				Share on Facebook
+			</a>	
 		</div>
+		<div class="fb-like" data-href="http://homepages.ecs.vuw.ac.nz/~markovmadd/camera.html" data-width="200" data-height="200" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+	</div>
+</div>
 
 
-  		<!--This is being used.  Copied from JQuery UI examples -->
-		<div id="radio-container">
-			<div id="buttons-instructions">
-		  		<p> Press the number keys to control the amount of thing.  0 is none; 4 is all.</p>
-		   		<p> Effects are extrapolated for what would happen if the whole of NZ had this. </p>
-		   	</div>
-		
-			<p style="color:blue">Press M to get more information.</p>
-		
-			<form>
-				<div id="radio">
-					<input type="radio" id="radio0" name="radio" /><label for="radio0">None</label>
-					<input type="radio" id="radio1" name="radio" /><label for="radio1">A little</label>
-					<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Some</label>
-					<input type="radio" id="radio3" name="radio" /><label for="radio3">Most</label>
-					<input type="radio" id="radio4" name="radio" /><label for="radio4">All</label>
-				</div>
-			</form>
+<!--This is being used.  Copied from JQuery UI examples -->
+<div id="radio-container">
+	<div id="buttons-instructions">
+		<p> Press the number keys to control the amount of thing.  0 is none; 4 is all.</p>
+		<p> Effects are extrapolated for what would happen if the whole of NZ had this. </p>
+	</div>
+
+	<p style="color:blue">Press M to get more information.</p>
+
+	<form>
+		<div id="radio">
+			<input type="radio" id="radio0" name="radio" /><label for="radio0">None</label>
+			<input type="radio" id="radio1" name="radio" /><label for="radio1">A little</label>
+			<input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Some</label>
+			<input type="radio" id="radio3" name="radio" /><label for="radio3">Most</label>
+			<input type="radio" id="radio4" name="radio" /><label for="radio4">All</label>
 		</div>
+	</form>
+</div>
 
-		<div id="dialogue-box">
-		    <div id="dialogue-text">Help us!</div>
-		</div>
+<div id="dialogue-box">
+	<div id="dialogue-text">Help us!</div>
+</div>
 
 
-		<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
-	</body>
-    <script type="text/javascript">
-
+</body>
+<script type="text/javascript">
     // initialize Facebook
     (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)){ return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=585106381554035";
-    fjs.parentNode.insertBefore(js, fjs);
+    	var js, fjs = d.getElementsByTagName(s)[0];
+    	if (d.getElementById(id)){ return;}
+    	js = d.createElement(s); js.id = id;
+    	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=585106381554035";
+    	fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-    </script>
-
+</script>
 </html>
