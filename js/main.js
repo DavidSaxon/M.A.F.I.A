@@ -1,4 +1,7 @@
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+if ( ! Detector.webgl ) {
+	Detector.addGetWebGLMessage();
+	throw new Error("WebGL Unavailable");
+}
 
 var camera, scene, renderer;
 var geometry, material, mesh;
@@ -18,92 +21,6 @@ var game = new game();
 share.addEventListener( 'click', function ( event ) {
 	event.stopPropagation();
 });
-// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
-
-var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-
-if ( havePointerLock ) {
-
-	var element = document.body;
-
-	var pointerlockchange = function ( event ) {
-
-		if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
-
-			controls.enabled = true;
-
-			blocker.style.display = 'none';
-
-		} else {
-
-			controls.enabled = false;
-
-			blocker.style.display = '-webkit-box';
-			blocker.style.display = '-moz-box';
-			blocker.style.display = 'box';
-
-			instructions.style.display = '';
-
-		}
-
-	}
-
-	var pointerlockerror = function ( event ) {
-
-		instructions.style.display = '';
-
-	}
-
-// Hook pointer lock state change events
-document.addEventListener( 'pointerlockchange', pointerlockchange, false );
-document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
-document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
-
-document.addEventListener( 'pointerlockerror', pointerlockerror, false );
-document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
-document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
-
-instructions.addEventListener( 'click', function ( event ) {
-
-	instructions.style.display = 'none';
-
-// Ask the browser to lock the pointer
-element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
-
-if ( /Firefox/i.test( navigator.userAgent ) ) {
-
-	var fullscreenchange = function ( event ) {
-
-		if ( document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element ) {
-
-			document.removeEventListener( 'fullscreenchange', fullscreenchange );
-			document.removeEventListener( 'mozfullscreenchange', fullscreenchange );
-
-			element.requestPointerLock();
-		}
-
-	}
-
-	document.addEventListener( 'fullscreenchange', fullscreenchange, false );
-	document.addEventListener( 'mozfullscreenchange', fullscreenchange, false );
-
-	element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
-
-	element.requestFullscreen();
-
-} else {
-
-	element.requestPointerLock();
-
-}
-
-}, false );
-
-} else {
-
-	instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
-
-}
 
 // NOTE: animate() was moved to be inside the init() function to fix the error that
 // where water isn't loaded in animate yet
@@ -343,6 +260,9 @@ loadermtl.load( 'res/terrain/skybox.obj',
 	});
 }
 
+// Lock the pointer
+createPointerLock();
+
 function initDudePositions() {
 
 	game.add( new dude(0, 0, -140, 12) );
@@ -440,4 +360,91 @@ function initHouse1Positions() {
 	game.add( new house(-400, 0, 400, -0.75) );
 	game.add( new house(-700, 0, 400, -0.25) );
 	game.add( new house(0, 0, -200, 0.0) );
+}
+
+function createPointerLock(){
+	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+
+	if ( havePointerLock ) {
+
+		var element = document.body;
+
+		var pointerlockchange = function ( event ) {
+
+			if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
+
+				controls.enabled = true;
+
+				blocker.style.display = 'none';
+
+			} else {
+
+				controls.enabled = false;
+
+				blocker.style.display = '-webkit-box';
+				blocker.style.display = '-moz-box';
+				blocker.style.display = 'box';
+
+				instructions.style.display = '';
+
+			}
+
+		}
+
+		var pointerlockerror = function ( event ) {
+
+			instructions.style.display = '';
+
+		}
+
+// Hook pointer lock state change events
+document.addEventListener( 'pointerlockchange', pointerlockchange, false );
+document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
+
+document.addEventListener( 'pointerlockerror', pointerlockerror, false );
+document.addEventListener( 'mozpointerlockerror', pointerlockerror, false );
+document.addEventListener( 'webkitpointerlockerror', pointerlockerror, false );
+
+instructions.addEventListener( 'click', function ( event ) {
+
+	instructions.style.display = 'none';
+
+// Ask the browser to lock the pointer
+element.requestPointerLock = element.requestPointerLock || element.mozRequestPointerLock || element.webkitRequestPointerLock;
+
+if ( /Firefox/i.test( navigator.userAgent ) ) {
+
+	var fullscreenchange = function ( event ) {
+
+		if ( document.fullscreenElement === element || document.mozFullscreenElement === element || document.mozFullScreenElement === element ) {
+
+			document.removeEventListener( 'fullscreenchange', fullscreenchange );
+			document.removeEventListener( 'mozfullscreenchange', fullscreenchange );
+
+			element.requestPointerLock();
+		}
+
+	}
+
+	document.addEventListener( 'fullscreenchange', fullscreenchange, false );
+	document.addEventListener( 'mozfullscreenchange', fullscreenchange, false );
+
+	element.requestFullscreen = element.requestFullscreen || element.mozRequestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen;
+
+	element.requestFullscreen();
+
+} else {
+
+	element.requestPointerLock();
+
+}
+
+}, false );
+
+} else {
+
+	instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
+
+}
 }
