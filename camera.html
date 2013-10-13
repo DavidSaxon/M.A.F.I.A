@@ -6,7 +6,6 @@
 </head>
 <body>
 	<script src="lib/three.min.js"></script>
-	<!--<script src=<"https://rawgithub.com/mrdoob/three.js/master/build/three.min.js"></script>-->
 	<script type="text/javascript" src="js/MTLLoader.js"></script>
 	<script type="text/javascript" src="js/OBJMTLLoader.js"></script>
 	<script type="text/javascript" src="js/OBJLoader.js"></script>
@@ -16,16 +15,18 @@
 	<script type="text/javascript" src="js/PointerLockControls.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="js/interactions.js"></script>
 	<script type="text/javascript" src="js/constants.js"></script>
 	<script type="text/javascript" src="js/Detector.js"></script>
-	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	
 	<link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />		
-
-	
 	<link href='stylesheet.css' rel='stylesheet' type='text/css'>
 
+	<div id='loader' style="display:none;">
+		Game is loading...
+	</div>
 
 	<div id='hint' style="display:none">
 		Walk up to people to talk to them. <br /> [enter]
@@ -79,7 +80,11 @@
 	<div id="dialogue-text">Help us!</div>
 </div>
 
-
+<script>
+	$(document).mask("#789");
+	/*$("#loader").show();
+	$("#loader").expose();*/
+</script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </body>
