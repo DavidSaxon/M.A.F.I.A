@@ -12,6 +12,9 @@ var dialogue = false;
 var instrMap = new Object();
 instrMap["windmill"] = "Press the number keys to control the amount of New Zealand's electricity provided by windmills.";
 instrMap["house"] = "Press the number keys to control how much insulation New Zealand's houses have.";
+instrMap["coal"]= "Press the number keys to control how much of New Zealand's electricity is provided by coal power plants.";
+instrMap["tree"]="Press the number keys to control how much carbon-absorbing forest New Zealand has.";
+instrMap["gas"]="Press the number keys to control how much of New Zealand's electricity is provided by natural gas power plants.";
 
 
 
@@ -22,8 +25,10 @@ var objType = null;
 
 var infoMap = new Object();
 infoMap["windmill"] = "./info-windmill.html"; //Naming convention - you get the idea.
-infoMap["forest"] = "./info-forest.html";
+infoMap["tree"] = "./info-forest.html";
 infoMap["house"] = "./info-house.html";
+infoMap["coal"]="./info-coal.html";
+infoMap["gas"]="./info-gas.html";
 
 
 

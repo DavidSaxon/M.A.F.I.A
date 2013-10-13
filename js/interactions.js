@@ -28,19 +28,29 @@ function interactWith(objectType){
 	objType = objectType;
 				//toggle = true;
 	switch(objectType){
+		
+		case "tree":
+	    		toggleOnOrOff(true);
+			break;
+		case "forest":
+	  		toggleOnOrOff(true);
+			break;
 		case "windmill":
-
 			toggleOnOrOff(true);
 			break;
 		case "house":
 			toggleOnOrOff(true);
 			break;
 		case "car":
+			toggleOnOrOff(true);
 			break;
 		case "nothing":
 			toggleOnOrOff(false);
 			break;
 		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+			talk();
+			break;
+		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
 			break;
 		default:
