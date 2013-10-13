@@ -43,9 +43,6 @@ function interactWith(objectType){
 		case "house":
 			toggleOnOrOff(true);
 			break;
-		case "factory":
-			toggleOnOrOff(true);
-			break;
 		case "car":
 			toggleOnOrOff(true);
 			break;
