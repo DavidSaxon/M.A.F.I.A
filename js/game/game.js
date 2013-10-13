@@ -4,7 +4,7 @@ function game() {
 	/**
 	* Update this when adding new types
 	*/
-	this.gameTypes = ["windmill", "house", "dude"];
+	this.gameTypes = ["windmill", "house", "dude", "coal", "gas", "tree"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
@@ -33,11 +33,15 @@ function game() {
 			game.waterRise = 0.1;
 		}
 	} );
+
+	this.readyHeight = false;
 }
 
 game.prototype.add = function(addedItem) {
-	console.log ( "adding " + addedItem.typeName );
 	this.items[ addedItem.typeName ].push(addedItem);
+	if (this.readyHeight) {
+		addedItem.position.y += heightFunc(addedItem.position);
+	}
 }
 
 game.prototype.getAll = function(typename) {
@@ -77,4 +81,21 @@ game.prototype.update = function() {
 
 game.prototype.setWind = function(level) {
 	
+}
+
+game.prototype.readyHeightMap = function(heightFunc) {
+
+	for (var t = 0; t < this.gameTypes.length; ++t) {
+
+		/* lookup by type */
+		var list = this.getAll(this.gameTypes[t]);
+
+		for (var i = 0; i < list.length; ++i) {
+			list[i].position.y += heightFunc(list[i].position);
+			
+		}
+
+	}
+
+	this.readyHeight = true;
 }

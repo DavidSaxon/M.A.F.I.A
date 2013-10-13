@@ -1,7 +1,7 @@
-# Blender MTL File: 'terrain.blend'
+# Blender MTL File: 'gas_power_plant.blend'
 # Material Count: 1
 
-newmtl Material
+newmtl stacks.001
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
 Kd 0.800000 0.800000 0.800000
@@ -9,4 +9,4 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd random.png
+map_Kd gas_stacks.jpg
