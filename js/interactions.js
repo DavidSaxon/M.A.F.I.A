@@ -32,6 +32,9 @@ function interactWith(objectType){
 		case "coal":
 			toggleOnOrOff(true);
 			break;
+		case "gas":
+			toggleOnOrOff(true);
+			break;
 		case "tree":
 	    		toggleOnOrOff(true);
 			break;
@@ -52,7 +55,7 @@ function interactWith(objectType){
 			break;
 		case "nothing":
 			toggleOnOrOff(false);
-			stopDialogue = true;
+			dialogueOff(); //Close the dialogue box if it was open
 			break;
 		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
@@ -95,27 +98,37 @@ function showMoreInfo(type){
 
 /* Pressing T the first time should bring up the dialog with the first item in it.  Pressing T subsequently should make the dialog disappear and reappear with
  * the next text, until you reach the end of the array, after which it should disappear and not reappear. 
- Even if the conversation is initiated by proximity, the user should be able to use a button to control when to go to the next text.*/
+ Even if the conversation is initiated by proximity, the user should be able to use a button to control when to go to the next text.
+ Approach a person and the dialogue box opens with the first item.
+*/
 			
 function talk(){
-	if(stopDialogue && dialogue){
-	  $( "#dialogue-box" ).toggle( "fold" );
-	  stopDialogue = false;
-	  dialogue = false;
-	}
-	else if(!dialogue){
+	if(!dialogue){
 	$( "#dialogue-box" ).toggle( "fold" );
 	talkTimes++;
 	dialogue = true;
 	}
 }
 
+/* This function is called when you move away from the person you were talking to. */
+function dialogueOff(){
+  if(dialogue) {
+    	$( "#dialogue-box" ).toggle( "fold" );
+	dialogue = false;
+  }
+}
+
+/* Advances the conversation to the next line */
 function advanceText(){
-  if(dialogue){ //Don't advance the conversation if the window isn't visible
-    $("#dialogue-text").text(conversationTexts[talkTimes]);
-    talkTimes++;
-    if(talkTimes == conversationTexts.length - 1){
-      dialogue = false; }
+  if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
+     $("#dialogue-text").text(conversationTexts[talkTimes]);
+     talkTimes++;
+     if(talkTimes == conversationTexts.length - 1){
+       	  stopDialogue = true;
+     }
+  }
+  else if(stopDialogue){ //Close the box since we have reached the end of the conversation
+    $( "#dialogue-box" ).toggle( "fold" );
   }
 }
 
