@@ -22,6 +22,7 @@ function house(x, y, z, yrot) {
 function dude(x, y, z, size) {
 	this.typeName = "dude";
 	this.variation = 0;
+	this.persona = Math.floor(Math.random() * 10);
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = 0.0;

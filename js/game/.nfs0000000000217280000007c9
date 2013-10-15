@@ -66,13 +66,13 @@ game.prototype.checkCollision = function(position) {
 					v.add( list[i].position );
 				}
 
-				return list[i];	// item is found, return type name
+				return this.gameTypes[t];	// item is found, return type name
 			}
 		}
 
 	}
 
-	return null;
+	return "nothing";
 }
 
 game.prototype.update = function() {
