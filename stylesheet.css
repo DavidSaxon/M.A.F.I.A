@@ -20,6 +20,8 @@ body {
 	background-color: rgba(0,0,0,0.5);
 
 }
+
+/* Div to provide a background for the Facebook share link */
 #share{
 	background-color: #ffffff;
 	min-width:20px;
@@ -56,15 +58,18 @@ body {
 
 }
 
+/* Holds the button controls */
+
 #radio-container{
 	position:absolute;
 	top:15px;
 	left:10px;
 	min-width:400px;
 	min-height:100px;
+	background-color:rgba(0,150,50,0.5);	
 }
 
-
+/* Box that holds the conversation dialogue */
 
 #dialogue-box{
 	position:absolute;
@@ -75,6 +80,8 @@ body {
 	background-image: url("./speech_bubble.png");
 	background-repeat:no-repeat;
 }
+
+/*Element that holds dialogue text */
 
 #dialogue-text{
 	position:absolute;

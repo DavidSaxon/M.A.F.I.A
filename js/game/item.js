@@ -31,7 +31,7 @@ function dude(x, y, z, size) {
 function gas(x, y, z) {
 	this.typeName = "gas";
 	this.variation = 0;
-	this.basesize = 15.0;
+	this.basesize = 180.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = 0.0;
 	this.scalesize = 20;
@@ -40,7 +40,7 @@ function gas(x, y, z) {
 function coal(x, y, z) {
 	this.typeName = "coal";
 	this.variation = 0;
-	this.basesize = 15.0;
+	this.basesize = 180.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = 0.0;
 	this.scalesize = 20;
