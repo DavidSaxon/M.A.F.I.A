@@ -15,7 +15,6 @@ instrMap["house"] = "Press the number keys to control how much insulation New Ze
 instrMap["coal"]= "Press the number keys to control how much of New Zealand's electricity is provided by coal power plants.";
 instrMap["tree"]="Press the number keys to control how much carbon-absorbing forest New Zealand has.";
 instrMap["gas"]="Press the number keys to control how much of New Zealand's electricity is provided by natural gas power plants.";
-instrMap["factory"]="Press the number keys to control how much intdustry New Zealand has.  Industrial applications consume large amounts of electricity and may pollute.";
 
 
 
@@ -30,7 +29,6 @@ infoMap["tree"] = "./info-forest.html";
 infoMap["house"] = "./info-house.html";
 infoMap["coal"]="./info-coal.html";
 infoMap["gas"]="./info-gas.html";
-infoMap["factor"]="./info-factory.html";
 
 
 
