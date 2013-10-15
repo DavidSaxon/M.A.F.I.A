@@ -28,7 +28,7 @@ function initInteractions(){
 function interactWith(objectType){
 	if (objectType == null) {
 		toggleOnOrOff(false);
-		stopDialogue = true;
+		dialogueOff();
 		return;
 	} 
 
@@ -124,6 +124,7 @@ function dialogueOff(){
 /* Advances the conversation to the next line */
 function advanceText(){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
+     console.log("Text should advance");
      $("#dialogue-text").text(conversationTexts[talkTimes]);
      talkTimes++;
      if(talkTimes == conversationTexts.length - 1){
@@ -131,6 +132,7 @@ function advanceText(){
      }
   }
   else if(stopDialogue){ //Close the box since we have reached the end of the conversation
+    console.log("Dialogue box should disappear");
     $( "#dialogue-box" ).toggle( "fold" );
   }
 }
