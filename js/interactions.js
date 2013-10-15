@@ -26,9 +26,16 @@ function initInteractions(){
   }
   
 function interactWith(objectType){
-	objType = objectType;
+	if (objectType == null) {
+		toggleOnOrOff(false);
+		stopDialogue = true;
+		return;
+	} 
+
+
+	objType = objectType.typeName;
 				//toggle = true;
-	switch(objectType){
+	switch(objectType.typeName){
 		case "coal":
 			toggleOnOrOff(true);
 			break;
@@ -49,10 +56,6 @@ function interactWith(objectType){
 			break;
 		case "car":
 			toggleOnOrOff(true);
-			break;
-		case "nothing":
-			toggleOnOrOff(false);
-			stopDialogue = true;
 			break;
 		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
