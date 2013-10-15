@@ -1,6 +1,7 @@
 
 var talkTimes = 0;
 var toggleIsOn = false;
+var stopDialogue = false;
 var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
 function initInteractions(){
@@ -51,6 +52,7 @@ function interactWith(objectType){
 			break;
 		case "nothing":
 			toggleOnOrOff(false);
+			stopDialogue = true;
 			break;
 		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
@@ -92,23 +94,29 @@ function showMoreInfo(type){
 }
 
 /* Pressing T the first time should bring up the dialog with the first item in it.  Pressing T subsequently should make the dialog disappear and reappear with
- * the next text, until you reach the end of the array, after which it should disappear and not reappear. */
+ * the next text, until you reach the end of the array, after which it should disappear and not reappear. 
+ Even if the conversation is initiated by proximity, the user should be able to use a button to control when to go to the next text.*/
 			
 function talk(){
-
-	if(dialogue){
-
-	  $("#dialogue-text").text(conversationTexts[talkTimes]);
-	  talkTimes++;
+	if(stopDialogue && dialogue){
 	  $( "#dialogue-box" ).toggle( "fold" );
-	  if(talkTimes == conversationTexts.length - 1){
-	  dialogue = false; }
+	  stopDialogue = false;
+	  dialogue = false;
 	}
-	else{
+	else if(!dialogue){
 	$( "#dialogue-box" ).toggle( "fold" );
-
+	talkTimes++;
 	dialogue = true;
 	}
+}
+
+function advanceText(){
+  if(dialogue){ //Don't advance the conversation if the window isn't visible
+    $("#dialogue-text").text(conversationTexts[talkTimes]);
+    talkTimes++;
+    if(talkTimes == conversationTexts.length - 1){
+      dialogue = false; }
+  }
 }
 
 
@@ -118,29 +126,11 @@ function talk(){
 				is held down this will fired once only).
 			*/
 function press(number){
-	console.log(number);
-	switch(number){
-		case 0:
-			console.log("Zero");
-			$("#radio").buttonset().children("#radio0").click();
-			break;
-		case 1:
-			$("#radio").buttonset().children("#radio1").click();
-			break;
-		case 2:
-			$("#radio").buttonset().find("#radio2").click();
-			break;
-		case 3:
-			$("#radio").buttonset().find("#radio3").click();
-			break;
-		case 4:
-			$("#radio").buttonset().find("#radio4").click();
-			buttonset.refresh();
-			break;
-		default:
-			console.log("No action defined for that key");
-			break;
+	if (number >= 0 && number <= 4){
+		$("#radio").buttonset().children("#radio" + number).click();
 	}
+
+	$("#radio").buttonset("refresh");
 	game.effects[number].apply();
 }
 
