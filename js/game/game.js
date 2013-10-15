@@ -30,7 +30,14 @@ function game() {
 		this.desc = "do nothing";
 		this.apply = function() {
 			// ...
-			game.waterRise = 0.1;
+			game.waterRise = 0.5;
+		}
+	} );
+	this.effects.push( new function() {
+		this.desc = "do something cool";
+		this.apply = function() {
+			// ...
+			game.waterRise = -0.5;
 		}
 	} );
 
@@ -77,6 +84,8 @@ game.prototype.checkCollision = function(position) {
 
 game.prototype.update = function() {
 	this.seaLevel += this.waterRise;
+	//this.getAll("dude")[0].position.y -= 0.5;
+
 }
 
 game.prototype.setWind = function(level) {

@@ -92,7 +92,7 @@ createTerrain();
 
 //DUDE
 for (var i = 0; i < 1; i++) {
-	var d = new dude( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000, 60 + Math.random() * 10);
+	var d = new dude( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000, Math.random() * 2000);
 	game.add( d );
 }
 initDudePositions();
