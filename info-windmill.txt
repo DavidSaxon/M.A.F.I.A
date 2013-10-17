@@ -1,0 +1,4 @@
+These are windmills or wind turbines.  They convert the mechanical energy of wind into electrical energy.
+     They produce no emissions while they are running, although there is a carbon cost for creating and maintaining
+them.
+

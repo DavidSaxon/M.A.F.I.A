@@ -25,12 +25,12 @@ instrMap["factory"]="Press the number keys to control how much intdustry New Zea
 var objType = null;
 
 var infoMap = new Object();
-infoMap["windmill"] = "./info-windmill.txt"; //Naming convention - you get the idea.
-infoMap["tree"] = "./info-forest.txt";
-infoMap["house"] = "./info-house.txt";
-infoMap["coal"]="./info-coal.txt";
-infoMap["gas"]="./info-gas.txt";
-infoMap["factor"]="./info-factory.txt";
+infoMap["windmill"] = "./info-windmill.html"; //Naming convention - you get the idea.
+infoMap["tree"] = "./info-forest.html";
+infoMap["house"] = "./info-house.html";
+infoMap["coal"]="./info-coal.html";
+infoMap["gas"]="./info-gas.html";
+infoMap["factor"]="./info-factory.html";
 
 
 

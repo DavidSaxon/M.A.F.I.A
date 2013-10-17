@@ -4,13 +4,13 @@ function game() {
 	/**
 	* Update this when adding new types
 	*/
-	this.gameTypes = ["windmill", "house", "dude", "coal", "gas", "tree"];
+	this.gameTypes = ["windmill", "house", "dude"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
 	}
 
-	this.waterRise = 0.01;
+	this.waterRise = 0.1;
 	this.seaLevel = -50;
 
 	/*
@@ -21,34 +21,19 @@ function game() {
 		this.desc = "more windmills";
 		this.apply = function() {
 			// do something
-			console.log("First thing in effects triggered.");
-			game.waterRise = -0.01;
-
 		}
 	} );
 	this.effects.push( new function() {
 		this.desc = "do nothing";
 		this.apply = function() {
 			// ...
-			game.waterRise = 0.5;
 		}
 	} );
-	this.effects.push( new function() {
-		this.desc = "do something cool";
-		this.apply = function() {
-			// ...
-			game.waterRise = -0.5;
-		}
-	} );
-
-	this.readyHeight = false;
 }
 
 game.prototype.add = function(addedItem) {
+	console.log ( "adding " + addedItem.typeName );
 	this.items[ addedItem.typeName ].push(addedItem);
-	if (this.readyHeight) {
-		addedItem.position.y += heightFunc(addedItem.position);
-	}
 }
 
 game.prototype.getAll = function(typename) {
@@ -56,8 +41,6 @@ game.prototype.getAll = function(typename) {
 }
 
 game.prototype.checkCollision = function(position) {
-	if (position.y < this.seaLevel+10.0) position.y = this.seaLevel+10.0;
-
 	for (var t = 0; t < this.gameTypes.length; ++t) {
 
 		/* lookup by type */
@@ -73,38 +56,19 @@ game.prototype.checkCollision = function(position) {
 					v.add( list[i].position );
 				}
 
-				return list[i];	// item is found, return type name
+				return this.gameTypes[t];	// item is found, return type name
 			}
 		}
 
 	}
 
-	return null;
+	return "nothing";
 }
 
 game.prototype.update = function() {
-	this.seaLevel += this.waterRise;
-	//this.getAll("dude")[0].position.y -= 0.5;
-
+	this.seaLevel += 0.01;
 }
 
 game.prototype.setWind = function(level) {
 	
-}
-
-game.prototype.readyHeightMap = function(heightFunc) {
-
-	for (var t = 0; t < this.gameTypes.length; ++t) {
-
-		/* lookup by type */
-		var list = this.getAll(this.gameTypes[t]);
-
-		for (var i = 0; i < list.length; ++i) {
-			list[i].position.y += heightFunc(list[i].position);
-			
-		}
-
-	}
-
-	this.readyHeight = true;
 }

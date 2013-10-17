@@ -81,7 +81,9 @@ switch ( event.keyCode ) {
   break;
 
   case 81: //q (interact)
-  break;
+   advanceText();
+   Console.log("Text should advance");
+   break;
   //Show/hide bubbles
 
   case 38: // up
