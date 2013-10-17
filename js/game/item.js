@@ -31,19 +31,19 @@ function dude(x, y, z, size) {
 function gas(x, y, z) {
 	this.typeName = "gas";
 	this.variation = 0;
-	this.basesize = 15.0;
+	this.basesize = 75.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.yRot = 0.0;
-	this.scalesize = 20;
+	this.yRot = 1.6;
+	this.scalesize = 8;
 }
 
 function coal(x, y, z) {
 	this.typeName = "coal";
 	this.variation = 0;
-	this.basesize = 15.0;
+	this.basesize = 80.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = 0.0;
-	this.scalesize = 20;
+	this.scalesize = 8;
 }
 
 function tree(x, y, z) {
