@@ -241,22 +241,81 @@ function createTerrain() {
 
 	var loadermtl = new THREE.OBJMTLLoader();
 
-//terrain
-loadermtl.load( 'res/terrain/terrain.obj',
-	'res/terrain/terrain.mtl', 
-	function ( object ) {
+    //main terrain
+	loadermtl.load( 'res/terrain/terrain_main.obj',
+			'res/terrain/terrain_main.mtl', 
+			function ( object ) {
 
-		scene.add( object );
-		objects.push( object );
+			scene.add( object );
+    	objects.push( object );
 	});
 
-//skybox
-loadermtl.load( 'res/terrain/skybox.obj',
-	'res/terrain/skybox.mtl', 
-	function ( object ) {
+	//beach
+	loadermtl.load( 'res/terrain/beach.obj',
+			'res/terrain/beach.mtl', 
+			function ( object ) {
 
-		scene.add( object );
-		objects.push( object );
+			scene.add( object );
+    	objects.push( object );
+	});
+
+	//beach edge
+	loadermtl.load( 'res/terrain/beach_edge_1.obj',
+			'res/terrain/beach_edge_1.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+	loadermtl.load( 'res/terrain/beach_edge_2.obj',
+			'res/terrain/beach_edge_2.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+
+	//beach mid
+	loadermtl.load( 'res/terrain/beach_mid_1.obj',
+			'res/terrain/beach_mid_1.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+	loadermtl.load( 'res/terrain/beach_mid_2.obj',
+			'res/terrain/beach_mid_2.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+
+	//road 1
+	loadermtl.load( 'res/terrain/road_1.obj',
+			'res/terrain/road_1.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+
+	//road 2
+	loadermtl.load( 'res/terrain/road_2.obj',
+			'res/terrain/road_2.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
+	});
+
+    //skybox
+	loadermtl.load( 'res/terrain/skybox.obj',
+			'res/terrain/skybox.mtl', 
+			function ( object ) {
+
+			scene.add( object );
+    	objects.push( object );
 	});
 }
 

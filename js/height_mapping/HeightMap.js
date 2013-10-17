@@ -77,8 +77,6 @@ function heightMapLoad(file) {
 
 function getHeightMapY(position) {
 
-	//console.log("get y");
-
 	//make the position as a 2d vector
 	var pos = new THREE.Vector2(position.x, position.z);
 
@@ -98,25 +96,67 @@ function getHeightMapY(position) {
 	var face = heightFaces[closest];
 
 	var negXnegZ = face[2];
-	var negXposZ = face[3];
-	var posXnegZ = face[1];
+	var negXposZ = face[0];
+	var posXnegZ = face[0];
 	var posXposZ = face[0];
 
+	//find the least values
+	var negX = face[0].x;
+	if (floatLessEqual(face[1].x, negX)) {
+
+		negX = face[1].x;
+	}
+	if (floatLessEqual(face[2].x, negX)) {
+
+		negX = face[2].x;
+	}
+
+	var posX = face[0].x;
+	if (greaterThanOne(face[1].x, negX)) {
+
+		posX = face[1].x;
+	}
+	if (greaterThanOne(face[2].x, negX)) {
+
+		posX = face[2].x;
+	}
+
+	var negZ = face[0].z;
+	if (floatLessEqual(face[1].z, negZ)) {
+
+		negZ = face[1].z;
+	}
+	if (floatLessEqual(face[2].z, negZ)) {
+
+		negZ = face[2].z;
+	}
+
+	var posZ = face[0].z;
+	if (greaterThanOne(face[1].z, negZ)) {
+
+		posZ = face[1].z;
+	}
+	if (greaterThanOne(face[2].z, negZ)) {
+
+		posZ = face[2].z;
+	}
+
+	//find the ordered square
 	for (var i = 0; i < face.length; ++i) {
 
-		if (face[i].x <= position.x && face[i].z <= position.z) {
+		if (withinOne(face[i].x, negX) && withinOne(face[i].z, negZ)) {
 
 			negXnegZ = face[i];
 		}
-		else if (face[i].x <= position.x && face[i].z >= position.z) {
+		if (withinOne(face[i].x, negX) && withinOne(face[i].z, posZ)) {
 
 			negXposZ = face[i];
 		}
-		else if (face[i].x >= position.x && face[i].z <= position.z) {
+		if (withinOne(face[i].x, posX) && withinOne(face[i].z, negZ)) {
 
-			posXnegZ = face[i];
+			posXnegZ = face[i]; 
 		}
-		else if (face[i].x >= position.x && face[i].z >= position.z) {
+		if (withinOne(face[i].x, posX) && withinOne(face[i].z, posZ)) {
 
 			posXposZ = face[i];
 		}
@@ -181,4 +221,14 @@ function floatGreaterEqual(a, b) {
 	}
 
 	return a <= b + 0.001 && a >= b - 0.001;
+}
+
+function withinOne(a, b) {
+
+	return (a > b - 1 && a < b + 1);
+}
+
+function greaterThanOne(a, b) {
+
+	return a > b + 1;
 }

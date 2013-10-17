@@ -7,7 +7,7 @@ Test library specific syntax is as follows:
 	- ok(boolean, "message"); //this is for assertions
 	- equal (arg1, arg2, "message"); //tests equality on the two arguments
 
-    */
+*/
 
     // Override the toggle such that it doesn't have an animation
 
@@ -30,9 +30,9 @@ Test library specific syntax is as follows:
     talk()
     ok($("#dialogue-box").is(":visible"), "Check talk() triggers talk dialogue to appear");
    
-    // A test which checks whether the dialogue goes away when dialogueOff() is called
-    dialogueOff();
-    ok(!dialogue, "Check talk() twice hides the talk dialogue");
+    // Test calling talk() again makes it disappear
+    talk();
+    ok(!$("#dialogue-box").is(":visible"), "Check talk() twice hides the talk dialogue");
 
     // Testing advanceText()
     talkTimes = 0;
