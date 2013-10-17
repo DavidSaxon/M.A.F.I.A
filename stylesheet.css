@@ -10,6 +10,10 @@ body {
 	font-family: arial;
 }
 
+#buttons-instructions{
+  max-width:300px;
+}
+
 #blocker {
 
 	position: absolute;
@@ -19,6 +23,18 @@ body {
 
 	background-color: rgba(0,0,0,0.5);
 
+}
+
+/* Contains the "More Info" stuff */
+#info {
+  position:absolute;
+  top:50%;
+  left:50%;
+  margin-left:-250px;
+  width:500px;
+  height:500px;
+
+  background-color:rgba(0,150,50,0.5);
 }
 
 /* Div to provide a background for the Facebook share link */
@@ -64,7 +80,7 @@ body {
 	position:absolute;
 	top:15px;
 	left:10px;
-	min-width:400px;
+	min-width:300px;
 	min-height:100px;
 	background-color:rgba(0,150,50,0.5);	
 }
@@ -77,6 +93,7 @@ body {
 	left:400px;
 	height:500px;
 	width:600px;
+	/*padding:150px 50px 100px 50px; */
 	background-image: url("./speech_bubble.png");
 	background-repeat:no-repeat;
 }
@@ -88,7 +105,8 @@ body {
 	top:30%;
 	left:50%;
 	right:50%;
-	bottom:50%;
+	bottom:50%; 
+	max-width:300px;
 	margin-left:-100px;
 	margin-right:auto;
 	height:100px;
