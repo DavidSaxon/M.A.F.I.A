@@ -2,6 +2,7 @@
 var talkTimes = 0;
 var toggleIsOn = false;
 var stopDialogue = false;
+var infoWindowOpen = false;
 var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
 function initInteractions(){
@@ -22,13 +23,13 @@ function initInteractions(){
 	});
 
 	$("#radio-container").toggle("fold");
-	//$("#info").css('left', ($("#info").innerWidth()/2) - 250);
 	$("#info").toggle("fold"); //Needs to be 'off' initially even if it's empty
 	
 	
 
   }
   
+ /* Loads the relevant info for an object from a file stored on the server */ 
   function loadInfo(path){
     $.ajax({
 	  url: path,
@@ -37,7 +38,6 @@ function initInteractions(){
 	  if ( console && console.log ) {
 	      console.log( "Sample of data:", data.slice( 0, 100 ) );
 	  }
-	    //document.getElementById("info").text(data);
 	  $("#info").text(data);
 	});
   }
@@ -108,14 +108,15 @@ function showMoreInfo(type){
 		console.log("Show more info");
 		if(objType != null){
 			 console.log(infoMap[objType]);
-			/* window.open(
-				  infoMap[objType], 
-				  'Information', 
-				  'width=626,height=436');
-				  */
 			loadInfo(infoMap[objType]);
 			$("#info").toggle("fold");
+			infoWindowOpen = true;
 		}
+	}
+	//Allows you to close the info window if you left it open and moved away from the object
+	else if (!toggleIsOn && infoWindowOpen){
+	  $("#info").toggle("fold");
+	  infoWindowOpen = false;
 	}
 }
 
