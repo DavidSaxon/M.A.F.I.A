@@ -22,7 +22,24 @@ function initInteractions(){
 	});
 
 	$("#radio-container").toggle("fold");
+	//$("#info").css('left', ($("#info").innerWidth()/2) - 250);
+	$("#info").toggle("fold"); //Needs to be 'off' initially even if it's empty
+	
+	
 
+  }
+  
+  function loadInfo(path){
+    $.ajax({
+	  url: path,
+	  })
+	  .done(function( data ) {
+	  if ( console && console.log ) {
+	      console.log( "Sample of data:", data.slice( 0, 100 ) );
+	  }
+	    //document.getElementById("info").text(data);
+	  $("#info").text(data);
+	});
   }
   
 function interactWith(objectType){
@@ -91,10 +108,13 @@ function showMoreInfo(type){
 		console.log("Show more info");
 		if(objType != null){
 			 console.log(infoMap[objType]);
-			 window.open(
+			/* window.open(
 				  infoMap[objType], 
 				  'Information', 
 				  'width=626,height=436');
+				  */
+			loadInfo(infoMap[objType]);
+			$("#info").toggle("fold");
 		}
 	}
 }

@@ -1,6 +1,7 @@
 
 var talkTimes = 0;
 var toggleIsOn = false;
+var stopDialogue = false;
 var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
 function initInteractions(){
@@ -21,14 +22,41 @@ function initInteractions(){
 	});
 
 	$("#radio-container").toggle("fold");
+	$("#info").css('left', ($("#info").innerWidth()/2) - 250);
+	$("#info").toggle("fold"); //Needs to be 'off' initially even if it's empty
+	
+	
 
   }
   
+  function loadInfo(path){
+    $.ajax({
+	  url: path,
+	  })
+	  .done(function( data ) {
+	  if ( console && console.log ) {
+	      console.log( "Sample of data:", data.slice( 0, 100 ) );
+	  }
+	    //document.getElementById("info").text(data);
+	  $("#info").text(data);
+	});
+  }
+  
 function interactWith(objectType){
-	objType = objectType;
+	if (objectType == null) {
+		toggleOnOrOff(false);
+		dialogueOff();
+		return;
+	} 
+
+
+	objType = objectType.typeName;
 				//toggle = true;
-	switch(objectType){
+	switch(objectType.typeName){
 		case "coal":
+			toggleOnOrOff(true);
+			break;
+		case "gas":
 			toggleOnOrOff(true);
 			break;
 		case "tree":
@@ -43,11 +71,11 @@ function interactWith(objectType){
 		case "house":
 			toggleOnOrOff(true);
 			break;
-		case "car":
+		case "factory":
 			toggleOnOrOff(true);
 			break;
-		case "nothing":
-			toggleOnOrOff(false);
+		case "car":
+			toggleOnOrOff(true);
 			break;
 		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
@@ -80,32 +108,53 @@ function showMoreInfo(type){
 		console.log("Show more info");
 		if(objType != null){
 			 console.log(infoMap[objType]);
-			 window.open(
+			/* window.open(
 				  infoMap[objType], 
 				  'Information', 
 				  'width=626,height=436');
+				  */
+			loadInfo(infoMap[objType]);
+			$("#info").toggle("fold");
 		}
 	}
 }
 
 /* Pressing T the first time should bring up the dialog with the first item in it.  Pressing T subsequently should make the dialog disappear and reappear with
- * the next text, until you reach the end of the array, after which it should disappear and not reappear. */
+ * the next text, until you reach the end of the array, after which it should disappear and not reappear. 
+ Even if the conversation is initiated by proximity, the user should be able to use a button to control when to go to the next text.
+ Approach a person and the dialogue box opens with the first item.
+*/
 			
 function talk(){
-
-	if(dialogue){
-
-	  $("#dialogue-text").text(conversationTexts[talkTimes]);
-	  talkTimes++;
-	  $( "#dialogue-box" ).toggle( "fold" );
-	  if(talkTimes == conversationTexts.length - 1){
-	  dialogue = false; }
-	}
-	else{
+	if(!dialogue){
 	$( "#dialogue-box" ).toggle( "fold" );
-
+	talkTimes++;
 	dialogue = true;
 	}
+}
+
+/* This function is called when you move away from the person you were talking to. */
+function dialogueOff(){
+  if(dialogue) {
+    	$( "#dialogue-box" ).toggle( "fold" );
+	dialogue = false;
+  }
+}
+
+/* Advances the conversation to the next line */
+function advanceText(){
+  if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
+     console.log("Text should advance");
+     $("#dialogue-text").text(conversationTexts[talkTimes]);
+     talkTimes++;
+     if(talkTimes == conversationTexts.length - 1){
+       	  stopDialogue = true;
+     }
+  }
+  else if(stopDialogue){ //Close the box since we have reached the end of the conversation
+    console.log("Dialogue box should disappear");
+    $( "#dialogue-box" ).toggle( "fold" );
+  }
 }
 
 
@@ -115,28 +164,11 @@ function talk(){
 				is held down this will fired once only).
 			*/
 function press(number){
-	console.log(number);
-	switch(number){
-		case 0:
-			console.log("Zero");
-			$("#radio").buttonset().children("#radio0").click();
-			break;
-		case 1:
-			$("#radio").buttonset().children("#radio1").click();
-			break;
-		case 2:
-			$("#radio").buttonset().find("#radio2").click();
-			break;
-		case 3:
-			$("#radio").buttonset().find("#radio3").click();
-			break;
-		case 4:
-			$("#radio").buttonset().find("#radio4").click();
-			break;
-		default:
-			console.log("No action defined for that key");
-			break;
+	if (number >= 0 && number <= 4){
+		$("#radio").buttonset().children("#radio" + number).click();
 	}
+
+	$("#radio").buttonset("refresh");
 	game.effects[number].apply();
 }
 
