@@ -8,6 +8,7 @@ var toggle = false;
 var dialogue = false;
 
 
+
 /* A map of custom instruction text for different interactable objects.  If you add a new object, add a mapping. */
 var instrMap = new Object();
 instrMap["windmill"] = "Press the number keys to control the amount of New Zealand's electricity provided by windmills.";
