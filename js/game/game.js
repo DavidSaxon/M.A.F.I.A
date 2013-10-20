@@ -21,13 +21,14 @@ function game() {
 	/*
 	 *	world attributes and interpolation control
 	 */ 
-	this.interpolation = 1.0;
 	this.effectTypes = ["sea", "fog", "forest"];
 
+	this.interpolation = new Object();
 	this.level = new Object();
 	this.levelStart = new Object();
 	this.levelEnd = new Object();
 	for (var i = 0; i < this.effectTypes.length; ++i) {
+		this.interpolation [ this.effectTypes[i] ] = 1.0;
 		this.level 		[ this.effectTypes[i] ] = 0.0;
 		this.levelStart	[ this.effectTypes[i] ] = 0.0;
 		this.levelEnd	[ this.effectTypes[i] ] = 0.0;
@@ -218,13 +219,21 @@ game.prototype.getLevel = function(effectName) {
 }
 
 game.prototype.editLevel = function(effectName, result) {
+	//  if (this.interpolation[effectName] < 1.0) {
+	//  	console.log("wait for current effect to complete");
+	//  	return 0;
+	// }
+	console.log("set level "+ this.level[effectName] + " to " +result);
 	this.levelStart[effectName] = this.level[effectName];
 	this.levelEnd[effectName] = result;
-	this.interpolation = 0.0;
+	this.interpolation[effectName] = 0.0;
+
+	console.log(this.levelStart[effectName] + " ... " + this.levelEnd[effectName]);
 }
 
 game.prototype.getInterpolatedValue = function(effectName) {
-	return (1.0 - this.interpolation) * this.levelStart[effectName] + this.interpolation * this.levelEnd[effectName];
+	if (this.interpolation[effectName]  < 1.0) this.interpolation[effectName]  += 0.01;
+	return (1.0 - this.interpolation[effectName]) * this.levelStart[effectName] + this.interpolation[effectName] * this.levelEnd[effectName];
 }
 
 game.prototype.editSeaLevel = function(result) {
@@ -277,18 +286,14 @@ game.prototype.checkCollision = function(position) {
 game.prototype.update = function() {
 
 	this.timeEffect += 0.01;
-	if (this.interpolation < 1.0) this.interpolation += 0.01;
-	//this.seaLevel = (1.0 - this.interpolation) * this.seaLevelStart + this.interpolation * this.seaLevelEnd + 3 * Math.sin(this.timeEffect);
-	//this.fogLevel = (1.0 - this.interpolation) * this.fogLevelStart + this.interpolation * this.fogLevelEnd;
-	//this.forestLevel = (1.0 - this.interpolation) * this.forestLevelStart + this.interpolation * this.forestLevelEnd;
-	
 
-	this.seaLevel = this.getInterpolatedValue("sea") + 3 * Math.sin(this.timeEffect);
-	this.fogLevel = this.getInterpolatedValue("fog");
-	this.forestLevel = this.getInterpolatedValue("forest");
 	this.level["sea"] = this.getInterpolatedValue("sea") + 3 * Math.sin(this.timeEffect);
 	this.level["fog"] = this.getInterpolatedValue("fog");
 	this.level["forest"] = this.getInterpolatedValue("forest");
+
+	this.seaLevel = this.level["sea"];
+	this.fogLevel = this.level["fog"];
+	this.forestLevel = this.level["forest"];
 
 	//this.getAll("dude")[0].position.y -= 0.5;
 }
