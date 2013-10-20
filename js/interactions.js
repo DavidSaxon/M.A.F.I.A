@@ -90,7 +90,7 @@ function interactWith(objectType){
 
 //Toggle the div that contains controls
 //Open it if it was closed, and close it if it was open.
-function toggleOnOrOff(on){
+function toggleOnOrOff(on, callback){
 	if((!toggleIsOn && on)|| (toggleIsOn && !on)){
 		$("#buttons-instructions").text(instrMap[objType]);
 		if(!toggleIsOn){
@@ -99,7 +99,7 @@ function toggleOnOrOff(on){
 			toggleIsOn = false;
 			objType = null;
 		}
-		$( "#radio-container" ).toggle( "fold" );
+		$( "#radio-container" ).toggle( "fold" , callback);
 	}
 }
 
@@ -124,24 +124,25 @@ function showMoreInfo(type){
 /* Conversation is initiated by proximity, just like the interaction controls.  Once the speech bubble is open, pressing 'Q' makes the text advance.
 Once you reach the end of the array, pressing 'Q' will make it disappear.  Pressing 'Q' again will make it reappear with the last text (current behaviour).
 */
-function talk(){
+			
+function talk(callback){
 	if(!dialogue){
-	$( "#dialogue-box" ).toggle( "fold" );
-	talkTimes++;
-	dialogue = true;
+		dialogue = true;
+		$( "#dialogue-box" ).show( "fold", callback );
+		talkTimes++;
 	}
 }
 
 /* This function is called when you move away from the person you were talking to. */
-function dialogueOff(){
+function dialogueOff(callback){
   if(dialogue) {
-    	$( "#dialogue-box" ).toggle( "fold" );
-	dialogue = false;
+  		dialogue = false;
+    	$( "#dialogue-box" ).hide( "fold" , callback);
   }
 }
 
 /* Advances the conversation to the next line */
-function advanceText(){
+function advanceText(callback){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
      console.log("Text should advance");
      $("#dialogue-text").text(conversationTexts[talkTimes]);
@@ -152,7 +153,8 @@ function advanceText(){
   }
   else if(stopDialogue){ //Close the box since we have reached the end of the conversation
     console.log("Dialogue box should disappear");
-    $( "#dialogue-box" ).toggle( "fold" );
+    $( "#dialogue-box" ).hide( "fold", callback );
+
   }
 }
 

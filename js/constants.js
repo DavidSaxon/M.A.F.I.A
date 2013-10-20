@@ -10,6 +10,7 @@ var dialogue = false;
 var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
 
+
 /* A map of custom instruction text for different interactable objects.  If you add a new object, add a mapping. */
 var instrMap = new Object();
 instrMap["windmill"] = "Press the number keys to control the amount of New Zealand's electricity provided by windmills.";

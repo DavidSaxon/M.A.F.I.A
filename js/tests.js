@@ -11,9 +11,11 @@ Test library specific syntax is as follows:
 
     // Override the toggle such that it doesn't have an animation
 
-    module("Front End Tests");
+module("Front End Tests");
 
-    asyncTest( "interactions.js", function() {
+asyncTest( "interactions.js", function() {
+
+    expect(12);
 
     // Test whether showHint() displays a hint as expected
     showHint(30, 40, "test hint");
@@ -27,12 +29,12 @@ Test library specific syntax is as follows:
     ok(!$("#hint").is(":visible"), "Test hideHint() hides the #hint div");
 
     // Test talking dialogue functionality
-    talk()
-    ok($("#dialogue-box").is(":visible"), "Check talk() triggers talk dialogue to appear");
-   
-    // Test calling talk() again makes it disappear
     talk();
-    ok(!$("#dialogue-box").is(":visible"), "Check talk() twice hides the talk dialogue");
+    ok(dialogue, "Check talk() triggers talk dialogue to appear");
+    
+    // Test dialogueOff()
+    dialogueOff();
+    ok(!dialogue, "Check dialogueOff() hides the talk dialogue"); 
 
     // Testing advanceText()
     talkTimes = 0;
@@ -42,6 +44,7 @@ Test library specific syntax is as follows:
     // Check advance text changes the dialogue text when appropriate
     advanceText();
     equal($("#dialogue-text").text(), conversationTexts[0], "Check advanceText() displays the correct message.");
+    $("#dialogue-text").hide();
     ok(talkTimes == 1, "Check advanceText() appropriately increments talkTimes");
 
     // Check advancing text with no messages left signals to stop dialogues
@@ -51,12 +54,28 @@ Test library specific syntax is as follows:
 
     // Check advance text closes the dialogue once the last message is delivered
     stopDialogue = true;
-    advanceText();
-    setTimeout(function() {
-    ok(!$("#dialogue-box").is(":visible"), "Check advanceText() hides #dialogue-box once all messages said.");
-    start();
-    }, 1500);
+    advanceText(function(){
+        ok(!$("#dialogue-box").is(":visible"), "Check advanceText() hides #dialogue-box once all messages said.");
+    });
+
+
+    // Test toggleOnOrOff()
+    var tempToggle = toggleIsOn;
+    objType = "windmill";
+    $("#radio-container").hide();
+    toggleIsOn = false;
+
+    toggleOnOrOff(true, function(){
+        equal($("#buttons-instructions").text(), instrMap["windmill"], "toggleOnOrOff() shows instructions");
+        $("#buttons-instructions").hide();
+        ok($("#radio-container").is(":visible"), "radio container is appropriately toggled");
+        equal(toggleIsOn, !tempToggle, "toggleIsOn gets flipped");
+        start();
+    });
+    
 });
+
+
 
 // TODO 
 // test toggleOnOrOff()
