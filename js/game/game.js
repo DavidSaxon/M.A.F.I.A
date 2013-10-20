@@ -1,5 +1,6 @@
 function game() {
 	this.items = new Object();
+	console.log("Game objects initialising...");
 
 	/**
 	* Update this when adding new types
