@@ -85,6 +85,7 @@ switch ( event.keyCode ) {
     moveForward = true;
   break;
 
+  case 37:
   case 65: // a
     moveLeft = true; 
   break;
@@ -94,6 +95,7 @@ switch ( event.keyCode ) {
     moveBackward = true;
   break;
 
+  case 39:
   case 68: // d
     moveRight = true;
   break;
