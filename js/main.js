@@ -141,11 +141,24 @@ loadObjMtlList("coal", 0, coalParts);
 game.add(new gas(-600, 0, -800));
 var gasParts = [
 'res/gas/gas_body',
-'res/gas/gas_roof',
 'res/gas/gas_door',
 'res/gas/gas_pipes',
 'res/gas/gas_stacks'];
 loadObjMtlList("gas", 0, gasParts);
+
+game.add(new factory(-600, 0, -480));
+var factoryParts = [
+'res/factory/factory_body',
+'res/factory/factory_stacks',
+'res/factory/factory_windows'];
+loadObjMtlList("factory", 0, factoryParts);
+
+game.add(new kiwi(-0, 0, -0));
+var kiwiParts = [
+'res/kiwi/kiwi_main',
+'res/kiwi/kiwi_leg_1',
+'res/kiwi/kiwi_leg_2'];
+loadObjMtlList("kiwi", 0, kiwiParts);
 
 
 for (var i = 0; i < 200; i++) {

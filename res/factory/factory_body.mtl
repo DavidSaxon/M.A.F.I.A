@@ -1,13 +1,12 @@
-# Blender MTL File: 'house1.blend'
+# Blender MTL File: 'factory.blend'
 # Material Count: 1
 
-newmtl Material
+newmtl body
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
-Ni 0.000000
-d 0.9999999
+Ni 1.000000
+d 1.000000
 illum 1
-map_Kd pickets.png
-map_d pickets.png
+map_Kd factory_body.jpg

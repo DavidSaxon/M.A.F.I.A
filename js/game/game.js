@@ -5,7 +5,8 @@ function game() {
 	/**
 	* Update this when adding new types
 	*/
-	this.gameTypes = ["windmill", "house", "dude", "coal", "gas", "tree"];
+	this.gameTypes = ["windmill", "house", "dude", "coal",
+		"gas", "factory", "tree", "kiwi"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
@@ -179,6 +180,7 @@ game.prototype.checkCollision = function(position) {
 }
 
 game.prototype.update = function() {
+
 	this.timeEffect += 0.01;
 	if (this.interpolation < 1.0) this.interpolation += 0.01;
 	this.seaLevel = (1.0 - this.interpolation) * this.seaLevelStart + this.interpolation * this.seaLevelEnd + 3 * Math.sin(this.timeEffect);

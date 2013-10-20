@@ -47,6 +47,15 @@ function coal(x, y, z) {
 	this.scalesize = 8;
 }
 
+function factory(x, y, z) {
+	this.typeName = "factory";
+	this.variation = 0;
+	this.basesize = 100.0;
+	this.position = new THREE.Vector3(x, y, z);
+	this.yRot = 3.14;
+	this.scalesize = 27;
+}
+
 function tree(x, y, z) {
 	this.typeName = "tree";
 	this.ind = 0;
@@ -57,4 +66,11 @@ function tree(x, y, z) {
 	this.scalesize = 30;
 }
 
-
+function kiwi(x, y, z) {
+	this.typeName = "kiwi";
+	this.variation = 0;
+	this.basesize = 0.0;
+	this.position = new THREE.Vector3(x, y, z);
+	this.yRot = 0.0;
+	this.scalesize = 30;
+}
