@@ -1,4 +1,4 @@
-/* This file is for global variables. */
+/* This file is for global variables. It keeps them all in one place so they can be changed easily.*/
 
 
 var numWindmills = 50;		
@@ -6,6 +6,8 @@ var insulationAmt = 50;
 var carEfficiency = 50;
 var toggle = false;	
 var dialogue = false;
+
+var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
 
 /* A map of custom instruction text for different interactable objects.  If you add a new object, add a mapping. */

@@ -3,8 +3,8 @@ var talkTimes = 0;
 var toggleIsOn = false;
 var stopDialogue = false;
 var infoWindowOpen = false;
-var conversationTexts = [ "Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
 
+/* Instantiates the buttons and JQuery objects, then hides them */
 function initInteractions(){
 	
 //Just for the buttonset thing
@@ -35,13 +35,13 @@ function initInteractions(){
 	  url: path,
 	  })
 	  .done(function( data ) {
-	  if ( console && console.log ) {
-	      console.log( "Sample of data:", data.slice( 0, 100 ) );
-	  }
 	  $("#info").text(data);
 	});
   }
   
+  
+/* Main function for interactions.  Uses some other small functions to provide 
+ * functionality.  If you add a new object type, you need to add a case for it here */  
 function interactWith(objectType){
 	if (objectType == null) {
 		toggleOnOrOff(false);
@@ -89,10 +89,10 @@ function interactWith(objectType){
 }
 
 //Toggle the div that contains controls
+//Open it if it was closed, and close it if it was open.
 function toggleOnOrOff(on){
 	if((!toggleIsOn && on)|| (toggleIsOn && !on)){
 		$("#buttons-instructions").text(instrMap[objType]);
-		console.log("State change");
 		if(!toggleIsOn){
 			toggleIsOn = true;}
 		else{
@@ -102,7 +102,8 @@ function toggleOnOrOff(on){
 		$( "#radio-container" ).toggle( "fold" );
 	}
 }
-			
+
+/* Brings up a box with more info about the selected object */
 function showMoreInfo(type){
 	if(toggleIsOn){
 		console.log("Show more info");
@@ -120,12 +121,9 @@ function showMoreInfo(type){
 	}
 }
 
-/* Pressing T the first time should bring up the dialog with the first item in it.  Pressing T subsequently should make the dialog disappear and reappear with
- * the next text, until you reach the end of the array, after which it should disappear and not reappear. 
- Even if the conversation is initiated by proximity, the user should be able to use a button to control when to go to the next text.
- Approach a person and the dialogue box opens with the first item.
+/* Conversation is initiated by proximity, just like the interaction controls.  Once the speech bubble is open, pressing 'Q' makes the text advance.
+Once you reach the end of the array, pressing 'Q' will make it disappear.  Pressing 'Q' again will make it reappear with the last text (current behaviour).
 */
-			
 function talk(){
 	if(!dialogue){
 	$( "#dialogue-box" ).toggle( "fold" );
@@ -159,11 +157,10 @@ function advanceText(){
 }
 
 
-			/*
-				This method is fired when the user presses a number from 0 to 9. It passes that
-				number as the paramater. It is only be fired once per key press (if the number
-				is held down this will fired once only).
-			*/
+/*This method is fired when the user presses a number from 0 to 9. It passes that
+number as the paramater. It is only be fired once per key press (if the number
+is held down this will fired once only).
+*/
 function press(number){
 	if (number >= 0 && number <= 4){
 		$("#radio").buttonset().children("#radio" + number).click();
