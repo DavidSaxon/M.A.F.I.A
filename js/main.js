@@ -185,18 +185,28 @@ loadObjMtlList2("kiwiLeg", 0, kiwiLegParts, kiwiLegs);
 /*
  * add trees randomly within a determined space
  */ 
-for (var i = 0; i < 150; i++) {
+for (var i = 0; i < 250; i++) {
+
 	var t = new tree( Math.random() * 900 + 100, 0, Math.random() * 2000 - 1000 );
 	t.variation = Math.floor(Math.random() * 4);
 	var x = Math.random();
 	t.scalesize = 10 + x * x * 30;
 	game.add( t );
 
-	t = new tree( Math.random() * 800 - 1000, 0, Math.random() * 500 - 600 );
-	t.variation = Math.floor(Math.random() * 4);
-	var x = Math.random();
-	t.scalesize = 10 + x * x * 30;
-	game.add( t );
+	if (i < 19) {
+
+		t = new tree( Math.random() * 300 - 350, 0, Math.random() * 300 - 550 );
+		t.variation = Math.floor(Math.random() * 4);
+		var x = Math.random();
+		t.scalesize = 10 + x * x * 30;
+		game.add( t );
+
+		t = new tree( Math.random() * 650 - 1000, 0, Math.random() * 300 - 450 );
+		t.variation = Math.floor(Math.random() * 4);
+		var x = Math.random();
+		t.scalesize = 10 + x * x * 30;
+		game.add( t );
+	}
 }
 
 var treeParts1 = ['res/tree_1/tree_1_top',
@@ -266,7 +276,7 @@ game.update();
 //update fog
 var fogLevel = game.getLevel("fog");
 
-scene.fog = new THREE.Fog(0x000000, 0, fogLevel);
+scene.fog = new THREE.Fog(0x555555, 0, fogLevel);
 
 if (fogLevel >= 5000) {
 
@@ -278,11 +288,11 @@ else if (fogLevel >= 1500) {
 }
 else if (fogLevel >= 700) {
 
-	renderer.setClearColorHex(0x115555, 1 );
+	renderer.setClearColorHex(0x555555, 1 );
 }
 else if (fogLevel >= 100) {
 
-	renderer.setClearColorHex(0x000000, 1 );
+	renderer.setClearColorHex(0x444444, 1 );
 }
 
 // rotate all the blades
@@ -301,13 +311,15 @@ for (var i = 0; i < trees.length; ++i) {
 }
 
 //move the kiwis
-if (kiwiLegs[0].rotation.z > 0.6) {
+if (kiwiLegs.length > 0) {
+	if (kiwiLegs[0].rotation.z > 0.6) {
 
-	legDir = false;
-}
-if (kiwiLegs[0].rotation.z < -0.6) {
+		legDir = false;
+	}
+	if (kiwiLegs[0].rotation.z < -0.6) {
 
-	legDir = true;
+		legDir = true;
+	}
 }
 
 for (var i = 0; i < kiwis.length; ++i) {
