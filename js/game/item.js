@@ -20,9 +20,9 @@ function house(x, y, z, yrot, v) {
 	this.variation = v;
 }
 
-function dude(x, y, z, yrot, size) {
+function dude(x, y, z, yrot, size, v) {
 	this.typeName = "dude";
-	this.variation = 0;
+	this.variation = v;
 	this.persona = Math.floor(Math.random() * 10);
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);

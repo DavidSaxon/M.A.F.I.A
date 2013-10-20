@@ -99,12 +99,23 @@ for (var i = 0; i < 1; i++) {
 	game.add( d );
 }
 initDudePositions();
-var dudeParts = ['res/dude/dude_eyes',
-'res/dude/dude_face',
+var dudeHappyParts = ['res/dude/dude_eyes',
+'res/dude/dude_happy',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList("dude", 0, dudeParts);
+loadObjMtlList("dude", 0, dudeHappyParts);
 
+var dudeNeturalParts = ['res/dude/dude_eyes',
+'res/dude/dude_netural',
+'res/dude/dude_top',
+'res/dude/dude_legs'];
+loadObjMtlList("dude", 1, dudeNeturalParts);
+
+var dudeSadNetural = ['res/dude/dude_eyes',
+'res/dude/dude_sad',
+'res/dude/dude_top',
+'res/dude/dude_legs'];
+loadObjMtlList("dude", 2, dudeSadNetural);
 
 //WINDMILL
 initWindmillPositions();
@@ -396,7 +407,25 @@ createPointerLock();
 
 function initDudePositions() {
 
-	game.add(new dude(-80, 0, -180, 1.55, 12));
+	game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	game.add(new dude(-108, 5, -200, 1.55, 10, 0));
+	game.add(new dude(-108, 5, -205, 1.55, 7, 0));
+	game.add(new dude(-450, 0,    0, 3.14, 12, 2));
+	game.add(new dude(-650, 0,    0, 3.14, 12, 2));
+	game.add(new dude(-550, 0,  500, 2.14, 12, 2));
+	game.add(new dude(-200, 0,  -690, 0.0, 12, 0));
+	game.add(new dude(-480, 11,  -480, 3.14, 12, 0));
+
+
+
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
+	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
 }
 
 function loadObjMtlList(gameObjString, variation, fileList) {
