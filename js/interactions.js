@@ -3,6 +3,7 @@ var talkTimes = 0;
 var toggleIsOn = false;
 var stopDialogue = false;
 var infoWindowOpen = false;
+var dudeVariation = 0;
 
 /* Instantiates the buttons and JQuery objects, then hides them */
 function initInteractions(){
@@ -11,18 +12,8 @@ function initInteractions(){
 				
 	$(function() {
 		$( "#radio" ).buttonset();
+		$("#dialogue-text").text(conversationTexts[talkTimes]);
 	});
-	
-			//Hide all the pop-up dialogs, for now:
-	$(function(){
-		 $("#dialogue-text").text(conversationTexts[talkTimes]);
-		 $("#dialogue-box").toggle("fold");
-	});
-
-	$("#radio-container").toggle("fold");
-	$("#info").toggle("fold"); //Needs to be 'off' initially even if it's empty
-	
-	
 
   }
   
@@ -78,6 +69,7 @@ function interactWith(objectType){
 			talk();
 			break;
 		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+			dudeVariation = objectType.variation;
 			talk();
 			break;
 		default:
@@ -141,9 +133,9 @@ function dialogueOff(callback){
 function advanceText(callback){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
      console.log("Text should advance");
-     $("#dialogue-text").text(conversationTexts[0][talkTimes]);
+     $("#dialogue-text").text(conversationTexts[dudeVariation][talkTimes]);
      talkTimes++;
-     if(talkTimes == conversationTexts[0].length - 1){
+     if(talkTimes == conversationTexts[dudeVariation].length - 1){
        	  stopDialogue = true;
      }
   }
@@ -159,10 +151,10 @@ number as the paramater. It is only be fired once per key press (if the number
 is held down this will fired once only).
 */
 function press(number){
-	if (number >= 0 && number <= 4 && toggleIsOn){
-		$("#radio").buttonset().children("#radio" + number).click();
+	if (number >= 1 && number <= 5 && toggleIsOn){
+		$("#radio").buttonset().children("#radio" + (number - 1)).click();
 		$("#radio").buttonset("refresh");
-	        game.effects[objType][number].apply();
+	        game.effects[objType][number - 1].apply();
 	}
 
 

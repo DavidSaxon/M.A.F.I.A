@@ -31,19 +31,15 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />		
 	<link href='stylesheet.css' rel='stylesheet' type='text/css'>
 
-	<div id='loader' style="display:none;">
-		Game is loading...
-	</div>
-
 	<div id='hint' style="display:none">
 		Walk up to people to talk to them. <br /> [enter]
 	</div>
 
-	<div id="info">
+	<div id="info" style="display:none">
 	</div>
 
 
-	<div id="blocker">
+	<div id="blocker" >
 		<div id="instructions">
 			<span style="font-size:40px">Click to play</span>
 			<br />
@@ -67,13 +63,13 @@
 
 
 <!--This is being used.  Copied from JQuery UI examples -->
-<div id="radio-container">
+<div id="radio-container" style="display:none">
 	<div id="buttons-instructions">
 		<p> Press the number keys to control the amount of thing.  0 is none; 4 is all.</p>
 		<p> Effects are extrapolated for what would happen if the whole of NZ had this. </p>
 	</div>
 
-	<p style="color:blue">Press M to get more information.</p>
+	<p style="color:cyan; font-size:10pt">[Press M for more information, use 1-5 to change values]</p>
 
 	<form>
 		<div id="radio">
@@ -86,7 +82,7 @@
 	</form>
 </div>
 
-<div id="dialogue-box">
+<div id="dialogue-box" style="display:none">
 	<div id="dialogue-text">Help us!</div>
 </div>
 

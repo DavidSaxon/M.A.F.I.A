@@ -161,8 +161,17 @@ var kiwiParts = [
 loadObjMtlList("kiwi", 0, kiwiParts);
 
 
-for (var i = 0; i < 200; i++) {
-	var t = new tree( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000 );
+/*
+ * add trees randomly within a determined space
+ */ 
+for (var i = 0; i < 150; i++) {
+	var t = new tree( Math.random() * 900 + 100, 0, Math.random() * 2000 - 1000 );
+	t.variation = Math.floor(Math.random() * 4);
+	var x = Math.random();
+	t.scalesize = 10 + x * x * 30;
+	game.add( t );
+
+	t = new tree( Math.random() * 800 - 1000, 0, Math.random() * 500 - 600 );
 	t.variation = Math.floor(Math.random() * 4);
 	var x = Math.random();
 	t.scalesize = 10 + x * x * 30;
@@ -240,12 +249,12 @@ for (var i = 0; i < list.length; i++) {
 }
 
 // update sea level
-water.position.y = game.seaLevel;
+water.position.y = game.getLevel("sea");
 
 // update forests
 var list = game.getAll("tree");
 for (var i = 0; i < trees.length; ++i) {
-	trees[i].position.y = ( trees[i].name < game.forestLevel )? list[ trees[i].name ].position.y : -1000;
+	trees[i].position.y = ( trees[i].name < game.getLevel("forest") )? list[ trees[i].name ].position.y : -3000;
 }
 
 // check collisions

@@ -32,9 +32,11 @@ body {
   left:50%;
   margin-left:-250px;
   width:500px;
-  height:500px;
+  height:300px;
+  padding: 10px;
+  color: white;
 
-  background-color:rgba(0,150,50,0.5);
+  background-color:rgba(0,0,0,0.7);
 }
 
 /* Div to provide a background for the Facebook share link */
@@ -82,7 +84,9 @@ body {
 	left:10px;
 	min-width:300px;
 	min-height:100px;
-	background-color:rgba(0,150,50,0.5);	
+	padding: 10px;
+	color: white;
+	background-color:rgba(0,0,0,0.7);	
 }
 
 /* Box that holds the conversation dialogue */
