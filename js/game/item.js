@@ -10,22 +10,22 @@ function windmill(x, y, z) {
 	this.bladeSpeed = Math.random() * 0.5;
 }
 
-function house(x, y, z, yrot) {
+function house(x, y, z, yrot, v) {
 	this.typeName = "house";
-	this.variation = 0;
 	this.basesize = 70.0;
 	this.position = new THREE.Vector3(x, y, z);
 	this.yRot = yrot;
 	this.scalesize = 20;
+	this.variation = v;
 }
 
-function dude(x, y, z, size) {
+function dude(x, y, z, yrot, size) {
 	this.typeName = "dude";
 	this.variation = 0;
 	this.persona = Math.floor(Math.random() * 10);
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.yRot = 0.0;
+	this.yRot = yrot;
 	this.scalesize = size;
 }
 
@@ -34,7 +34,7 @@ function gas(x, y, z) {
 	this.variation = 0;
 	this.basesize = 101.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.yRot = 1.6;
+	this.yRot = 0.0;
 	this.scalesize = 8;
 }
 

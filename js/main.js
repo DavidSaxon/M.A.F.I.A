@@ -108,16 +108,27 @@ initWindmillPositions();
 createWindmills();
 
 //HOUSE
-initHouse1Positions();
-var houseParts = ['res/house/house_1_body',
+initHousePositions();
+var house1Parts = ['res/house/house_1_body',
 'res/house/house_1_base',
 'res/house/house_1_frames',
 'res/house/house_1_pillars',
 'res/house/house_1_roof',
-'res/house/house_1_windows'];
-loadObjMtlList("house", 0, houseParts);	
+'res/house/house_1_windows',
+'res/house/house_1_support',
+'res/house/house_1_picket'];
+loadObjMtlList("house", 0, house1Parts);
 
-game.add(new coal(200, 0, -200));
+var house2Parts = ['res/house/house_1_body',
+'res/house/house_1_base',
+'res/house/house_1_frames',
+'res/house/house_1_pillars',
+'res/house/house_1_roof',
+'res/house/house_1_windows',
+'res/house/house_1_support',];
+loadObjMtlList("house", 1, house2Parts);	
+
+game.add(new coal(-220, 0, -800));
 var coalParts = [
 'res/coal/coal_body',
 'res/coal/coal_roof',
@@ -126,7 +137,7 @@ var coalParts = [
 'res/coal/coal_stacks'];
 loadObjMtlList("coal", 0, coalParts);
 
-game.add(new gas(-300, 0, 200));
+game.add(new gas(-600, 0, -800));
 var gasParts = [
 'res/gas/gas_body',
 'res/gas/gas_roof',
@@ -324,10 +335,7 @@ createPointerLock();
 
 function initDudePositions() {
 
-	game.add( new dude(0, 0, -140, 12) );
-	game.add( new dude(20, 5, -160, 7) );
-	game.add( new dude(30, 5, -160, 10) );
-
+	game.add(new dude(-80, 0, -180, 1.55, 12));
 }
 
 function loadObjMtlList(gameObjString, variation, fileList) {
@@ -414,11 +422,18 @@ function createWindmills() {
 	});
 }
 
-function initHouse1Positions() {
-	game.add( new house(-1000, 0, 400, 0.0) );
-	game.add( new house(-400, 0, 400, -0.75) );
-	game.add( new house(-700, 0, 400, -0.25) );
-	game.add( new house(0, 0, -200, 0.0) );
+function initHousePositions() {
+
+	game.add(new house(-150, 0, -180,  1.55, 0));
+	game.add(new house(-255, 0,  850, -1.55, 1));
+	game.add(new house(-255, 0,  650, -1.55, 1));
+	game.add(new house(-255, 0,  450, -1.55, 1));
+	game.add(new house(-450, 0,  250,  0.0,  1));
+	game.add(new house(-650, 0,  250,  0.0,  1));
+	game.add(new house(-850, 0,  250,  0.0,  1));
+	game.add(new house(-450, 0,   80,  3.14, 0));
+	game.add(new house(-650, 0,   80,  3.14, 1));
+	game.add(new house(-850, 0,   80,  3.14, 1));
 }
 
 function createPointerLock(){

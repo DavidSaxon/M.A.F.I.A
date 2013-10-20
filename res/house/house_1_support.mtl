@@ -1,7 +1,7 @@
 # Blender MTL File: 'house1.blend'
 # Material Count: 2
 
-newmtl frame
+newmtl steps
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
 Kd 1.000000 1.000000 1.000000
@@ -9,9 +9,9 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd frame.jpg
+map_Kd house_1_wood.jpg
 
-newmtl frame_2
+newmtl steps_NONE
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
 Kd 1.000000 1.000000 1.000000
@@ -19,4 +19,4 @@ Ks 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd frame.jpg
+map_Kd house_1_wood.jpg
