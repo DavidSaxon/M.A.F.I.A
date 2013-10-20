@@ -5,7 +5,7 @@ function windmill(x, y, z) {
 	this.variation = 0;
 	this.basesize = 30.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
+	this.yRot = 0.0;
 	this.scalesize = 40;
 	this.bladeSpeed = Math.random() * 0.5;
 }
@@ -14,19 +14,20 @@ function house(x, y, z, yrot, v) {
 	this.typeName = "house";
 	this.basesize = 70.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, yrot, 0.0, 'XYZ');
-	this.rotation.y = yrot;
+	this.yRot = yrot;
 	this.scalesize = 20;
 	this.variation = v;
 }
 
-function dude(x, y, z, yrot, size, v) {
+function dude(x, y, z, yrot, size) {
 	this.typeName = "dude";
-	this.variation = v;
+	this.variation = 0;
 	this.persona = Math.floor(Math.random() * 10);
+	this.state = "sad"; //I added this -Maddy
+	console.log("New dude persona is " + this.persona);
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, yrot, 0.0, 'XYZ');
+	this.yRot = yrot;
 	this.scalesize = size;
 }
 
@@ -35,7 +36,7 @@ function gas(x, y, z) {
 	this.variation = 0;
 	this.basesize = 101.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
+	this.yRot = 0.0;
 	this.scalesize = 8;
 }
 
@@ -44,7 +45,7 @@ function coal(x, y, z) {
 	this.variation = 0;
 	this.basesize = 80.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
+	this.yRot = 0.0;
 	this.scalesize = 8;
 }
 
@@ -53,7 +54,7 @@ function factory(x, y, z) {
 	this.variation = 0;
 	this.basesize = 100.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 3.14, 0.0, 'XYZ');
+	this.yRot = 3.14;
 	this.scalesize = 27;
 }
 
@@ -63,24 +64,15 @@ function tree(x, y, z) {
 	this.variation = 0;
 	this.basesize = 26.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
+	this.yRot = 0.0;
 	this.scalesize = 30;
 }
 
-function kiwi(x, y, z, v) {
+function kiwi(x, y, z) {
 	this.typeName = "kiwi";
-	this.variation = v;
-	this.basesize = 0.0;
-	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
-	this.scalesize = 5;
-}
-
-function kiwiLeg(x, y, z) {
-	this.typeName = "kiwiLeg";
 	this.variation = 0;
 	this.basesize = 0.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
-	this.scalesize = 5;
+	this.yRot = 0.0;
+	this.scalesize = 30;
 }
