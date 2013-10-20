@@ -11,7 +11,9 @@ var objects = [];
 var blades = [];	// just to rotate on update
 var trees = [];	// just to edit on update
 var kiwis = [];
-var kiwiDir = 0.0;
+var kiwiLegs = [];
+var legDir = false;
+var kiwiDir = [];
 
 var ray;
 
@@ -44,7 +46,7 @@ light.position.set( 1, 1, 1 );
 scene.add( light );
 
 var light = new THREE.DirectionalLight( 0x88aaaa, 0.75 );
-light.position.set( -1, - 0.5, -1 );
+light.position.set( -1, 0.5, -1 );
 scene.add( light );
 
 controls = new THREE.PointerLockControls( camera );
@@ -93,11 +95,6 @@ loader.load( 'res/water.jpg', function ( image ) {
 //TERRAIN
 createTerrain();
 
-//DUDE
-for (var i = 0; i < 1; i++) {
-	var d = new dude( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000, 60 + Math.random() * 10);
-	game.add( d );
-}
 initDudePositions();
 var dudeHappyParts = ['res/dude/dude_eyes',
 'res/dude/dude_happy',
@@ -167,11 +164,23 @@ var factoryParts = [
 loadObjMtlList("factory", 0, factoryParts);
 
 var kiwiParts = [
-'res/kiwi/kiwi_main',
-'res/kiwi/kiwi_leg_1',
-'res/kiwi/kiwi_leg_2']
+'res/kiwi/kiwi_main']
 loadObjMtlList2("kiwi", 0, kiwiParts, kiwis);
-game.add(new kiwi(-0, 0, -0, 0));
+
+for (var i = 0; i < 25; ++i) {
+
+	var x = Math.random() * 1800 - 900;
+	var y = Math.random() * 1800 - 900;
+
+	game.add(new kiwi(x, 0, y, 0));
+	game.add(new kiwiLeg(x, 2, y));
+	game.add(new kiwiLeg(x, 2, y));
+	kiwiDir.push(0.0);
+}
+
+var kiwiLegParts = [
+'res/kiwi/kiwi_legs']
+loadObjMtlList2("kiwiLeg", 0, kiwiLegParts, kiwiLegs);
 
 /*
  * add trees randomly within a determined space
@@ -270,34 +279,69 @@ for (var i = 0; i < trees.length; ++i) {
 }
 
 //move the kiwis
+if (kiwiLegs[0].rotation.z > 0.6) {
+
+	legDir = false;
+}
+if (kiwiLegs[0].rotation.z < -0.6) {
+
+	legDir = true;
+}
+
 for (var i = 0; i < kiwis.length; ++i) {
 
-	kiwis[i].rotation.y = kiwiDir - 1.55;
-	kiwis[i].position.x -= Math.sin(kiwiDir) * 0.5;
-	kiwis[i].position.z -= Math.cos(kiwiDir) * 0.5;
+	//move the body
+	kiwis[i].rotation.y = kiwiDir[i] - 1.55;
+	kiwis[i].position.x -= Math.sin(kiwiDir[i]) * 0.5;
+	kiwis[i].position.z -= Math.cos(kiwiDir[i]) * 0.5;
+
+	//move the legs
+	kiwiLegs[i * 2].rotation.y = kiwiDir[i] - 1.55;
+	kiwiLegs[i * 2].position.x -= Math.sin(kiwiDir[i]) * 0.5;
+	kiwiLegs[i * 2].position.z -= Math.cos(kiwiDir[i]) * 0.5;
+	kiwiLegs[i * 2 + 1].rotation.y = kiwiDir[i] - 1.55;
+	kiwiLegs[i * 2 + 1].position.x -= Math.sin(kiwiDir[i]) * 0.5;
+	kiwiLegs[i * 2 + 1].position.z -= Math.cos(kiwiDir[i]) * 0.5;
+
+	//swing the legs
+	if (legDir) {
+
+		kiwiLegs[i * 2].rotation.z += 0.3;
+		kiwiLegs[i * 2 + 1].rotation.z -= 0.3;
+	}
+	else {
+
+		kiwiLegs[i * 2].rotation.z -= 0.3;
+		kiwiLegs[i * 2 + 1].rotation.z += 0.3;
+	}
 
 	if (kiwis[i].position.z < -990) {
 
-	 	kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	 	kiwiDir[i] = Math.floor(Math.random()*360) * 0.0174532925;
 	}
 	else if (kiwis[i].position.z > 990) {
 
-	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	  kiwiDir[i] = Math.floor(Math.random()*360) * 0.0174532925;
 	}
 	else if (kiwis[i].position.x < -990) {
 
-	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	  kiwiDir[i] = Math.floor(Math.random()*360) * 0.0174532925;
 	}
 	else if (kiwis[i].position.x > 990) {
 
-	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	  kiwiDir[i] = Math.floor(Math.random()*360) * 0.0174532925;
 	}
 	else if (Math.floor(Math.random()*280) == 1) {
 
-		kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+		kiwiDir[i] = Math.floor(Math.random()*360) * 0.0174532925;
 	}
 
-	//kiwis[i].position.y = getHeightMapY(kiwis[i].position);
+	var heightPos = Math.max(getHeightMapY(kiwis[i].position),
+		game.getLevel("sea") - 1); 
+
+	kiwis[i].position.y = heightPos;
+	kiwiLegs[i * 2].position.y = 2 + heightPos;
+	kiwiLegs[i * 2 + 1].position.y = 2 + heightPos;
 }
 
 // check collisions
@@ -415,17 +459,6 @@ function initDudePositions() {
 	game.add(new dude(-550, 0,  500, 2.14, 12, 2));
 	game.add(new dude(-200, 0,  -690, 0.0, 12, 0));
 	game.add(new dude(-480, 11,  -480, 3.14, 12, 0));
-
-
-
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	// game.add(new dude(-80, 0, -180, 1.55, 12, 1));
 }
 
 function loadObjMtlList(gameObjString, variation, fileList) {

@@ -6,7 +6,7 @@ function game() {
 	* Update this when adding new types
 	*/
 	this.gameTypes = ["windmill", "house", "dude", "coal",
-		"gas", "factory", "tree", "kiwi"];
+		"gas", "factory", "tree", "kiwi", "kiwiLeg"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
