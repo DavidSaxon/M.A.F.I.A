@@ -141,7 +141,6 @@ loadObjMtlList("coal", 0, coalParts);
 game.add(new gas(-600, 0, -800));
 var gasParts = [
 'res/gas/gas_body',
-'res/gas/gas_roof',
 'res/gas/gas_door',
 'res/gas/gas_pipes',
 'res/gas/gas_stacks'];
