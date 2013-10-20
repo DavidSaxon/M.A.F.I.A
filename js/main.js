@@ -227,12 +227,12 @@ for (var i = 0; i < list.length; i++) {
 }
 
 // update sea level
-water.position.y = game.seaLevel;
+water.position.y = game.getLevel("sea");
 
 // update forests
 var list = game.getAll("tree");
 for (var i = 0; i < trees.length; ++i) {
-	trees[i].position.y = ( trees[i].name < game.forestLevel )? list[ trees[i].name ].position.y : -1000;
+	trees[i].position.y = ( trees[i].name < game.getLevel("forest") )? list[ trees[i].name ].position.y : -3000;
 }
 
 // check collisions
