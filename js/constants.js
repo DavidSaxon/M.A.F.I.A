@@ -7,7 +7,18 @@ var carEfficiency = 50;
 var toggle = false;	
 var dialogue = false;
 
-var conversationTexts = [["Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"]];
+var conversationTexts = new Object();
+conversationTexts[0] = ["Welcome to our town", "I'm afraid we can't offer you much hospitality.", "We are struggling.", "Help us!",  "There was an awful hurricane last night.",  "Down at the beach, the retaining wall broke, and now the tide is coming in...", "Hurry or our houses will be lost!"];
+conversationTexts[1] = ["The storms and rising temperatures are wreaking havoc on my garden.  My poor plants!"];
+conversationTexts[2] = ["I can't remember the last time I saw snow."];
+conversationTexts[3] = ["I can't go fishing or surfing anymore."];
+conversationTexts[4] = ["I always recycle plastics, and I use compact fluorescent lightbulbs."];
+conversationTexts[5] = ["Hi!"];
+conversationTexts[6] = ["Hi!"];
+conversationTexts[7] = ["Hi!"];
+conversationTexts[8] = ["Hi!"];
+conversationTexts[9] = ["Hi!"];
+conversationTexts[10] = ["Hi!"];
 
 
 
