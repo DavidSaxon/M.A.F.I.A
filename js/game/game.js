@@ -126,6 +126,89 @@ function game() {
 			//game.editForestLevel(180.0);
 		}
 	} ); 
+	
+	this.effects["factory"] = new Array();
+	this.effects["factory"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(47.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["factory"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(20.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["factory"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(0.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["factory"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(-30.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["factory"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(-47.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["house"] = new Array();
+	this.effects["house"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(47.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["house"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(30.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["house"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(10.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["house"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(-30.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
+	this.effects["house"].push( new function() {
+	this.desc = "do something cool again";
+	this.apply = function() {
+			// ...
+			game.editSeaLevel(-40.0);
+			//game.editForestLevel(180.0);
+	}
+	} ); 
 
 	this.readyHeight = false;
 }
@@ -154,6 +237,7 @@ game.prototype.editForestLevel = function(resultf) {
 
 game.prototype.add = function(addedItem) {
 	this.items[ addedItem.typeName ].push(addedItem);
+	console.log("Added item with name " +addedItem.typeName);
 	if (this.readyHeight) {
 		addedItem.position.y += heightFunc(addedItem.position);
 	}
