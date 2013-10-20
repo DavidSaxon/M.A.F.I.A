@@ -6,7 +6,7 @@ function game() {
 	* Update this when adding new types
 	*/
 	this.gameTypes = ["windmill", "house", "dude", "coal",
-		"gas", "factory", "tree", "kiwi"];
+		"gas", "factory", "tree", "kiwi", "kiwiLeg"];
 
 	for (var i = 0; i < this.gameTypes.length; ++i) {
 		this.items[ this.gameTypes[i] ] = new Array();
@@ -36,6 +36,7 @@ function game() {
 
 	this.editLevel("sea", -50);
 	this.editLevel("forest", 50);
+	this.editLevel("fog", 6000);
 
 	/*
 	 * effects is now essentially a 2D array
@@ -133,7 +134,8 @@ function game() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
-			game.editSeaLevel(47.0);
+			game.editLevel("fog", 6000);
+			//game.editSeaLevel(47.0);
 			//game.editForestLevel(180.0);
 	}
 	} ); 
@@ -141,31 +143,37 @@ function game() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
-			game.editSeaLevel(20.0);
+			//game.editSeaLevel(20.0);
 			//game.editForestLevel(180.0);
+			game.editLevel("fog", 2000);
+
 	}
 	} ); 
 	this.effects["factory"].push( new function() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
-			game.editSeaLevel(0.0);
+			//game.editSeaLevel(0.0);
 			//game.editForestLevel(180.0);
+			game.editLevel("fog", 800);
+
 	}
 	} ); 
 	this.effects["factory"].push( new function() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
-			game.editSeaLevel(-30.0);
+			//ame.editSeaLevel(-30.0);
 			//game.editForestLevel(180.0);
+			game.editLevel("fog", 200);
+
 	}
 	} ); 
 	this.effects["factory"].push( new function() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
-			game.editSeaLevel(-47.0);
+			//game.editSeaLevel(-47.0);
 			//game.editForestLevel(180.0);
 	}
 	} ); 

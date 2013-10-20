@@ -20,9 +20,9 @@ function house(x, y, z, yrot, v) {
 	this.variation = v;
 }
 
-function dude(x, y, z, yrot, size) {
+function dude(x, y, z, yrot, size, v) {
 	this.typeName = "dude";
-	this.variation = 0;
+	this.variation = v;
 	this.persona = Math.floor(Math.random() * 10);
 	this.basesize = 15.0;
 	this.position = new THREE.Vector3(x, y, z);
@@ -72,6 +72,15 @@ function kiwi(x, y, z, v) {
 	this.variation = v;
 	this.basesize = 0.0;
 	this.position = new THREE.Vector3(x, y, z);
-	this.rotation = new THREE.Vector3(0.0, 0.0, 0.0);
+	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
+	this.scalesize = 5;
+}
+
+function kiwiLeg(x, y, z) {
+	this.typeName = "kiwiLeg";
+	this.variation = 0;
+	this.basesize = 0.0;
+	this.position = new THREE.Vector3(x, y, z);
+	this.rotation = new THREE.Euler(0.0, 0.0, 0.0, 'XYZ');
 	this.scalesize = 5;
 }
