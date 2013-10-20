@@ -13,9 +13,6 @@ function initInteractions(){
 		$( "#radio" ).buttonset();
 	});
 	
-	$( "#radio0" ).change(function() {
-		console.log( "Handler for .click() called." );
-	});
 			//Hide all the pop-up dialogs, for now:
 	$(function(){
 		 $("#dialogue-text").text(conversationTexts[talkTimes]);
@@ -106,7 +103,6 @@ function toggleOnOrOff(on, callback){
 /* Brings up a box with more info about the selected object */
 function showMoreInfo(type){
 	if(toggleIsOn){
-		console.log("Show more info");
 		if(objType != null){
 			 console.log(infoMap[objType]);
 			loadInfo(infoMap[objType]);
@@ -145,14 +141,13 @@ function dialogueOff(callback){
 function advanceText(callback){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
      console.log("Text should advance");
-     $("#dialogue-text").text(conversationTexts[talkTimes]);
+     $("#dialogue-text").text(conversationTexts[0][talkTimes]);
      talkTimes++;
-     if(talkTimes == conversationTexts.length - 1){
+     if(talkTimes == conversationTexts[0].length - 1){
        	  stopDialogue = true;
      }
   }
   else if(stopDialogue){ //Close the box since we have reached the end of the conversation
-    console.log("Dialogue box should disappear");
     $( "#dialogue-box" ).hide( "fold", callback );
 
   }
@@ -167,7 +162,7 @@ function press(number){
 	if (number >= 0 && number <= 4 && toggleIsOn){
 		$("#radio").buttonset().children("#radio" + number).click();
 		$("#radio").buttonset("refresh");
-	        game.effects[number].apply();
+	        game.effects[objType][number].apply();
 	}
 
 
