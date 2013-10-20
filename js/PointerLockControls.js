@@ -25,7 +25,7 @@ var moveBackward = false;
 var moveLeft = false;
 var moveRight = false;
 
-var interact = false; //mine
+//Variables we added
 var talk = false;
 var moreInfo = false;
 
@@ -80,16 +80,10 @@ switch ( event.keyCode ) {
    if(!numberDown){numberDown = true; press(9 - (57 - event.keyCode));}
   break;
 
-  case 81: //q (interact)
-   advanceText();
-   break;
-  //Show/hide bubbles
-
   case 38: // up
   case 87: // w
     moveForward = true;
   break;
-
 
   case 65: // a
     moveLeft = true; 
@@ -99,7 +93,6 @@ switch ( event.keyCode ) {
   case 83: // s
     moveBackward = true;
   break;
-
 
   case 68: // d
     moveRight = true;
@@ -133,14 +126,12 @@ switch( event.keyCode ) {
   case 57: //9
     numberDown = false;
   break;
-
-  case 81: //q (interact with objects)
-    console.log("Q up");
-    interact = true;
-    break;
+    
+  case 81: //q (advance dialogue)
+   advanceText(); //in interactions.js
+   break;
 
   case 84: //t (talk)
-    console.log("T pressed");
     talk = true;
     break;
 
@@ -224,6 +215,7 @@ if (talk){
   talk = false;
 }
 
+//Display the 'more info' box about an object
 if(moreInfo){
   showMoreInfo(); //in interactions.js
   moreInfo = false;
