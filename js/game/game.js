@@ -10,8 +10,28 @@ function game() {
 		this.items[ this.gameTypes[i] ] = new Array();
 	}
 
-	this.waterRise = 0.01;
+	/*
+	 *	time incremented on each update
+	 */ 
+	this.timeEffect = 0;
+
+	
+	/*
+	 *	world attributes and interpolation control
+	 */ 
 	this.seaLevel = -50;
+	this.seaLevelStart = -50;
+	this.seaLevelEnd = -50;
+
+	this.fogLevel = 0;
+	this.fogLevelStart = 0;
+	this.fogLevelEnd = 0;
+
+	this.forestLevel = 50;
+	this.forestLevelStart = 50;
+	this.forestLevelEnd = 50;
+
+	this.interpolation = 1.0;
 
 	/*
 	 * effects 
@@ -21,27 +41,56 @@ function game() {
 		this.desc = "more windmills";
 		this.apply = function() {
 			// do something
-			console.log("First thing in effects triggered.");
-			game.waterRise = -0.01;
-
+			game.editSeaLevel(-10.0);
+			game.editForestLevel(20.0);
 		}
 	} );
 	this.effects.push( new function() {
 		this.desc = "do nothing";
 		this.apply = function() {
 			// ...
-			game.waterRise = 0.5;
+			game.editSeaLevel(-30.0);
+			game.editForestLevel(60.0);
 		}
 	} );
 	this.effects.push( new function() {
 		this.desc = "do something cool";
 		this.apply = function() {
 			// ...
-			game.waterRise = -0.5;
+			game.editSeaLevel(-40.0);
+			game.editForestLevel(90.0);
+		}
+	} );
+	this.effects.push( new function() {
+		this.desc = "do something cool again";
+		this.apply = function() {
+			// ...
+			game.editSeaLevel(-45.0);
+			game.editForestLevel(130.0);
+		}
+	} );
+	this.effects.push( new function() {
+		this.desc = "do something cool again";
+		this.apply = function() {
+			// ...
+			game.editSeaLevel(-47.0);
+			game.editForestLevel(180.0);
 		}
 	} );
 
 	this.readyHeight = false;
+}
+
+game.prototype.editSeaLevel = function(result) {
+	this.seaLevelStart = this.seaLevel;
+	this.seaLevelEnd = result;
+	this.interpolation = 0.0;
+}
+
+game.prototype.editForestLevel = function(resultf) {
+	this.forestLevelStart = this.forestLevel;
+	this.forestLevelEnd = resultf;
+	this.interpolation = 0.0;
 }
 
 game.prototype.add = function(addedItem) {
@@ -83,7 +132,13 @@ game.prototype.checkCollision = function(position) {
 }
 
 game.prototype.update = function() {
-	this.seaLevel += this.waterRise;
+	this.timeEffect += 0.01;
+	if (this.interpolation < 1.0) this.interpolation += 0.01;
+	this.seaLevel = (1.0 - this.interpolation) * this.seaLevelStart + this.interpolation * this.seaLevelEnd + 3 * Math.sin(this.timeEffect);
+	this.fogLevel = (1.0 - this.interpolation) * this.fogLevelStart + this.interpolation * this.fogLevelEnd;
+	this.forestLevel = (1.0 - this.interpolation) * this.forestLevelStart + this.interpolation * this.forestLevelEnd;
+	
+
 	//this.getAll("dude")[0].position.y -= 0.5;
 
 }
