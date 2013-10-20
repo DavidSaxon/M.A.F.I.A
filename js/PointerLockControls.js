@@ -282,8 +282,26 @@ yPos += Math.sin(bob) * 1.4;
 
 yawObject.position.y = yPos;
 
+//clamp the player pos
+if (yawObject.position.z < -990) {
+
+  yawObject.position.z = -990;
+}
+else if (yawObject.position.z > 990) {
+
+  yawObject.position.z = 990;
+}
+if (yawObject.position.x < -990) {
+
+  yawObject.position.x = -990;
+}
+else if (yawObject.position.x > 990) {
+
+  yawObject.position.x = 990;
+}
+
 //TODO: REMOVE ME
-console.log(yawObject.position.x + " : " + yawObject.position.z);
+//console.log(yawObject.position.x + " : " + yawObject.position.z);
 
 };
 

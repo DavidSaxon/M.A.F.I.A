@@ -10,6 +10,8 @@ var controls,time = Date.now();
 var objects = [];
 var blades = [];	// just to rotate on update
 var trees = [];	// just to edit on update
+var kiwis = [];
+var kiwiDir = 0.0;
 
 var ray;
 
@@ -153,13 +155,12 @@ var factoryParts = [
 'res/factory/factory_windows'];
 loadObjMtlList("factory", 0, factoryParts);
 
-game.add(new kiwi(-0, 0, -0));
 var kiwiParts = [
 'res/kiwi/kiwi_main',
 'res/kiwi/kiwi_leg_1',
-'res/kiwi/kiwi_leg_2'];
-loadObjMtlList("kiwi", 0, kiwiParts);
-
+'res/kiwi/kiwi_leg_2']
+loadObjMtlList2("kiwi", 0, kiwiParts, kiwis);
+game.add(new kiwi(-0, 0, -0, 0));
 
 /*
  * add trees randomly within a determined space
@@ -255,6 +256,37 @@ water.position.y = game.getLevel("sea");
 var list = game.getAll("tree");
 for (var i = 0; i < trees.length; ++i) {
 	trees[i].position.y = ( trees[i].name < game.getLevel("forest") )? list[ trees[i].name ].position.y : -3000;
+}
+
+//move the kiwis
+for (var i = 0; i < kiwis.length; ++i) {
+
+	kiwis[i].rotation.y = kiwiDir - 1.55;
+	kiwis[i].position.x -= Math.sin(kiwiDir) * 0.5;
+	kiwis[i].position.z -= Math.cos(kiwiDir) * 0.5;
+
+	if (kiwis[i].position.z < -990) {
+
+	 	kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	}
+	else if (kiwis[i].position.z > 990) {
+
+	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	}
+	else if (kiwis[i].position.x < -990) {
+
+	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	}
+	else if (kiwis[i].position.x > 990) {
+
+	  kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	}
+	else if (Math.floor(Math.random()*280) == 1) {
+
+		kiwiDir = Math.floor(Math.random()*360) * 0.0174532925;
+	}
+
+	//kiwis[i].position.y = getHeightMapY(kiwis[i].position);
 }
 
 // check collisions
@@ -384,8 +416,8 @@ function loadObjMtlList(gameObjString, variation, fileList) {
 					var mesh = object.clone();
 
 					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-					mesh.rotation.y = list[i].yRot;
 					mesh.position = list[i].position;
+					mesh.rotation.y = list[i].rotation.y;	
 
 					scene.add(mesh);
 					objects.push(mesh);
@@ -412,7 +444,7 @@ function loadObjMtlList2(gameObjString, variation, fileList, trackList) {
 					var mesh = object.clone();
 
 					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-					mesh.rotation.y = list[i].yRot;
+					mesh.rotation.y = list[i].rotation.y;
 					mesh.position = list[i].position.clone();
 
 					mesh.name = i;

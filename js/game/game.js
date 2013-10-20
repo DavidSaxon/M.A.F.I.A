@@ -207,7 +207,6 @@ game.prototype.update = function() {
 	this.level["forest"] = this.getInterpolatedValue("forest");
 
 	//this.getAll("dude")[0].position.y -= 0.5;
-
 }
 
 game.prototype.setWind = function(level) {
