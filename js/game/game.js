@@ -35,49 +35,95 @@ function game() {
 	this.interpolation = 1.0;
 
 	/*
-	 * effects 
+	 * effects is now essentially a 2D array
+	 * things need to be referenced as effects[key]
+	 * 
 	 */
-	this.effects = new Array();
-	this.effects.push( new function() {
+	this.effects = new Object();
+	this.effects["tree"] = new Array();
+	this.effects["tree"].push(new function(){
+	  this.desc = "least trees";
+	  this.apply = function(){
+	    game.editForestLevel(20.0);
+	    game.editSeaLevel(20.0);
+	    console.log("Should fewer trees now");
+	  }
+	});
+	this.effects["tree"].push(new function(){
+	  this.desc = "a bit more than least trees";
+	  this.apply = function(){
+	    game.editForestLevel(60.0);
+	    game.editSeaLevel(10.0);
+	    console.log("Should fewer trees now");
+	  }
+	});
+	this.effects["tree"].push(new function(){
+	  this.desc = "midpoint trees";
+	  this.apply = function(){
+	    game.editForestLevel(90.0);
+	    console.log("Should fewer trees now");
+	  }
+	});
+	
+	this.effects["tree"].push(new function(){
+	  this.desc = "second-to-most trees";
+	  this.apply = function(){
+	    game.editForestLevel(130.0);
+	    game.editSeaLevel(-20.0);
+	    console.log("Should fewer trees now");
+	  }
+	});
+	
+	this.effects["tree"].push(new function(){
+	  this.desc = "most trees";
+	  this.apply = function(){
+	    game.editForestLevel(180.0);
+	    game.editSeaLevel(-30.0);
+	    console.log("Should most trees now");
+	  }
+	});
+	  
+	this.effects["windmill"] = new Array();
+	this.effects["windmill"].push( new function() {
 		this.desc = "more windmills";
 		this.apply = function() {
 			// do something
 			game.editSeaLevel(-10.0);
-			game.editForestLevel(20.0);
+			//game.editForestLevel(20.0);
 		}
 	} );
-	this.effects.push( new function() {
+	this.effects["windmill"].push( new function() {
 		this.desc = "do nothing";
 		this.apply = function() {
 			// ...
 			game.editSeaLevel(-30.0);
-			game.editForestLevel(60.0);
+			//game.editForestLevel(60.0);
 		}
 	} );
-	this.effects.push( new function() {
+	this.effects["windmill"].push( new function() {
 		this.desc = "do something cool";
 		this.apply = function() {
 			// ...
 			game.editSeaLevel(-40.0);
-			game.editForestLevel(90.0);
+			//game.editForestLevel(90.0);
 		}
 	} );
-	this.effects.push( new function() {
+	this.effects["windmill"].push( new function() {
 		this.desc = "do something cool again";
 		this.apply = function() {
 			// ...
 			game.editSeaLevel(-45.0);
-			game.editForestLevel(130.0);
+			//game.editForestLevel(130.0);
 		}
 	} );
-	this.effects.push( new function() {
+	this.effects["windmill"].push( new function() {
 		this.desc = "do something cool again";
 		this.apply = function() {
 			// ...
 			game.editSeaLevel(-47.0);
-			game.editForestLevel(180.0);
+			//game.editForestLevel(180.0);
 		}
-	} );
+	} ); 
 
 	this.readyHeight = false;
 }
