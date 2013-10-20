@@ -3,6 +3,7 @@ var talkTimes = 0;
 var toggleIsOn = false;
 var stopDialogue = false;
 var infoWindowOpen = false;
+var dudeVariation = 0;
 
 /* Instantiates the buttons and JQuery objects, then hides them */
 function initInteractions(){
@@ -68,6 +69,7 @@ function interactWith(objectType){
 			talk();
 			break;
 		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+			dudeVariation = objectType.variation;
 			talk();
 			break;
 		default:
@@ -131,9 +133,9 @@ function dialogueOff(callback){
 function advanceText(callback){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
      console.log("Text should advance");
-     $("#dialogue-text").text(conversationTexts[0][talkTimes]);
+     $("#dialogue-text").text(conversationTexts[dudeVariation][talkTimes]);
      talkTimes++;
-     if(talkTimes == conversationTexts[0].length - 1){
+     if(talkTimes == conversationTexts[dudeVariation].length - 1){
        	  stopDialogue = true;
      }
   }
