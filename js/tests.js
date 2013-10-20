@@ -70,8 +70,12 @@ asyncTest( "interactions.js", function() {
         $("#buttons-instructions").hide();
         ok($("#radio-container").is(":visible"), "radio container is appropriately toggled");
         equal(toggleIsOn, !tempToggle, "toggleIsOn gets flipped");
-        start();
+
     });
+    
+    game.effects[0].apply();
+    equal(game.waterRise, -0.01);
+    start();
     
 });
 
