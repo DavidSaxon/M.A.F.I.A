@@ -282,6 +282,9 @@ yPos += Math.sin(bob) * 1.4;
 
 yawObject.position.y = yPos;
 
+//TODO: REMOVE ME
+//console.log(yawObject.position.x + " : " + yawObject.position.z);
+
 };
 
 };
