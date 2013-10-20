@@ -298,6 +298,7 @@ water.position.y = game.getLevel("sea");
 var list = game.getAll("tree");
 for (var i = 0; i < trees.length; ++i) {
 	trees[i].position.y = ( trees[i].name < game.getLevel("forest") )? list[ trees[i].name ].position.y : -3000;
+	list[ trees[i].name ].show = ( trees[i].name < game.getLevel("forest") );
 }
 
 //move the kiwis
