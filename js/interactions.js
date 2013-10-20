@@ -11,18 +11,8 @@ function initInteractions(){
 				
 	$(function() {
 		$( "#radio" ).buttonset();
+		$("#dialogue-text").text(conversationTexts[talkTimes]);
 	});
-	
-			//Hide all the pop-up dialogs, for now:
-	$(function(){
-		 $("#dialogue-text").text(conversationTexts[talkTimes]);
-		 $("#dialogue-box").toggle("fold");
-	});
-
-	$("#radio-container").toggle("fold");
-	$("#info").toggle("fold"); //Needs to be 'off' initially even if it's empty
-	
-	
 
   }
   
@@ -159,10 +149,10 @@ number as the paramater. It is only be fired once per key press (if the number
 is held down this will fired once only).
 */
 function press(number){
-	if (number >= 0 && number <= 4 && toggleIsOn){
-		$("#radio").buttonset().children("#radio" + number).click();
+	if (number >= 1 && number <= 5 && toggleIsOn){
+		$("#radio").buttonset().children("#radio" + (number - 1)).click();
 		$("#radio").buttonset("refresh");
-	        game.effects[objType][number].apply();
+	        game.effects[objType][number - 1].apply();
 	}
 
 
