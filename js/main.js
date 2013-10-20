@@ -350,13 +350,13 @@ function createTerrain() {
 	});
 
     //skybox
-	loadermtl.load( 'res/terrain/skybox.obj',
-			'res/terrain/skybox.mtl', 
-			function ( object ) {
+	// loadermtl.load( 'res/terrain/skybox.obj',
+	// 		'res/terrain/skybox.mtl', 
+	// 		function ( object ) {
 
-			scene.add( object );
-    	objects.push( object );
-	});
+	// 		scene.add( object );
+ //    	objects.push( object );
+	// });
 }
 
 // Lock the pointer
