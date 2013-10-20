@@ -9,6 +9,7 @@ var controls,time = Date.now();
 
 var objects = [];
 var blades = [];	// just to rotate on update
+var trees = [];	// just to edit on update
 
 var ray;
 
@@ -136,7 +137,7 @@ var gasParts = [
 loadObjMtlList("gas", 0, gasParts);
 
 
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 200; i++) {
 	var t = new tree( Math.random() * 2000 - 1000, 0, Math.random() * 2000 - 1000 );
 	t.variation = Math.floor(Math.random() * 4);
 	var x = Math.random();
@@ -146,19 +147,19 @@ for (var i = 0; i < 100; i++) {
 
 var treeParts1 = ['res/tree_1/tree_1_top',
 'res/tree_1/tree_1_trunk'];
-loadObjMtlList("tree", 0, treeParts1);
+loadObjMtlList2("tree", 0, treeParts1, trees);
 
 var treeParts2 = ['res/tree_2/tree_2_top',
 'res/tree_2/tree_2_trunk'];
-loadObjMtlList("tree", 1, treeParts2);
+loadObjMtlList2("tree", 1, treeParts2, trees);
 
 var treeParts3 = ['res/tree_3/tree_3_top',
 'res/tree_3/tree_3_trunk'];
-loadObjMtlList("tree", 2, treeParts3);
+loadObjMtlList2("tree", 2, treeParts3, trees);
 
 var treeParts4 = ['res/tree_4/tree_4_top',
 'res/tree_4/tree_4_trunk'];
-loadObjMtlList("tree", 3, treeParts4);
+loadObjMtlList2("tree", 3, treeParts4, trees);
 
 
 renderer = new THREE.WebGLRenderer();
@@ -216,6 +217,12 @@ for (var i = 0; i < list.length; i++) {
 
 // update sea level
 water.position.y = game.seaLevel;
+
+// update forests
+var list = game.getAll("tree");
+for (var i = 0; i < trees.length; ++i) {
+	trees[i].position.y = ( trees[i].name < game.forestLevel )? list[ trees[i].name ].position.y : -1000;
+}
 
 // check collisions
 var ps = controls.getObject().position;
@@ -348,10 +355,40 @@ function loadObjMtlList(gameObjString, variation, fileList) {
 
 					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
 					mesh.rotation.y = list[i].yRot;
-					mesh.position= list[i].position;
+					mesh.position = list[i].position;
 
 					scene.add(mesh);
 					objects.push(mesh);
+				}
+			}
+		});
+	}
+}
+
+function loadObjMtlList2(gameObjString, variation, fileList, trackList) {
+	var loadermtl = new THREE.OBJMTLLoader();
+
+	for (var x = 0; x < fileList.length; ++x) {
+		var objName = fileList[x]+'.obj';
+		var mtlName = fileList[x]+'.mtl';
+
+		loadermtl.load( objName, mtlName, function ( object ) {
+
+			/* use games list of all the things */
+			var list = game.getAll(gameObjString);
+
+			for (var i = 0; i < list.length; ++i) {
+				if (list[i].variation == variation) {
+					var mesh = object.clone();
+
+					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
+					mesh.rotation.y = list[i].yRot;
+					mesh.position = list[i].position.clone();
+
+					mesh.name = i;
+					scene.add(mesh);
+					objects.push(mesh);
+					trackList.push(mesh);
 				}
 			}
 		});

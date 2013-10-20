@@ -49,6 +49,7 @@ function coal(x, y, z) {
 
 function tree(x, y, z) {
 	this.typeName = "tree";
+	this.ind = 0;
 	this.variation = 0;
 	this.basesize = 26.0;
 	this.position = new THREE.Vector3(x, y, z);
