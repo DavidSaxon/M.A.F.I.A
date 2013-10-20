@@ -1,1 +1,5 @@
-.nfs* 
+.nfs*
+js/constants.js~
+js/interactions.js~ 
+js/interactions-old.js
+
