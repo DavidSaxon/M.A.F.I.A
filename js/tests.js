@@ -70,13 +70,18 @@ asyncTest( "interactions.js", function() {
         $("#buttons-instructions").hide();
         ok($("#radio-container").is(":visible"), "radio container is appropriately toggled");
         equal(toggleIsOn, !tempToggle, "toggleIsOn gets flipped");
-
+      start();
     });
     
+
+
+    
+});
+
+//I will modify this/add more here when we have a unified effects system
+test("game", function(){
     game.effects[0].apply();
     equal(game.waterRise, -0.01);
-    start();
-    
 });
 
 
