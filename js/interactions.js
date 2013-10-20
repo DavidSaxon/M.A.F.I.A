@@ -4,6 +4,7 @@ var toggleIsOn = false;
 var stopDialogue = false;
 var infoWindowOpen = false;
 var dudeVariation = 0;
+var dudeState = "sad";
 
 /* Instantiates the buttons and JQuery objects, then hides them */
 function initInteractions(){
@@ -12,7 +13,7 @@ function initInteractions(){
 				
 	$(function() {
 		$( "#radio" ).buttonset();
-		$("#dialogue-text").text(conversationTexts[talkTimes]);
+		$("#dialogue-text").text("Placeholder");
 	});
 
   }
@@ -65,12 +66,15 @@ function interactWith(objectType){
 		case "car":
 			toggleOnOrOff(true);
 			break;
-		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+		/*case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
 			talk();
-			break;
+			break; */
 		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-			dudeVariation = objectType.variation;
-			talk();
+			dudeVariation = objectType.persona;
+			dudeState = objectType.state;
+			console.log("This dude's state is " +dudeState);
+			console.log("DudeVariation is now " + dudeVariation);
+			talk(dudeVariation, null);
 			break;
 		default:
 			break;
@@ -113,9 +117,10 @@ function showMoreInfo(type){
 Once you reach the end of the array, pressing 'Q' will make it disappear.  Pressing 'Q' again will make it reappear with the last text (current behaviour).
 */
 			
-function talk(callback){
+function talk(persona, callback){
 	if(!dialogue){
 		dialogue = true;
+		$("#dialogue-text").text(conversationTexts[dudeVariation][dudeState][talkTimes]);
 		$( "#dialogue-box" ).show( "fold", callback );
 		talkTimes++;
 	}
@@ -126,21 +131,24 @@ function dialogueOff(callback){
   if(dialogue) {
   		dialogue = false;
     	$( "#dialogue-box" ).hide( "fold" , callback);
+	talkTimes = 0;
   }
 }
 
 /* Advances the conversation to the next line */
-function advanceText(callback){
+function advanceText(persona, callback){
   if(dialogue && !stopDialogue){ //Don't advance the conversation if the window isn't visible, or if we are at the end
      console.log("Text should advance");
-     $("#dialogue-text").text(conversationTexts[dudeVariation][talkTimes]);
+     $("#dialogue-text").text(conversationTexts[dudeVariation][dudeState][talkTimes]);
      talkTimes++;
-     if(talkTimes == conversationTexts[dudeVariation].length - 1){
+     if(talkTimes == conversationTexts[dudeVariation][dudeState].length - 1){
        	  stopDialogue = true;
+	  talkTimes = 0;
      }
   }
   else if(stopDialogue){ //Close the box since we have reached the end of the conversation
     $( "#dialogue-box" ).hide( "fold", callback );
+    talkTimes = 0;
 
   }
 }
