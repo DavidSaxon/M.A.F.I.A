@@ -35,8 +35,8 @@ function game() {
 	}
 
 	this.editLevel("sea", -50);
-	this.editLevel("forest", 50);
-	this.editLevel("fog", 6000);
+	this.editLevel("forest", 20);
+	this.editLevel("fog", 4000);
 
 	/*
 	 * effects is now essentially a 2D array
