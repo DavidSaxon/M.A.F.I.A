@@ -263,6 +263,28 @@ if ( intersections.length > 0 ) {
 // update game state
 game.update();
 
+//update fog
+var fogLevel = game.getLevel("fog");
+
+scene.fog = new THREE.Fog(0x000000, 0, fogLevel);
+
+if (fogLevel >= 5000) {
+
+	renderer.setClearColorHex(0xaaffff, 1 );
+}
+else if (fogLevel >= 1500) {
+
+	renderer.setClearColorHex(0x55aaaa, 1 );
+}
+else if (fogLevel >= 700) {
+
+	renderer.setClearColorHex(0x115555, 1 );
+}
+else if (fogLevel >= 100) {
+
+	renderer.setClearColorHex(0x000000, 1 );
+}
+
 // rotate all the blades
 var list = game.getAll("windmill");
 for (var i = 0; i < list.length; i++) {
@@ -459,6 +481,7 @@ function initDudePositions() {
 	game.add(new dude(-550, 0,  500, 2.14, 12, 2));
 	game.add(new dude(-200, 0,  -690, 0.0, 12, 0));
 	game.add(new dude(-480, 11,  -480, 3.14, 12, 0));
+	game.add(new dude( 820,  0,     0, 3.14, 12, 1));
 }
 
 function loadObjMtlList(gameObjString, variation, fileList) {

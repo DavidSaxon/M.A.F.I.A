@@ -65,13 +65,13 @@ function interactWith(objectType){
 		case "car":
 			toggleOnOrOff(true);
 			break;
-		case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-			talk();
-			break;
-		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-			dudeVariation = objectType.variation;
-			talk();
-			break;
+		// case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+		// 	talk();
+		// 	break;
+		// case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+		// 	dudeVariation = objectType.variation;
+		// 	talk();
+		// 	break;
 		default:
 			break;
 	}
