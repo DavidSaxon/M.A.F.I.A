@@ -164,12 +164,13 @@ number as the paramater. It is only be fired once per key press (if the number
 is held down this will fired once only).
 */
 function press(number){
-	if (number >= 0 && number <= 4){
+	if (number >= 0 && number <= 4 && toggleIsOn){
 		$("#radio").buttonset().children("#radio" + number).click();
+		$("#radio").buttonset("refresh");
+	        game.effects[number].apply();
 	}
 
-	$("#radio").buttonset("refresh");
-	game.effects[number].apply();
+
 }
 
                         /* Shows a popup hint which is dismissable with the hide hint function
