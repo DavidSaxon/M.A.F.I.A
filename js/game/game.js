@@ -38,6 +38,7 @@ function game() {
 	this.editLevel("forest", 50);
 	this.editLevel("fog", 2000);
 
+
 	/*
 	 * effects is now essentially a 2D array
 	 * things need to be referenced as effects[key]

@@ -57,7 +57,7 @@ infoMap["tree"] = "./info-forest.txt";
 infoMap["house"] = "./info-house.txt";
 infoMap["coal"]="./info-coal.txt";
 infoMap["gas"]="./info-gas.txt";
-infoMap["factor"]="./info-factory.txt";
+infoMap["factory"]="./info-factory.txt";
 
 
 
