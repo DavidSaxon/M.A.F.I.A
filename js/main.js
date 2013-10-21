@@ -14,7 +14,9 @@ var kiwis = [];
 var kiwiLegs = [];
 var legDir = false;
 var kiwiDir = [];
-var dudes = [];
+var dudes_happy = [];
+var dudes_neutral = [];
+var dudes_sad = [];
 
 var ray;
 var nearthing;
@@ -102,19 +104,19 @@ var dudeHappyParts = ['res/dude/dude_eyes',
 'res/dude/dude_happy',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList3("dude", dudeHappyParts);
+loadObjMtlList3("dude", dudeHappyParts, dudes_happy);
 
 var dudeNeturalParts = ['res/dude/dude_eyes',
 'res/dude/dude_netural',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList3("dude", dudeNeturalParts);
+loadObjMtlList3("dude", dudeNeturalParts, dudes_neutral);
 
 var dudeSadNetural = ['res/dude/dude_eyes',
 'res/dude/dude_sad',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList3("dude", dudeSadNetural);
+loadObjMtlList3("dude", dudeSadNetural, dudes_sad);
 
 //WINDMILL
 initWindmillPositions();
@@ -311,6 +313,24 @@ var list = game.getAll("tree");
 for (var i = 0; i < trees.length; ++i) {
 	trees[i].position.y = ( trees[i].name < game.getLevel("forest") )? list[ trees[i].name ].position.y : -3000;
 	list[ trees[i].name ].show = ( trees[i].name < game.getLevel("forest") );
+}
+
+// update dude faces
+list = game.getAll("dude");
+for (var i = 0; i < dudes_happy.length; ++i) {
+	var gameitem = list[dudes_happy[i].name];
+	var canShow = ( gameitem.state == "happy" );
+	dudes_happy[i].position.y = canShow? gameitem.position.y : -3000;
+}
+for (var i = 0; i < dudes_neutral.length; ++i) {
+	var gameitem = list[dudes_neutral[i].name];
+	var canShow = ( gameitem.state == "neutral" );
+	dudes_neutral[i].position.y = canShow? gameitem.position.y : -3000;
+}
+for (var i = 0; i < dudes_sad.length; ++i) {
+	var gameitem = list[dudes_sad[i].name];
+	var canShow = ( gameitem.state == "sad" );
+	dudes_sad[i].position.y = canShow? gameitem.position.y : -3000;
 }
 
 //move the kiwis
@@ -558,7 +578,7 @@ function loadObjMtlList2(gameObjString, variation, fileList, trackList) {
 }
 
 
-function loadObjMtlList(gameObjString, fileList, trackList) {
+function loadObjMtlList3(gameObjString, fileList, trackList) {
 	var loadermtl = new THREE.OBJMTLLoader();
 
 	for (var i = 0; i < fileList.length; ++i) {
@@ -574,7 +594,7 @@ function loadObjMtlList(gameObjString, fileList, trackList) {
 					var mesh = object.clone();
 
 					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
-					mesh.position = list[i].position;
+					mesh.position = list[i].position.clone();
 					mesh.rotation.y = list[i].rotation.y;	
 
 					mesh.name = i;
