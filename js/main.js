@@ -14,6 +14,7 @@ var kiwis = [];
 var kiwiLegs = [];
 var legDir = false;
 var kiwiDir = [];
+var dudes = [];
 
 var ray;
 
@@ -100,19 +101,19 @@ var dudeHappyParts = ['res/dude/dude_eyes',
 'res/dude/dude_happy',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList("dude", 0, dudeHappyParts);
+loadObjMtlList3("dude", dudeHappyParts);
 
 var dudeNeturalParts = ['res/dude/dude_eyes',
 'res/dude/dude_netural',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList("dude", 1, dudeNeturalParts);
+loadObjMtlList3("dude", dudeNeturalParts);
 
 var dudeSadNetural = ['res/dude/dude_eyes',
 'res/dude/dude_sad',
 'res/dude/dude_top',
 'res/dude/dude_legs'];
-loadObjMtlList("dude", 2, dudeSadNetural);
+loadObjMtlList3("dude", dudeSadNetural);
 
 //WINDMILL
 initWindmillPositions();
@@ -550,6 +551,35 @@ function loadObjMtlList2(gameObjString, variation, fileList, trackList) {
 					objects.push(mesh);
 					trackList.push(mesh);
 				}
+			}
+		});
+	}
+}
+
+
+function loadObjMtlList(gameObjString, fileList, trackList) {
+	var loadermtl = new THREE.OBJMTLLoader();
+
+	for (var i = 0; i < fileList.length; ++i) {
+		var objName = fileList[i]+'.obj';
+		var mtlName = fileList[i]+'.mtl';
+
+		loadermtl.load( objName, mtlName, function ( object ) {
+
+			/* use games list of all the things */
+			var list = game.getAll(gameObjString);
+
+			for (var i = 0; i < list.length; ++i) {
+					var mesh = object.clone();
+
+					mesh.scale.set(list[i].scalesize, list[i].scalesize, list[i].scalesize);
+					mesh.position = list[i].position;
+					mesh.rotation.y = list[i].rotation.y;	
+
+					mesh.name = i;
+					scene.add(mesh);
+					objects.push(mesh);
+					trackList.push(mesh);
 			}
 		});
 	}
