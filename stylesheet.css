@@ -93,13 +93,14 @@ body {
 
 #dialogue-box{
 	position:absolute;
-	top:110px;
-	left:400px;
-	height:500px;
-	width:600px;
+	top:50%;
+	left:65%;
+	height:200px;
+	width:400px;
 	/*padding:150px 50px 100px 50px; */
-	background-image: url("./speech_bubble.png");
-	background-repeat:no-repeat;
+	background-color:rgba(0,0,0,0.7);
+	/*background-image: url("./speech_bubble.png");
+	background-repeat:no-repeat; */
 }
 
 /*Element that holds dialogue text */
@@ -110,6 +111,7 @@ body {
 	left:50%;
 	right:50%;
 	bottom:50%; 
+	color:white;
 	max-width:300px;
 	margin-left:-100px;
 	margin-right:auto;
