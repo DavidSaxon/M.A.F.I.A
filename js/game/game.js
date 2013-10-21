@@ -125,7 +125,19 @@ function game() {
 		this.desc = "do something cool again";
 		this.apply = function() {
 			// ...
+			
 			game.editSeaLevel(-47.0);
+			var list = game.getAll("dude");
+			console.log("edit windmill ... "+list.length);
+			
+			for (var i = 0; i < list.length; ++i) {
+			  console.log("... "+list[i].persona);
+			  if(list[i].persona == 0){
+			    console.log(list[i].persona);
+			   
+			    list[i].state = "happy";
+			  }
+			}
 			//game.editForestLevel(180.0);
 		}
 	} ); 
@@ -174,6 +186,7 @@ function game() {
 	this.desc = "do something cool again";
 	this.apply = function() {
 			// ...
+			game.editLevel("fog", 100);
 			//game.editSeaLevel(-47.0);
 			//game.editForestLevel(180.0);
 	}

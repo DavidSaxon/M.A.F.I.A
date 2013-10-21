@@ -16,6 +16,7 @@ var legDir = false;
 var kiwiDir = [];
 
 var ray;
+var nearthing;
 
 var blocker = document.getElementById( 'blocker' );
 var instructions = document.getElementById( 'instructions' );
@@ -381,7 +382,7 @@ for (var i = 0; i < kiwis.length; ++i) {
 
 // check collisions
 var ps = controls.getObject().position;
-var nearthing = game.checkCollision(ps);
+nearthing = game.checkCollision(ps);
 //console.log(nearthing);
 interactWith(nearthing);
 

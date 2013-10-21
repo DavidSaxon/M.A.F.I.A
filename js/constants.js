@@ -11,7 +11,7 @@ var dialogue = false;
 var conversationTexts = new Object();
 conversationTexts[0] = new Object();
 conversationTexts[0]["happy"] = ["Thank you so much for lowering the sea level!", "My house is safe again."];
-conversationTexts[0]["sad"] = ["What do you want?!", "Look at this!", "That's my house over there!", "These $@&!**! storms keep getting worse and the sea level is rising!", "Once the tide comes in my hosue will be unlivable!"];
+conversationTexts[0]["sad"] = ["What do you want?!", "Look at this!", "That's my house over there!", "These $@&!**! storms keep getting worse and the sea level is rising!", "Once the tide comes in my house will be unlivable!"];
 conversationTexts[1] = new Object();
 conversationTexts[1]["sad"] = ["Hi!", "The storms and rising temperatures are wreaking havoc on my garden.  My poor plants!"];
 conversationTexts[2] = new Object();
@@ -19,19 +19,19 @@ conversationTexts[2]["sad"] = ["Hi!", "I can't remember the last time I saw snow
 conversationTexts[3] = new Object();
 conversationTexts[3] ["sad"] = ["Hi!", "I can't go fishing or surfing anymore."];
 conversationTexts[4] = new Object();
-conversationTexts[4]["sad"]=["Hi!", "I always recycle plastics, and I use compact fluorescent lightbulbs."];
+conversationTexts[4]["sad"]=["I always recycle plastics, and I use compact fluorescent lightbulbs.  But I feel like I'm the only person who does."];
 conversationTexts[5] = new Object();
-conversationTexts[5]["sad"]=["Hi!", "Hello", "How are you?"];
+conversationTexts[5]["sad"]=["It's too hot for my garden to thrive."];
 conversationTexts[6] = new Object();
-conversationTexts[6]["sad"] = ["Hi!", "Hello", "How are you?"];
+conversationTexts[6]["sad"] = ["Thank you for rescuing our houses!"];
 conversationTexts[7] = new Object();
-conversationTexts[7]["sad"]=["Hi!", "Hello", "How are you?"];
+conversationTexts[7]["sad"]=["The factory has all but closed down, and I'm out of a job."];
 conversationTexts[8] = new Object();
-conversationTexts[8]["sad"]=["Hi!", "Hello", "How are you?"];
+conversationTexts[8]["sad"]=["The factory has all but closed down, and I'm out of a job."];
 conversationTexts[9] = new Object();
-conversationTexts[9]["sad"] = ["Hi!", "Hello", "How are you?"];
+conversationTexts[9]["sad"] = ["I used to be fisherman, before the marine ecosystem collapsed."];
 conversationTexts[10] = new Object();
-conversationTexts[10]["sad"]=["Hi!", "Hello", "How are you?"];
+conversationTexts[10]["sad"]=["I think I'd better move to a higher elevation."];
 
 
 

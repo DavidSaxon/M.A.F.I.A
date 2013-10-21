@@ -66,17 +66,14 @@ function interactWith(objectType){
 		case "car":
 			toggleOnOrOff(true);
 			break;
-		/*case "person":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-			talk();
-			break; */
 		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
-		    if(!toggleIsOn){
+		   // if(!toggleIsOn){
 			dudeVariation = objectType.persona;
 			dudeState = objectType.state;
 			//console.log("This dude's state is " +dudeState);
 			//console.log("DudeVariation is now " + dudeVariation);
 			talk(dudeVariation, null);
-		    }
+		   // }
 			break;
 		default:
 			break;
@@ -134,6 +131,7 @@ function dialogueOff(callback){
  // console.log("Dialogue off");
   if(dialogue) {
   		dialogue = false;
+		stopDialogue = false;
     	$( "#dialogue-box" ).hide( "fold" , callback);
 	talkTimes = 0;
   }
@@ -153,6 +151,8 @@ function advanceText(persona, callback){
   }
   else if(stopDialogue){ //Close the box since we have reached the end of the conversation
     $( "#dialogue-box" ).hide( "fold", callback );
+    dialogue = false;
+   stopDialogue = false;
     talkTimes = 0;
 
   }
