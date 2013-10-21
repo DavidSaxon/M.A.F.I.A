@@ -22,10 +22,10 @@ function house(x, y, z, yrot, v) {
 	this.show = true;
 }
 
-function dude(x, y, z, yrot, size, v) {
+function dude(x, y, z, yrot, size, v, per) {
 	this.typeName = "dude";
 	this.variation = v;
-	this.persona = Math.floor(Math.random() * 10);
+	this.persona = per;//Math.floor(Math.random() * 10);
 	this.state = "sad"; //I added this -Maddy
 	console.log("New dude persona is " + this.persona);
 	this.basesize = 15.0;
