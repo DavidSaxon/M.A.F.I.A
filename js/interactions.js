@@ -70,11 +70,13 @@ function interactWith(objectType){
 			talk();
 			break; */
 		case "dude":  //Each person will have their own unique dialog containing...dialogue - need to look this up somewhere
+		    if(!toggleIsOn){
 			dudeVariation = objectType.persona;
 			dudeState = objectType.state;
-			console.log("This dude's state is " +dudeState);
-			console.log("DudeVariation is now " + dudeVariation);
+			//console.log("This dude's state is " +dudeState);
+			//console.log("DudeVariation is now " + dudeVariation);
 			talk(dudeVariation, null);
+		    }
 			break;
 		default:
 			break;
@@ -118,6 +120,7 @@ Once you reach the end of the array, pressing 'Q' will make it disappear.  Press
 */
 			
 function talk(persona, callback){
+	//console.log("Talk");
 	if(!dialogue){
 		dialogue = true;
 		$("#dialogue-text").text(conversationTexts[dudeVariation][dudeState][talkTimes]);
@@ -128,6 +131,7 @@ function talk(persona, callback){
 
 /* This function is called when you move away from the person you were talking to. */
 function dialogueOff(callback){
+ // console.log("Dialogue off");
   if(dialogue) {
   		dialogue = false;
     	$( "#dialogue-box" ).hide( "fold" , callback);
@@ -141,7 +145,8 @@ function advanceText(persona, callback){
      console.log("Text should advance");
      $("#dialogue-text").text(conversationTexts[dudeVariation][dudeState][talkTimes]);
      talkTimes++;
-     if(talkTimes == conversationTexts[dudeVariation][dudeState].length - 1){
+     if(talkTimes == conversationTexts[dudeVariation][dudeState].length){
+	  console.log("end of conversation");
        	  stopDialogue = true;
 	  talkTimes = 0;
      }

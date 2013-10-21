@@ -486,15 +486,15 @@ createPointerLock();
 
 function initDudePositions() {
 
-	game.add(new dude(-80, 0, -180, 1.55, 12, 1));
-	game.add(new dude(-108, 5, -200, 1.55, 10, 0));
-	game.add(new dude(-108, 5, -205, 1.55, 7, 0));
-	game.add(new dude(-450, 0,    0, 3.14, 12, 2));
-	game.add(new dude(-650, 0,    0, 3.14, 12, 2));
-	game.add(new dude(-550, 0,  500, 2.14, 12, 2));
-	game.add(new dude(-200, 0,  -690, 0.0, 12, 0));
-	game.add(new dude(-480, 11,  -480, 3.14, 12, 0));
-	game.add(new dude( 820,  0,     0, 3.14, 12, 1));
+	game.add(new dude(-80, 0, -180, 1.55, 12, 1, 5));
+	game.add(new dude(-108, 5, -200, 1.55, 10, 0, 1));
+	game.add(new dude(-108, 5, -205, 1.55, 7, 0, 2));
+	game.add(new dude(-450, 0,    0, 3.14, 12, 2, 3));
+	game.add(new dude(-650, 0,    0, 3.14, 12, 2, 4));
+	game.add(new dude(-250, 0,  300, -2.14, 12, 2, 0)); //guy on the beach
+	game.add(new dude(-200, 0,  -690, 0.0, 12, 0, 6));
+	game.add(new dude(-480, 11,  -480, 3.14, 12, 0, 7));
+	game.add(new dude( 820,  0,     0, 3.14, 12, 1, 8));
 }
 
 function loadObjMtlList(gameObjString, variation, fileList) {
